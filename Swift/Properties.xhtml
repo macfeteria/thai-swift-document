@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH14">&#x200c;</a><a id="TP40016643-CH14-ID254">&#x200c;</a>
+    <h2 class="chapter-name">Properties</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Properties</em> associate values with a particular class, structure, or enumeration. Stored properties store constant and variable values as part of an instance, whereas computed properties calculate (rather than store) a value. Computed properties are provided by classes, structures, and enumerations. Stored properties are provided only by classes and structures.</p><p class="para">Stored and computed properties are usually associated with instances of a particular type. However, properties can also be associated with the type itself. Such properties are known as type properties.</p><p class="para">In addition, you can define property observers to monitor changes in a property’s value, which you can respond to with custom actions. Property observers can be added to stored properties you define yourself, and also to properties that a subclass inherits from its superclass.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH14-ID255">&#x200c;</a>
+  <h3 class="section-name">Stored Properties</h3>
+  <p class="para">In its simplest form, a stored property is a constant or variable that is stored as part of an instance of a particular class or structure. Stored properties can be either <em>variable stored properties</em> (introduced by the <code class="code-voice">var</code> keyword) or <em>constant stored properties</em> (introduced by the <code class="code-voice">let</code> keyword).</p><p class="para">You can provide a default value for a stored property as part of its definition, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID206" href="Initialization.xhtml#TP40016643-CH18-ID206">Default Property Values</a>. You can also set and modify the initial value for a stored property during initialization. This is true even for constant stored properties, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID212" href="Initialization.xhtml#TP40016643-CH18-ID212">Assigning Constant Properties During Initialization</a>.</p><p class="para">The example below defines a structure called <code class="code-voice">FixedLengthRange</code>, which describes a range of integers whose range length cannot be changed once it is created:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">FixedLengthRange</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">firstValue</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">length</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">rangeOfThreeItems</code> = <code class="vc">FixedLengthRange</code>(<code class="vc">firstValue</code>: <code class="m">0</code>, <code class="vc">length</code>: <code class="m">3</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// the range represents integer values 0, 1, and 2</code></code></li>
+            <li><code class="code-voice"><code class="vc">rangeOfThreeItems</code>.<code class="vc">firstValue</code> = <code class="m">6</code></code></li>
+            <li><code class="code-voice"><code class="c">// the range now represents integer values 6, 7, and 8</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Instances of <code class="code-voice">FixedLengthRange</code> have a variable stored property called <code class="code-voice">firstValue</code> and a constant stored property called <code class="code-voice">length</code>. In the example above, <code class="code-voice">length</code> is initialized when the new range is created and cannot be changed thereafter, because it is a constant property.</p>
+  <section class="section">
+	<a id="TP40016643-CH14-ID256">&#x200c;</a>
+  <h3 class="section-name">Stored Properties of Constant Structure Instances</h3>
+  <p class="para">If you create an instance of a structure and assign that instance to a constant, you cannot modify the instance’s properties, even if they were declared as variable properties:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">rangeOfFourItems</code> = <code class="vc">FixedLengthRange</code>(<code class="vc">firstValue</code>: <code class="m">0</code>, <code class="vc">length</code>: <code class="m">4</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// this range represents integer values 0, 1, 2, and 3</code></code></li>
+            <li><code class="code-voice"><code class="vc">rangeOfFourItems</code>.<code class="vc">firstValue</code> = <code class="m">6</code></code></li>
+            <li><code class="code-voice"><code class="c">// this will report an error, even though firstValue is a variable property</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Because <code class="code-voice">rangeOfFourItems</code> is declared as a constant (with the <code class="code-voice">let</code> keyword), it is not possible to change its <code class="code-voice">firstValue</code> property, even though <code class="code-voice">firstValue</code> is a variable property.</p><p class="para">This behavior is due to structures being <em>value types</em>. When an instance of a value type is marked as a constant, so are all of its properties.</p><p class="para">The same is not true for classes, which are <em>reference types</em>. If you assign an instance of a reference type to a constant, you can still change that instance’s variable properties.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID257">&#x200c;</a>
+  <h3 class="section-name">Lazy Stored Properties</h3>
+  <p class="para">A <em>lazy stored property</em> is a property whose initial value is not calculated until the first time it is used. You indicate a lazy stored property by writing the <code class="code-voice">lazy</code> modifier before its declaration.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">You must always declare a lazy property as a variable (with the <code class="code-voice">var</code> keyword), because its initial value might not be retrieved until after instance initialization completes. Constant properties must always have a value <em>before</em> initialization completes, and therefore cannot be declared as lazy.
+    	</p>
+    
+  </aside>
+</div><p class="para">Lazy properties are useful when the initial value for a property is dependent on outside factors whose values are not known until after an instance’s initialization is complete. Lazy properties are also useful when the initial value for a property requires complex or computationally expensive setup that should not be performed unless or until it is needed.</p><p class="para">The example below uses a lazy stored property to avoid unnecessary initialization of a complex class. This example defines two classes called <code class="code-voice">DataImporter</code> and <code class="code-voice">DataManager</code>, neither of which is shown in full:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">DataImporter</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">/*</code></code></li>
+            <li><code class="code-voice"><code class="c">     DataImporter is a class to import data from an external file.</code></code></li>
+            <li><code class="code-voice"><code class="c">     The class is assumed to take a non-trivial amount of time to initialize.</code></code></li>
+            <li><code class="code-voice"><code class="c">     */</code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">fileName</code> = <code class="s">&quot;data.txt&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="c">// the DataImporter class would provide data importing functionality here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">DataManager</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">lazy</code> <code class="kt">var</code> <code class="vc">importer</code> = <code class="vc">DataImporter</code>()</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">data</code> = [<code class="vc">String</code>]()</code></li>
+            <li><code class="code-voice">    <code class="c">// the DataManager class would provide data management functionality here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">manager</code> = <code class="vc">DataManager</code>()</code></li>
+            <li><code class="code-voice"><code class="vc">manager</code>.<code class="vc">data</code>.<code class="vc">append</code>(<code class="s">&quot;Some data&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">manager</code>.<code class="vc">data</code>.<code class="vc">append</code>(<code class="s">&quot;Some more data&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// the DataImporter instance for the importer property has not yet been created</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">DataManager</code> class has a stored property called <code class="code-voice">data</code>, which is initialized with a new, empty array of <code class="code-voice">String</code> values. Although the rest of its functionality is not shown, the purpose of this <code class="code-voice">DataManager</code> class is to manage and provide access to this array of <code class="code-voice">String</code> data.</p><p class="para">Part of the functionality of the <code class="code-voice">DataManager</code> class is the ability to import data from a file. This functionality is provided by the <code class="code-voice">DataImporter</code> class, which is assumed to take a non-trivial amount of time to initialize. This might be because a <code class="code-voice">DataImporter</code> instance needs to open a file and read its contents into memory when the <code class="code-voice">DataImporter</code> instance is initialized.</p><p class="para">It is possible for a <code class="code-voice">DataManager</code> instance to manage its data without ever importing data from a file, so there is no need to create a new <code class="code-voice">DataImporter</code> instance when the <code class="code-voice">DataManager</code> itself is created. Instead, it makes more sense to create the <code class="code-voice">DataImporter</code> instance if and when it is first used.</p><p class="para">Because it is marked with the <code class="code-voice">lazy</code> modifier, the <code class="code-voice">DataImporter</code> instance for the <code class="code-voice">importer</code> property is only created when the <code class="code-voice">importer</code> property is first accessed, such as when its <code class="code-voice">fileName</code> property is queried:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">manager</code>.<code class="vc">importer</code>.<code class="vc">fileName</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// the DataImporter instance for the importer property has now been created</code></code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;data.txt&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If a property marked with the <code class="code-voice">lazy</code> modifier is accessed by multiple threads simultaneously and the property has not yet been initialized, there is no guarantee that the property will be initialized only once.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID258">&#x200c;</a>
+  <h3 class="section-name">Stored Properties and Instance Variables</h3>
+  <p class="para">If you have experience with Objective-C, you may know that it provides <em>two</em> ways to store values and references as part of a class instance. In addition to properties, you can use instance variables as a backing store for the values stored in a property.</p><p class="para">Swift unifies these concepts into a single property declaration. A Swift property does not have a corresponding instance variable, and the backing store for a property is not accessed directly. This approach avoids confusion about how the value is accessed in different contexts and simplifies the property’s declaration into a single, definitive statement. All information about the property—including its name, type, and memory management characteristics—is defined in a single location as part of the type’s definition.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID259">&#x200c;</a>
+  <h3 class="section-name">Computed Properties</h3>
+  <p class="para">In addition to stored properties, classes, structures, and enumerations can define <em>computed properties</em>, which do not actually store a value. Instead, they provide a getter and an optional setter to retrieve and set other properties and values indirectly.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Point</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">x</code> = <code class="m">0.0</code>, <code class="vc">y</code> = <code class="m">0.0</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Size</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">width</code> = <code class="m">0.0</code>, <code class="vc">height</code> = <code class="m">0.0</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Rect</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">origin</code> = <code class="vc">Point</code>()</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">size</code> = <code class="vc">Size</code>()</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">center</code>: <code class="n"><!-- a href="" logicalPath="" -->Point<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">get</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">let</code> <code class="vc">centerX</code> = <code class="vc">origin</code>.<code class="vc">x</code> + (<code class="vc">size</code>.<code class="vc">width</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">            <code class="kt">let</code> <code class="vc">centerY</code> = <code class="vc">origin</code>.<code class="vc">y</code> + (<code class="vc">size</code>.<code class="vc">height</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> <code class="vc">Point</code>(<code class="vc">x</code>: <code class="vc">centerX</code>, <code class="vc">y</code>: <code class="vc">centerY</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="kt">set</code>(<code class="vc">newCenter</code>) {</code></li>
+            <li><code class="code-voice">            <code class="vc">origin</code>.<code class="vc">x</code> = <code class="vc">newCenter</code>.<code class="vc">x</code> - (<code class="vc">size</code>.<code class="vc">width</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">            <code class="vc">origin</code>.<code class="vc">y</code> = <code class="vc">newCenter</code>.<code class="vc">y</code> - (<code class="vc">size</code>.<code class="vc">height</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">square</code> = <code class="vc">Rect</code>(<code class="vc">origin</code>: <code class="vc">Point</code>(<code class="vc">x</code>: <code class="m">0.0</code>, <code class="vc">y</code>: <code class="m">0.0</code>),</code></li>
+            <li><code class="code-voice">                  <code class="vc">size</code>: <code class="vc">Size</code>(<code class="vc">width</code>: <code class="m">10.0</code>, <code class="vc">height</code>: <code class="m">10.0</code>))</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">initialSquareCenter</code> = <code class="vc">square</code>.<code class="vc">center</code></code></li>
+            <li><code class="code-voice"><code class="vc">square</code>.<code class="vc">center</code> = <code class="vc">Point</code>(<code class="vc">x</code>: <code class="m">15.0</code>, <code class="vc">y</code>: <code class="m">15.0</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;square.origin is now at (</code>\(<code class="vc">square</code>.<code class="vc">origin</code>.<code class="vc">x</code>)<code class="s">, </code>\(<code class="vc">square</code>.<code class="vc">origin</code>.<code class="vc">y</code>)<code class="s">)&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;square.origin is now at (10.0, 10.0)&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example defines three structures for working with geometric shapes:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">Point</code> encapsulates an <code class="code-voice">(x, y)</code> coordinate.</p></li><li class="item"><p class="para"><code class="code-voice">Size</code> encapsulates a <code class="code-voice">width</code> and a <code class="code-voice">height</code>.</p></li><li class="item"><p class="para"><code class="code-voice">Rect</code> defines a rectangle by an origin point and a size.</p></li>
+</ul><p class="para">The <code class="code-voice">Rect</code> structure also provides a computed property called <code class="code-voice">center</code>. The current center position of a <code class="code-voice">Rect</code> can always be determined from its <code class="code-voice">origin</code> and <code class="code-voice">size</code>, and so you don’t need to store the center point as an explicit <code class="code-voice">Point</code> value. Instead, <code class="code-voice">Rect</code> defines a custom getter and setter for a computed variable called <code class="code-voice">center</code>, to enable you to work with the rectangle’s <code class="code-voice">center</code> as if it were a real stored property.</p><p class="para">The preceding example creates a new <code class="code-voice">Rect</code> variable called <code class="code-voice">square</code>. The <code class="code-voice">square</code> variable is initialized with an origin point of <code class="code-voice">(0, 0)</code>, and a width and height of <code class="code-voice">10</code>. This square is represented by the blue square in the diagram below.</p><p class="para">The <code class="code-voice">square</code> variable’s <code class="code-voice">center</code> property is then accessed through dot syntax (<code class="code-voice">square.center</code>), which causes the getter for <code class="code-voice">center</code> to be called, to retrieve the current property value. Rather than returning an existing value, the getter actually calculates and returns a new <code class="code-voice">Point</code> to represent the center of the square. As can be seen above, the getter correctly returns a center point of <code class="code-voice">(5, 5)</code>.</p><p class="para">The <code class="code-voice">center</code> property is then set to a new value of <code class="code-voice">(15, 15)</code>, which moves the square up and to the right, to the new position shown by the orange square in the diagram below. Setting the <code class="code-voice">center</code> property calls the setter for <code class="code-voice">center</code>, which modifies the <code class="code-voice">x</code> and <code class="code-voice">y</code> values of the stored <code class="code-voice">origin</code> property, and moves the square to its new position.</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/computedProperties_2x.png" alt="image: ../Art/computedProperties_2x.png" width="388" height="387" />
+</div>
+  <section class="section">
+	<a id="TP40016643-CH14-ID260">&#x200c;</a>
+  <h3 class="section-name">Shorthand Setter Declaration</h3>
+  <p class="para">If a computed property’s setter does not define a name for the new value to be set, a default name of <code class="code-voice">newValue</code> is used. Here’s an alternative version of the <code class="code-voice">Rect</code> structure, which takes advantage of this shorthand notation:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">AlternativeRect</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">origin</code> = <code class="vc">Point</code>()</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">size</code> = <code class="vc">Size</code>()</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">center</code>: <code class="n"><!-- a href="" logicalPath="" -->Point<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">get</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">let</code> <code class="vc">centerX</code> = <code class="vc">origin</code>.<code class="vc">x</code> + (<code class="vc">size</code>.<code class="vc">width</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">            <code class="kt">let</code> <code class="vc">centerY</code> = <code class="vc">origin</code>.<code class="vc">y</code> + (<code class="vc">size</code>.<code class="vc">height</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> <code class="vc">Point</code>(<code class="vc">x</code>: <code class="vc">centerX</code>, <code class="vc">y</code>: <code class="vc">centerY</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="kt">set</code> {</code></li>
+            <li><code class="code-voice">            <code class="vc">origin</code>.<code class="vc">x</code> = <code class="vc">newValue</code>.<code class="vc">x</code> - (<code class="vc">size</code>.<code class="vc">width</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">            <code class="vc">origin</code>.<code class="vc">y</code> = <code class="vc">newValue</code>.<code class="vc">y</code> - (<code class="vc">size</code>.<code class="vc">height</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID261">&#x200c;</a>
+  <h3 class="section-name">Read-Only Computed Properties</h3>
+  <p class="para">A computed property with a getter but no setter is known as a <em>read-only computed property</em>. A read-only computed property always returns a value, and can be accessed through dot syntax, but cannot be set to a different value.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">You must declare computed properties—including read-only computed properties—as variable properties with the <code class="code-voice">var</code> keyword, because their value is not fixed. The <code class="code-voice">let</code> keyword is only used for constant properties, to indicate that their values cannot be changed once they are set as part of instance initialization.
+    	</p>
+    
+  </aside>
+</div><p class="para">You can simplify the declaration of a read-only computed property by removing the <code class="code-voice">get</code> keyword and its braces:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Cuboid</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">width</code> = <code class="m">0.0</code>, <code class="vc">height</code> = <code class="m">0.0</code>, <code class="vc">depth</code> = <code class="m">0.0</code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">volume</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">width</code> * <code class="vc">height</code> * <code class="vc">depth</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">fourByFiveByTwo</code> = <code class="vc">Cuboid</code>(<code class="vc">width</code>: <code class="m">4.0</code>, <code class="vc">height</code>: <code class="m">5.0</code>, <code class="vc">depth</code>: <code class="m">2.0</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;the volume of fourByFiveByTwo is </code>\(<code class="vc">fourByFiveByTwo</code>.<code class="vc">volume</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;the volume of fourByFiveByTwo is 40.0&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example defines a new structure called <code class="code-voice">Cuboid</code>, which represents a 3D rectangular box with <code class="code-voice">width</code>, <code class="code-voice">height</code>, and <code class="code-voice">depth</code> properties. This structure also has a read-only computed property called <code class="code-voice">volume</code>, which calculates and returns the current volume of the cuboid. It doesn’t make sense for <code class="code-voice">volume</code> to be settable, because it would be ambiguous as to which values of <code class="code-voice">width</code>, <code class="code-voice">height</code>, and <code class="code-voice">depth</code> should be used for a particular <code class="code-voice">volume</code> value. Nonetheless, it is useful for a <code class="code-voice">Cuboid</code> to provide a read-only computed property to enable external users to discover its current calculated volume.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID262">&#x200c;</a>
+  <h3 class="section-name">Property Observers</h3>
+  <p class="para">Property observers observe and respond to changes in a property’s value. Property observers are called every time a property’s value is set, even if the new value is the same as the property’s current value.</p><p class="para">You can add property observers to any stored properties you define, except for lazy stored properties. You can also add property observers to any inherited property (whether stored or computed) by overriding the property within a subclass. You don’t need to define property observers for nonoverridden computed properties, because you can observe and respond to changes to their value in the computed property’s setter. Property overriding is described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH17-ID196" href="Inheritance.xhtml#TP40016643-CH17-ID196">Overriding</a>.</p><p class="para">You have the option to define either or both of these observers on a property:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">willSet</code> is called just before the value is stored.</p></li><li class="item"><p class="para"><code class="code-voice">didSet</code> is called immediately after the new value is stored.</p></li>
+</ul><p class="para">If you implement a <code class="code-voice">willSet</code> observer, it’s passed the new property value as a constant parameter. You can specify a name for this parameter as part of your <code class="code-voice">willSet</code> implementation. If you don’t write the parameter name and parentheses within your implementation, the parameter is made available with a default parameter name of <code class="code-voice">newValue</code>.</p><p class="para">Similarly, if you implement a <code class="code-voice">didSet</code> observer, it’s passed a constant parameter containing the old property value. You can name the parameter or use the default parameter name of <code class="code-voice">oldValue</code>. If you assign a value to a property within its own <code class="code-voice">didSet</code> observer, the new value that you assign replaces the one that was just set.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">willSet</code> and <code class="code-voice">didSet</code> observers of superclass properties are called when a property is set in a subclass initializer, after the superclass initializer has been called. They are not called while a class is setting its own properties, before the superclass initializer has been called.
+    	</p>
+    <p class="para">For more information about initializer delegation, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID215" href="Initialization.xhtml#TP40016643-CH18-ID215">Initializer Delegation for Value Types</a> and <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID219" href="Initialization.xhtml#TP40016643-CH18-ID219">Initializer Delegation for Class Types</a>.</p>
+  </aside>
+</div><p class="para">Here’s an example of <code class="code-voice">willSet</code> and <code class="code-voice">didSet</code> in action. The example below defines a new class called <code class="code-voice">StepCounter</code>, which tracks the total number of steps that a person takes while walking. This class might be used with input data from a pedometer or other step counter to keep track of a person’s exercise during their daily routine.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">StepCounter</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">totalSteps</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> = <code class="m">0</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">willSet</code>(<code class="vc">newTotalSteps</code>) {</code></li>
+            <li><code class="code-voice">            <code class="vc">print</code>(<code class="s">&quot;About to set totalSteps to </code>\(<code class="vc">newTotalSteps</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="kt">didSet</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">if</code> <code class="vc">totalSteps</code> &gt; <code class="vc">oldValue</code>  {</code></li>
+            <li><code class="code-voice">                <code class="vc">print</code>(<code class="s">&quot;Added </code>\(<code class="vc">totalSteps</code> - <code class="vc">oldValue</code>)<code class="s"> steps&quot;</code>)</code></li>
+            <li><code class="code-voice">            }</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">stepCounter</code> = <code class="vc">StepCounter</code>()</code></li>
+            <li><code class="code-voice"><code class="vc">stepCounter</code>.<code class="vc">totalSteps</code> = <code class="m">200</code></code></li>
+            <li><code class="code-voice"><code class="c">// About to set totalSteps to 200</code></code></li>
+            <li><code class="code-voice"><code class="c">// Added 200 steps</code></code></li>
+            <li><code class="code-voice"><code class="vc">stepCounter</code>.<code class="vc">totalSteps</code> = <code class="m">360</code></code></li>
+            <li><code class="code-voice"><code class="c">// About to set totalSteps to 360</code></code></li>
+            <li><code class="code-voice"><code class="c">// Added 160 steps</code></code></li>
+            <li><code class="code-voice"><code class="vc">stepCounter</code>.<code class="vc">totalSteps</code> = <code class="m">896</code></code></li>
+            <li><code class="code-voice"><code class="c">// About to set totalSteps to 896</code></code></li>
+            <li><code class="code-voice"><code class="c">// Added 536 steps</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">StepCounter</code> class declares a <code class="code-voice">totalSteps</code> property of type <code class="code-voice">Int</code>. This is a stored property with <code class="code-voice">willSet</code> and <code class="code-voice">didSet</code> observers.</p><p class="para">The <code class="code-voice">willSet</code> and <code class="code-voice">didSet</code> observers for <code class="code-voice">totalSteps</code> are called whenever the property is assigned a new value. This is true even if the new value is the same as the current value.</p><p class="para">This example’s <code class="code-voice">willSet</code> observer uses a custom parameter name of <code class="code-voice">newTotalSteps</code> for the upcoming new value. In this example, it simply prints out the value that is about to be set.</p><p class="para">The <code class="code-voice">didSet</code> observer is called after the value of <code class="code-voice">totalSteps</code> is updated. It compares the new value of <code class="code-voice">totalSteps</code> against the old value. If the total number of steps has increased, a message is printed to indicate how many new steps have been taken. The <code class="code-voice">didSet</code> observer does not provide a custom parameter name for the old value, and the default name of <code class="code-voice">oldValue</code> is used instead.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you pass a property that has observers to a function as an in-out parameter, the <code class="code-voice">willSet</code> and <code class="code-voice">didSet</code> observers are always called. This is because of the copy-in copy-out memory model for in-out parameters: The value is always written back to the property at the end of the function. For a detailed discussion of the behavior of in-out parameters, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH34-ID545" href="Declarations.xhtml#TP40016643-CH34-ID545">In-Out Parameters</a>.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID263">&#x200c;</a>
+  <h3 class="section-name">Global and Local Variables</h3>
+  <p class="para">The capabilities described above for computing and observing properties are also available to <em>global variables</em> and <em>local variables</em>. Global variables are variables that are defined outside of any function, method, closure, or type context. Local variables are variables that are defined within a function, method, or closure context.</p><p class="para">The global and local variables you have encountered in previous chapters have all been <em>stored variables</em>. Stored variables, like stored properties, provide storage for a value of a certain type and allow that value to be set and retrieved.</p><p class="para">However, you can also define <em>computed variables</em> and define observers for stored variables, in either a global or local scope. Computed variables calculate their value, rather than storing it, and they are written in the same way as computed properties.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Global constants and variables are always computed lazily, in a similar manner to <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH14-ID257" href="Properties.xhtml#TP40016643-CH14-ID257">Lazy Stored Properties</a>. Unlike lazy stored properties, global constants and variables do not need to be marked with the <code class="code-voice">lazy</code> modifier.
+    	</p>
+    <p class="para">Local constants and variables are never computed lazily.</p>
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID264">&#x200c;</a>
+  <h3 class="section-name">Type Properties</h3>
+  <p class="para">Instance properties are properties that belong to an instance of a particular type. Every time you create a new instance of that type, it has its own set of property values, separate from any other instance.</p><p class="para">You can also define properties that belong to the type itself, not to any one instance of that type. There will only ever be one copy of these properties, no matter how many instances of that type you create. These kinds of properties are called <em>type properties</em>.</p><p class="para">Type properties are useful for defining values that are universal to <em>all</em> instances of a particular type, such as a constant property that all instances can use (like a static constant in C), or a variable property that stores a value that is global to all instances of that type (like a static variable in C).</p><p class="para">Stored type properties can be variables or constants. Computed type properties are always declared as variable properties, in the same way as computed instance properties.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Unlike stored instance properties, you must always give stored type properties a default value. This is because the type itself does not have an initializer that can assign a value to a stored type property at initialization time.
+    	</p>
+    <p class="para">Stored type properties are lazily initialized on their first access. They are guaranteed to be initialized only once, even when accessed by multiple threads simultaneously, and they do not need to be marked with the <code class="code-voice">lazy</code> modifier.</p>
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40016643-CH14-ID265">&#x200c;</a>
+  <h3 class="section-name">Type Property Syntax</h3>
+  <p class="para">In C and Objective-C, you define static constants and variables associated with a type as <em>global</em> static variables. In Swift, however, type properties are written as part of the type’s definition, within the type’s outer curly braces, and each type property is explicitly scoped to the type it supports.</p><p class="para">You define type properties with the <code class="code-voice">static</code> keyword. For computed type properties for class types, you can use the <code class="code-voice">class</code> keyword instead to allow subclasses to override the superclass’s implementation. The example below shows the syntax for stored and computed type properties:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">SomeStructure</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">var</code> <code class="vc">storedTypeProperty</code> = <code class="s">&quot;Some value.&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">var</code> <code class="vc">computedTypeProperty</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="m">1</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">SomeEnumeration</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">var</code> <code class="vc">storedTypeProperty</code> = <code class="s">&quot;Some value.&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">var</code> <code class="vc">computedTypeProperty</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="m">6</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">SomeClass</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">var</code> <code class="vc">storedTypeProperty</code> = <code class="s">&quot;Some value.&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">var</code> <code class="vc">computedTypeProperty</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="m">27</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">class</code> <code class="kt">var</code> <code class="vc">overrideableComputedTypeProperty</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="m">107</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The computed type property examples above are for read-only computed type properties, but you can also define read-write computed type properties with the same syntax as for computed instance properties.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH14-ID266">&#x200c;</a>
+  <h3 class="section-name">Querying and Setting Type Properties</h3>
+  <p class="para">Type properties are queried and set with dot syntax, just like instance properties. However, type properties are queried and set on the <em>type</em>, not on an instance of that type. For example:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">SomeStructure</code>.<code class="vc">storedTypeProperty</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Some value.&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">SomeStructure</code>.<code class="vc">storedTypeProperty</code> = <code class="s">&quot;Another value.&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">SomeStructure</code>.<code class="vc">storedTypeProperty</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Another value.&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">SomeEnumeration</code>.<code class="vc">computedTypeProperty</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;6&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">SomeClass</code>.<code class="vc">computedTypeProperty</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;27&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The examples that follow use two stored type properties as part of a structure that models an audio level meter for a number of audio channels. Each channel has an integer audio level between <code class="code-voice">0</code> and <code class="code-voice">10</code> inclusive.</p><p class="para">The figure below illustrates how two of these audio channels can be combined to model a stereo audio level meter. When a channel’s audio level is <code class="code-voice">0</code>, none of the lights for that channel are lit. When the audio level is <code class="code-voice">10</code>, all of the lights for that channel are lit. In this figure, the left channel has a current level of <code class="code-voice">9</code>, and the right channel has a current level of <code class="code-voice">7</code>:</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/staticPropertiesVUMeter_2x.png" alt="image: ../Art/staticPropertiesVUMeter_2x.png" width="243" height="357" />
+</div><p class="para">The audio channels described above are represented by instances of the <code class="code-voice">AudioChannel</code> structure:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">AudioChannel</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">let</code> <code class="vc">thresholdLevel</code> = <code class="m">10</code></code></li>
+            <li><code class="code-voice">    <code class="kt">static</code> <code class="kt">var</code> <code class="vc">maxInputLevelForAllChannels</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">currentLevel</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> = <code class="m">0</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">didSet</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">if</code> <code class="vc">currentLevel</code> &gt; <code class="vc">AudioChannel</code>.<code class="vc">thresholdLevel</code> {</code></li>
+            <li><code class="code-voice">                <code class="c">// cap the new audio level to the threshold level</code></code></li>
+            <li><code class="code-voice">                <code class="vc">currentLevel</code> = <code class="vc">AudioChannel</code>.<code class="vc">thresholdLevel</code></code></li>
+            <li><code class="code-voice">            }</code></li>
+            <li><code class="code-voice">            <code class="kt">if</code> <code class="vc">currentLevel</code> &gt; <code class="vc">AudioChannel</code>.<code class="vc">maxInputLevelForAllChannels</code> {</code></li>
+            <li><code class="code-voice">                <code class="c">// store this as the new overall maximum input level</code></code></li>
+            <li><code class="code-voice">                <code class="vc">AudioChannel</code>.<code class="vc">maxInputLevelForAllChannels</code> = <code class="vc">currentLevel</code></code></li>
+            <li><code class="code-voice">            }</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">AudioChannel</code> structure defines two stored type properties to support its functionality. The first, <code class="code-voice">thresholdLevel</code>, defines the maximum threshold value an audio level can take. This is a constant value of <code class="code-voice">10</code> for all <code class="code-voice">AudioChannel</code> instances. If an audio signal comes in with a higher value than <code class="code-voice">10</code>, it will be capped to this threshold value (as described below).</p><p class="para">The second type property is a variable stored property called <code class="code-voice">maxInputLevelForAllChannels</code>. This keeps track of the maximum input value that has been received by <em>any</em> <code class="code-voice">AudioChannel</code> instance. It starts with an initial value of <code class="code-voice">0</code>.</p><p class="para">The <code class="code-voice">AudioChannel</code> structure also defines a stored instance property called <code class="code-voice">currentLevel</code>, which represents the channel’s current audio level on a scale of <code class="code-voice">0</code> to <code class="code-voice">10</code>.</p><p class="para">The <code class="code-voice">currentLevel</code> property has a <code class="code-voice">didSet</code> property observer to check the value of <code class="code-voice">currentLevel</code> whenever it is set. This observer performs two checks:</p><ul class="list-bullet">
+  <li class="item"><p class="para">If the new value of <code class="code-voice">currentLevel</code> is greater than the allowed <code class="code-voice">thresholdLevel</code>, the property observer caps <code class="code-voice">currentLevel</code> to <code class="code-voice">thresholdLevel</code>.</p></li><li class="item"><p class="para">If the new value of <code class="code-voice">currentLevel</code> (after any capping) is higher than any value previously received by <em>any</em> <code class="code-voice">AudioChannel</code> instance, the property observer stores the new <code class="code-voice">currentLevel</code> value in the <code class="code-voice">maxInputLevelForAllChannels</code> type property.</p></li>
+</ul><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">In the first of these two checks, the <code class="code-voice">didSet</code> observer sets <code class="code-voice">currentLevel</code> to a different value. This does not, however, cause the observer to be called again.
+    	</p>
+    
+  </aside>
+</div><p class="para">You can use the <code class="code-voice">AudioChannel</code> structure to create two new audio channels called <code class="code-voice">leftChannel</code> and <code class="code-voice">rightChannel</code>, to represent the audio levels of a stereo sound system:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">leftChannel</code> = <code class="vc">AudioChannel</code>()</code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">rightChannel</code> = <code class="vc">AudioChannel</code>()</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If you set the <code class="code-voice">currentLevel</code> of the <em>left</em> channel to <code class="code-voice">7</code>, you can see that the <code class="code-voice">maxInputLevelForAllChannels</code> type property is updated to equal <code class="code-voice">7</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">leftChannel</code>.<code class="vc">currentLevel</code> = <code class="m">7</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">leftChannel</code>.<code class="vc">currentLevel</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;7&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">AudioChannel</code>.<code class="vc">maxInputLevelForAllChannels</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;7&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If you try to set the <code class="code-voice">currentLevel</code> of the <em>right</em> channel to <code class="code-voice">11</code>, you can see that the right channel’s <code class="code-voice">currentLevel</code> property is capped to the maximum value of <code class="code-voice">10</code>, and the <code class="code-voice">maxInputLevelForAllChannels</code> type property is updated to equal <code class="code-voice">10</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">rightChannel</code>.<code class="vc">currentLevel</code> = <code class="m">11</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">rightChannel</code>.<code class="vc">currentLevel</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;10&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">AudioChannel</code>.<code class="vc">maxInputLevelForAllChannels</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;10&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH33">&#x200c;</a><a id="TP40016643-CH33-ID428">&#x200c;</a>
+    <h2 class="chapter-name">Statements</h2>
+      
+      	<section class="section">
+      		<p class="para">In Swift, there are three kinds of statements: simple statements, compiler control statements, and control flow statements. Simple statements are the most common and consist of either an expression or a declaration. Compiler control statements allow the program to change aspects of the compiler’s behavior and include a build configuration and line control statement.</p><p class="para">Control flow statements are used to control the flow of execution in a program. There are several types of control flow statements in Swift, including loop statements, branch statements, and control transfer statements. Loop statements allow a block of code to be executed repeatedly, branch statements allow a certain block of code to be executed only when certain conditions are met, and control transfer statements provide a way to alter the order in which code is executed. In addition, Swift provides a <code class="code-voice">do</code> statement to introduce scope, and catch and handle errors, and a <code class="code-voice">defer</code> statement for running cleanup actions just before the current scope exits.</p><p class="para">A semicolon (<code class="code-voice">;</code>) can optionally appear after any statement and is used to separate multiple statements if they appear on the same line.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span><span class="optional"><code class="literal">;</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_483">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/declaration" href="Declarations.xhtml#declaration">declaration</a></span><span class="optional"><code class="literal">;</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_484">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/loop-statement" href="Statements.xhtml#loop-statement">loop-statement</a></span><span class="optional"><code class="literal">;</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_485">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/branch-statement" href="Statements.xhtml#branch-statement">branch-statement</a></span><span class="optional"><code class="literal">;</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_486">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/labeled-statement" href="Statements.xhtml#labeled-statement">labeled-statement</a></span><span class="optional"><code class="literal">;</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_487">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/control-transfer-statement" href="Statements.xhtml#control-transfer-statement">control-transfer-statement</a></span><span class="optional"><code class="literal">;</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_488">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/defer-statement" href="Statements.xhtml#defer-statement">defer-statement</a></span><span class="optional"><code class="literal">;</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_489">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/do-statement" href="Statements.xhtml#do-statement">do-statement</a></span><span class="optional"><code class="literal">:</code><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_490">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/compiler-control-statement" href="Statements.xhtml#compiler-control-statement">compiler-control-statement</a></span>
+</p><p class="syntax-def">
+  <a id="statements">&#x200c;</a>
+  <span class="syntax-def-name">
+  statements
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statement" href="Statements.xhtml#statement">statement</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statements" href="Statements.xhtml#statements">statements</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div>
+ </div>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH33-ID429">&#x200c;</a>
+  <h3 class="section-name">Loop Statements</h3>
+  <p class="para">Loop statements allow a block of code to be executed repeatedly, depending on the conditions specified in the loop. Swift has three loop statements: a <code class="code-voice">for</code>-<code class="code-voice">in</code> statement, a <code class="code-voice">while</code> statement, and a <code class="code-voice">repeat</code>-<code class="code-voice">while</code> statement.</p><p class="para">Control flow in a loop statement can be changed by a <code class="code-voice">break</code> statement and a <code class="code-voice">continue</code> statement and is discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH33-ID441" href="Statements.xhtml#TP40016643-CH33-ID441">Break Statement</a> and <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH33-ID442" href="Statements.xhtml#TP40016643-CH33-ID442">Continue Statement</a> below.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a loop statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="loop-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  loop-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/for-in-statement" href="Statements.xhtml#for-in-statement">for-in-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_494">&#x200c;</a>
+  <span class="syntax-def-name">
+  loop-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/while-statement" href="Statements.xhtml#while-statement">while-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_495">&#x200c;</a>
+  <span class="syntax-def-name">
+  loop-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/repeat-while-statement" href="Statements.xhtml#repeat-while-statement">repeat-while-statement</a></span>
+</p>
+</div>
+ </div>
+  <section class="section">
+	<a id="TP40016643-CH33-ID431">&#x200c;</a>
+  <h3 class="section-name">For-In Statement</h3>
+  <p class="para">A <code class="code-voice">for</code>-<code class="code-voice">in</code> statement allows a block of code to be executed once for each item in a collection (or any type) that conforms to the <code class="code-voice">SequenceType</code> protocol.</p><p class="para">A <code class="code-voice">for</code>-<code class="code-voice">in</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">for</code> <em class="variable-text">item</em> <code class="kt">in</code> <em class="variable-text">collection</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The <code class="code-voice">generate()</code> method is called on the <em>collection</em> expression to obtain a value of a generator type—that is, a type that conforms to the <code class="code-voice">GeneratorType</code> protocol. The program begins executing a loop by calling the <code class="code-voice">next()</code> method on the stream. If the value returned is not <code class="code-voice">None</code>, it is assigned to the <em>item</em> pattern, the program executes the <em>statements</em>, and then continues execution at the beginning of the loop. Otherwise, the program does not perform assignment or execute the <em>statements</em>, and it is finished executing the <code class="code-voice">for</code>-<code class="code-voice">in</code> statement.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a for-in statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="for-in-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  for-in-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">for</code><span class="optional"><code class="literal">case</code><sub class="subscript">opt</sub></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><code class="literal">in</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/where-clause" href="Statements.xhtml#where-clause">where-clause</a></span><sub class="subscript">opt</sub></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID432">&#x200c;</a>
+  <h3 class="section-name">While Statement</h3>
+  <p class="para">A <code class="code-voice">while</code> statement allows a block of code to be executed repeatedly, as long as a condition remains true.</p><p class="para">A <code class="code-voice">while</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">while</code> <em class="variable-text">condition</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">A <code class="code-voice">while</code> statement is executed as follows:</p><ol class="list-number">
+  <li class="item"><p class="para">The <em>condition</em> is evaluated.</p><p class="para">If <code class="code-voice">true</code>, execution continues to step 2. If <code class="code-voice">false</code>, the program is finished executing the <code class="code-voice">while</code> statement.</p></li><li class="item"><p class="para">The program executes the <em>statements</em>, and execution returns to step 1.</p></li>
+</ol><p class="para">Because the value of the <em>condition</em> is evaluated before the <em>statements</em> are executed, the <em>statements</em> in a <code class="code-voice">while</code> statement can be executed zero or more times.</p><p class="para">The value of the <em>condition</em> must have a type that conforms to the <code class="code-voice">BooleanType</code> protocol. The condition can also be an optional binding declaration, as discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH5-ID333" href="TheBasics.xhtml#TP40016643-CH5-ID333">Optional Binding</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a while statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="while-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  while-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">while</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition-clause" href="Statements.xhtml#condition-clause">condition-clause</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="condition-clause">&#x200c;</a>
+  <span class="syntax-def-name">
+  condition-clause
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_501">&#x200c;</a>
+  <span class="syntax-def-name">
+  condition-clause
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span><code class="literal">,</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition-list" href="Statements.xhtml#condition-list">condition-list</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_502">&#x200c;</a>
+  <span class="syntax-def-name">
+  condition-clause
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition-list" href="Statements.xhtml#condition-list">condition-list</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_503">&#x200c;</a>
+  <span class="syntax-def-name">
+  condition-clause
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/availability-condition" href="Statements.xhtml#availability-condition">availability-condition</a></span><code class="literal">,</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="condition-list">&#x200c;</a>
+  <span class="syntax-def-name">
+  condition-list
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition" href="Statements.xhtml#condition">condition</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition" href="Statements.xhtml#condition">condition</a></span><code class="literal">,</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition-list" href="Statements.xhtml#condition-list">condition-list</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="condition">&#x200c;</a>
+  <span class="syntax-def-name">
+  condition
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/availability-condition" href="Statements.xhtml#availability-condition">availability-condition</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/case-condition" href="Statements.xhtml#case-condition">case-condition</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-binding-condition" href="Statements.xhtml#optional-binding-condition">optional-binding-condition</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="case-condition">&#x200c;</a>
+  <span class="syntax-def-name">
+  case-condition
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">case</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/initializer" href="Declarations.xhtml#initializer">initializer</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/where-clause" href="Statements.xhtml#where-clause">where-clause</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="optional-binding-condition">&#x200c;</a>
+  <span class="syntax-def-name">
+  optional-binding-condition
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-binding-head" href="Statements.xhtml#optional-binding-head">optional-binding-head</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-binding-continuation-list" href="Statements.xhtml#optional-binding-continuation-list">optional-binding-continuation-list</a></span><sub class="subscript">opt</sub></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/where-clause" href="Statements.xhtml#where-clause">where-clause</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="optional-binding-head">&#x200c;</a>
+  <span class="syntax-def-name">
+  optional-binding-head
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">let</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/initializer" href="Declarations.xhtml#initializer">initializer</a></span>
+</span><span class="alternative">
+  <code class="literal">var</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/initializer" href="Declarations.xhtml#initializer">initializer</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="optional-binding-continuation-list">&#x200c;</a>
+  <span class="syntax-def-name">
+  optional-binding-continuation-list
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-binding-continuation" href="Statements.xhtml#optional-binding-continuation">optional-binding-continuation</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-binding-continuation" href="Statements.xhtml#optional-binding-continuation">optional-binding-continuation</a></span><code class="literal">,</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-binding-continuation-list" href="Statements.xhtml#optional-binding-continuation-list">optional-binding-continuation-list</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="optional-binding-continuation">&#x200c;</a>
+  <span class="syntax-def-name">
+  optional-binding-continuation
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/initializer" href="Declarations.xhtml#initializer">initializer</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-binding-head" href="Statements.xhtml#optional-binding-head">optional-binding-head</a></span>
+</span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID433">&#x200c;</a>
+  <h3 class="section-name">Repeat-While Statement</h3>
+  <p class="para">A <code class="code-voice">repeat</code>-<code class="code-voice">while</code> statement allows a block of code to be executed one or more times, as long as a condition remains true.</p><p class="para">A <code class="code-voice">repeat</code>-<code class="code-voice">while</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">repeat</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">} <code class="kt">while</code> <em class="variable-text">condition</em></pre></li>
+  </ul>
+</div><p class="para">A <code class="code-voice">repeat</code>-<code class="code-voice">while</code> statement is executed as follows:</p><ol class="list-number">
+  <li class="item"><p class="para">The program executes the <em>statements</em>, and execution continues to step 2.</p></li><li class="item"><p class="para">The <em>condition</em> is evaluated.</p><p class="para">If <code class="code-voice">true</code>, execution returns to step 1. If <code class="code-voice">false</code>, the program is finished executing the <code class="code-voice">repeat</code>-<code class="code-voice">while</code> statement.</p></li>
+</ol><p class="para">Because the value of the <em>condition</em> is evaluated after the <em>statements</em> are executed, the <em>statements</em> in a <code class="code-voice">repeat</code>-<code class="code-voice">while</code> statement are executed at least once.</p><p class="para">The value of the <em>condition</em> must have a type that conforms to the <code class="code-voice">BooleanType</code> protocol. The condition can also be an optional binding declaration, as discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH5-ID333" href="TheBasics.xhtml#TP40016643-CH5-ID333">Optional Binding</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a repeat-while statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="repeat-while-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  repeat-while-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">repeat</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span><code class="literal">while</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID434">&#x200c;</a>
+  <h3 class="section-name">Branch Statements</h3>
+  <p class="para">Branch statements allow the program to execute certain parts of code depending on the value of one or more conditions. The values of the conditions specified in a branch statement control how the program branches and, therefore, what block of code is executed. Swift has three branch statements: an <code class="code-voice">if</code> statement, a <code class="code-voice">guard</code> statement, and a <code class="code-voice">switch</code> statement.</p><p class="para">Control flow in an <code class="code-voice">if</code> statement or a <code class="code-voice">switch</code> statement can be changed by a <code class="code-voice">break</code> statement and is discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH33-ID441" href="Statements.xhtml#TP40016643-CH33-ID441">Break Statement</a> below.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a branch statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="branch-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  branch-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/if-statement" href="Statements.xhtml#if-statement">if-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_515">&#x200c;</a>
+  <span class="syntax-def-name">
+  branch-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/guard-statement" href="Statements.xhtml#guard-statement">guard-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_516">&#x200c;</a>
+  <span class="syntax-def-name">
+  branch-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/switch-statement" href="Statements.xhtml#switch-statement">switch-statement</a></span>
+</p>
+</div>
+ </div>
+  <section class="section">
+	<a id="TP40016643-CH33-ID435">&#x200c;</a>
+  <h3 class="section-name">If Statement</h3>
+  <p class="para">An <code class="code-voice">if</code> statement is used for executing code based on the evaluation of one or more conditions.</p><p class="para">There are two basic forms of an <code class="code-voice">if</code> statement. In each form, the opening and closing braces are required.</p><p class="para">The first form allows code to be executed only when a condition is true and has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">if</code> <em class="variable-text">condition</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The second form of an <code class="code-voice">if</code> statement provides an additional <em>else clause</em> (introduced by the <code class="code-voice">else</code> keyword) and is used for executing one part of code when the condition is true and another part of code when the same condition is false. When a single else clause is present, an <code class="code-voice">if</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">if</code> <em class="variable-text">condition</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements to execute if condition is true</em></pre></li><li><pre class="code-voice">} <code class="kt">else</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements to execute if condition is false</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The else clause of an <code class="code-voice">if</code> statement can contain another <code class="code-voice">if</code> statement to test more than one condition. An <code class="code-voice">if</code> statement chained together in this way has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">if</code> <em class="variable-text">condition 1</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements to execute if condition 1 is true</em></pre></li><li><pre class="code-voice">} <code class="kt">else</code> <code class="kt">if</code> <em class="variable-text">condition 2</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements to execute if condition 2 is true</em></pre></li><li><pre class="code-voice">} <code class="kt">else</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements to execute if both conditions are false</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The value of any condition in an <code class="code-voice">if</code> statement must have a type that conforms to the <code class="code-voice">BooleanType</code> protocol. The condition can also be an optional binding declaration, as discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH5-ID333" href="TheBasics.xhtml#TP40016643-CH5-ID333">Optional Binding</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an if statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="if-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  if-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">if</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition-clause" href="Statements.xhtml#condition-clause">condition-clause</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/else-clause" href="Statements.xhtml#else-clause">else-clause</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="else-clause">&#x200c;</a>
+  <span class="syntax-def-name">
+  else-clause
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">else</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span>
+</span><span class="alternative">
+  <code class="literal">else</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/if-statement" href="Statements.xhtml#if-statement">if-statement</a></span>
+</span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID524">&#x200c;</a>
+  <h3 class="section-name">Guard Statement</h3>
+  <p class="para">A <code class="code-voice">guard</code> statement is used to transfer program control out of a scope if one or more conditions aren’t met.</p><p class="para">A <code class="code-voice">guard</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">guard</code> <em class="variable-text">condition</em> <code class="kt">else</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The value of any condition in a <code class="code-voice">guard</code> statement must have a type that conforms to the <code class="code-voice">BooleanType</code> protocol. The condition can also be an optional binding declaration, as discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH5-ID333" href="TheBasics.xhtml#TP40016643-CH5-ID333">Optional Binding</a>.</p><p class="para">Any constants or variables assigned a value from an optional binding declaration in a <code class="code-voice">guard</code> statement condition can be used for the rest of the guard statement’s enclosing scope.</p><p class="para">The <code class="code-voice">else</code> clause of a <code class="code-voice">guard</code> statement is required, and must either call a function marked with the <code class="code-voice">noreturn</code> attribute or transfer program control outside the guard statement’s enclosing scope using one of the following statements:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">return</code></p></li><li class="item"><p class="para"><code class="code-voice">break</code></p></li><li class="item"><p class="para"><code class="code-voice">continue</code></p></li><li class="item"><p class="para"><code class="code-voice">throw</code></p></li>
+</ul><p class="para">Control transfer statements are discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH33-ID440" href="Statements.xhtml#TP40016643-CH33-ID440">Control Transfer Statements</a> below.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a guard statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="guard-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  guard-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">guard</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/condition-clause" href="Statements.xhtml#condition-clause">condition-clause</a></span><code class="literal">else</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID436">&#x200c;</a>
+  <h3 class="section-name">Switch Statement</h3>
+  <p class="para">A <code class="code-voice">switch</code> statement allows certain blocks of code to be executed depending on the value of a control expression.</p><p class="para">A <code class="code-voice">switch</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">switch</code> <em class="variable-text">control expression</em> {</pre></li><li><pre class="code-voice"><code class="kt">case</code> <em class="variable-text">pattern 1</em>:</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice"><code class="kt">case</code> <em class="variable-text">pattern 2</em> <code class="kt">where</code> <em class="variable-text">condition</em>:</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice"><code class="kt">case</code> <em class="variable-text">pattern 3</em> <code class="kt">where</code> <em class="variable-text">condition</em>,</pre></li><li><pre class="code-voice">     <em class="variable-text">pattern 4</em> <code class="kt">where</code> <em class="variable-text">condition</em>:</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice"><code class="kt">default</code>:</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The <em>control expression</em> of the <code class="code-voice">switch</code> statement is evaluated and then compared with the patterns specified in each case. If a match is found, the program executes the <em>statements</em> listed within the scope of that case. The scope of each case can’t be empty. As a result, you must include at least one statement following the colon (<code class="code-voice">:</code>) of each case label. Use a single <code class="code-voice">break</code> statement if you don’t intend to execute any code in the body of a matched case.</p><p class="para">The values of expressions your code can branch on are very flexible. For instance, in addition to the values of scalar types, such as integers and characters, your code can branch on the values of any type, including floating-point numbers, strings, tuples, instances of custom classes, and optionals. The value of the <em>control expression</em> can even be matched to the value of a case in an enumeration and checked for inclusion in a specified range of values. For examples of how to use these various types of values in <code class="code-voice">switch</code> statements, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID129" href="ControlFlow.xhtml#TP40016643-CH9-ID129">Switch</a> in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>.</p><p class="para">A <code class="code-voice">switch</code> case can optionally contain a where clause after each pattern. A <em>where clause</em> is introduced by the <code class="code-voice">where</code> keyword followed by an expression, and is used to provide an additional condition before a pattern in a case is considered matched to the <em>control expression</em>. If a where clause is present, the <em>statements</em> within the relevant case are executed only if the value of the <em>control expression</em> matches one of the patterns of the case and the expression of the where clause evaluates to <code class="code-voice">true</code>. For instance, a <em>control expression</em> matches the case in the example below only if it is a tuple that contains two elements of the same value, such as <code class="code-voice">(1, 1)</code>.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> (<code class="vc">x</code>, <code class="vc">y</code>) <code class="kt">where</code> <code class="vc">x</code> == <code class="vc">y</code>:</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">As the above example shows, patterns in a case can also bind constants using the <code class="code-voice">let</code> keyword (they can also bind variables using the <code class="code-voice">var</code> keyword). These constants (or variables) can then be referenced in a corresponding where clause and throughout the rest of the code within the scope of the case. That said, if the case contains multiple patterns that match the control expression, none of those patterns can contain constant or variable bindings.</p><p class="para">A <code class="code-voice">switch</code> statement can also include a default case, introduced by the <code class="code-voice">default</code> keyword. The code within a default case is executed only if no other cases match the control expression. A <code class="code-voice">switch</code> statement can include only one default case, which must appear at the end of the <code class="code-voice">switch</code> statement.</p><p class="para">Although the actual execution order of pattern-matching operations, and in particular the evaluation order of patterns in cases, is unspecified, pattern matching in a <code class="code-voice">switch</code> statement behaves as if the evaluation is performed in source order—that is, the order in which they appear in source code. As a result, if multiple cases contain patterns that evaluate to the same value, and thus can match the value of the control expression, the program executes only the code within the first matching case in source order.</p>
+  <section class="section">
+	<a id="TP40016643-CH33-ID437">&#x200c;</a>
+  <h3 class="section-name">Switch Statements Must Be Exhaustive</h3>
+  <p class="para">In Swift, every possible value of the control expression’s type must match the value of at least one pattern of a case. When this simply isn’t feasible (for instance, when the control expression’s type is <code class="code-voice">Int</code>), you can include a default case to satisfy the requirement.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID438">&#x200c;</a>
+  <h3 class="section-name">Execution Does Not Fall Through Cases Implicitly</h3>
+  <p class="para">After the code within a matched case has finished executing, the program exits from the <code class="code-voice">switch</code> statement. Program execution does not continue or “fall through” to the next case or default case. That said, if you want execution to continue from one case to the next, explicitly include a <code class="code-voice">fallthrough</code> statement, which simply consists of the <code class="code-voice">fallthrough</code> keyword, in the case from which you want execution to continue. For more information about the <code class="code-voice">fallthrough</code> statement, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH33-ID443" href="Statements.xhtml#TP40016643-CH33-ID443">Fallthrough Statement</a> below.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a switch statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="switch-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  switch-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">switch</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span><code class="literal">{</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/switch-cases" href="Statements.xhtml#switch-cases">switch-cases</a></span><sub class="subscript">opt</sub></span><code class="literal">}</code>
+</p><p class="syntax-def">
+  <a id="switch-cases">&#x200c;</a>
+  <span class="syntax-def-name">
+  switch-cases
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/switch-case" href="Statements.xhtml#switch-case">switch-case</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/switch-cases" href="Statements.xhtml#switch-cases">switch-cases</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="switch-case">&#x200c;</a>
+  <span class="syntax-def-name">
+  switch-case
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/case-label" href="Statements.xhtml#case-label">case-label</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statements" href="Statements.xhtml#statements">statements</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/default-label" href="Statements.xhtml#default-label">default-label</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statements" href="Statements.xhtml#statements">statements</a></span>
+</span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="case-label">&#x200c;</a>
+  <span class="syntax-def-name">
+  case-label
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">case</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/case-item-list" href="Statements.xhtml#case-item-list">case-item-list</a></span><code class="literal">:</code>
+</p><p class="syntax-def">
+  <a id="case-item-list">&#x200c;</a>
+  <span class="syntax-def-name">
+  case-item-list
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/where-clause" href="Statements.xhtml#where-clause">where-clause</a></span><sub class="subscript">opt</sub></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/where-clause" href="Statements.xhtml#where-clause">where-clause</a></span><sub class="subscript">opt</sub></span><code class="literal">,</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/case-item-list" href="Statements.xhtml#case-item-list">case-item-list</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="default-label">&#x200c;</a>
+  <span class="syntax-def-name">
+  default-label
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">default</code><code class="literal">:</code>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="where-clause">&#x200c;</a>
+  <span class="syntax-def-name">
+  where-clause
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">where</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/where-expression" href="Statements.xhtml#where-expression">where-expression</a></span>
+</p><p class="syntax-def">
+  <a id="where-expression">&#x200c;</a>
+  <span class="syntax-def-name">
+  where-expression
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID439">&#x200c;</a>
+  <h3 class="section-name">Labeled Statement</h3>
+  <p class="para">You can prefix a loop statement, an <code class="code-voice">if</code> statement, or a <code class="code-voice">switch</code> statement with a <em>statement label</em>, which consists of the name of the label followed immediately by a colon (:). Use statement labels with <code class="code-voice">break</code> and <code class="code-voice">continue</code> statements to be explicit about how you want to change control flow in a loop statement or a <code class="code-voice">switch</code> statement, as discussed in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH33-ID441" href="Statements.xhtml#TP40016643-CH33-ID441">Break Statement</a> and <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH33-ID442" href="Statements.xhtml#TP40016643-CH33-ID442">Continue Statement</a> below.</p><p class="para">The scope of a labeled statement is the entire statement following the statement label. You can nest labeled statements, but the name of each statement label must be unique.</p><p class="para">For more information and to see examples of how to use statement labels, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID141" href="ControlFlow.xhtml#TP40016643-CH9-ID141">Labeled Statements</a> in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a labeled statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="labeled-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  labeled-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statement-label" href="Statements.xhtml#statement-label">statement-label</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/loop-statement" href="Statements.xhtml#loop-statement">loop-statement</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statement-label" href="Statements.xhtml#statement-label">statement-label</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/if-statement" href="Statements.xhtml#if-statement">if-statement</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statement-label" href="Statements.xhtml#statement-label">statement-label</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/switch-statement" href="Statements.xhtml#switch-statement">switch-statement</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="statement-label">&#x200c;</a>
+  <span class="syntax-def-name">
+  statement-label
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/label-name" href="Statements.xhtml#label-name">label-name</a></span><code class="literal">:</code>
+</p><p class="syntax-def">
+  <a id="label-name">&#x200c;</a>
+  <span class="syntax-def-name">
+  label-name
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/identifier" href="LexicalStructure.xhtml#identifier">identifier</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID440">&#x200c;</a>
+  <h3 class="section-name">Control Transfer Statements</h3>
+  <p class="para">Control transfer statements can change the order in which code in your program is executed by unconditionally transferring program control from one piece of code to another. Swift has five control transfer statements: a <code class="code-voice">break</code> statement, a <code class="code-voice">continue</code> statement, a <code class="code-voice">fallthrough</code> statement, a <code class="code-voice">return</code> statement, and a <code class="code-voice">throw</code> statement.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a control transfer statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="control-transfer-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  control-transfer-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/break-statement" href="Statements.xhtml#break-statement">break-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_537">&#x200c;</a>
+  <span class="syntax-def-name">
+  control-transfer-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/continue-statement" href="Statements.xhtml#continue-statement">continue-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_538">&#x200c;</a>
+  <span class="syntax-def-name">
+  control-transfer-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/fallthrough-statement" href="Statements.xhtml#fallthrough-statement">fallthrough-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_539">&#x200c;</a>
+  <span class="syntax-def-name">
+  control-transfer-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/return-statement" href="Statements.xhtml#return-statement">return-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_540">&#x200c;</a>
+  <span class="syntax-def-name">
+  control-transfer-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/throw-statement" href="Statements.xhtml#throw-statement">throw-statement</a></span>
+</p>
+</div>
+ </div>
+  <section class="section">
+	<a id="TP40016643-CH33-ID441">&#x200c;</a>
+  <h3 class="section-name">Break Statement</h3>
+  <p class="para">A <code class="code-voice">break</code> statement ends program execution of a loop, an <code class="code-voice">if</code> statement, or a <code class="code-voice">switch</code> statement. A <code class="code-voice">break</code> statement can consist of only the <code class="code-voice">break</code> keyword, or it can consist of the <code class="code-voice">break</code> keyword followed by the name of a statement label, as shown below.</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">break</code></pre></li><li><pre class="code-voice"><code class="kt">break</code> <em class="variable-text">label name</em></pre></li>
+  </ul>
+</div><p class="para">When a <code class="code-voice">break</code> statement is followed by the name of a statement label, it ends program execution of the loop, <code class="code-voice">if</code> statement, or <code class="code-voice">switch</code> statement named by that label.</p><p class="para">When a <code class="code-voice">break</code> statement is not followed by the name of a statement label, it ends program execution of the <code class="code-voice">switch</code> statement or the innermost enclosing loop statement in which it occurs. You can’t use an unlabeled <code class="code-voice">break</code> statement to break out of an <code class="code-voice">if</code> statement.</p><p class="para">In both cases, program control is then transferred to the first line of code following the enclosing loop or <code class="code-voice">switch</code> statement, if any.</p><p class="para">For examples of how to use a <code class="code-voice">break</code> statement, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID137" href="ControlFlow.xhtml#TP40016643-CH9-ID137">Break</a> and <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID141" href="ControlFlow.xhtml#TP40016643-CH9-ID141">Labeled Statements</a> in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a break statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="break-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  break-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">break</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/label-name" href="Statements.xhtml#label-name">label-name</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID442">&#x200c;</a>
+  <h3 class="section-name">Continue Statement</h3>
+  <p class="para">A <code class="code-voice">continue</code> statement ends program execution of the current iteration of a loop statement but does not stop execution of the loop statement. A <code class="code-voice">continue</code> statement can consist of only the <code class="code-voice">continue</code> keyword, or it can consist of the <code class="code-voice">continue</code> keyword followed by the name of a statement label, as shown below.</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">continue</code></pre></li><li><pre class="code-voice"><code class="kt">continue</code> <em class="variable-text">label name</em></pre></li>
+  </ul>
+</div><p class="para">When a <code class="code-voice">continue</code> statement is followed by the name of a statement label, it ends program execution of the current iteration of the loop statement named by that label.</p><p class="para">When a <code class="code-voice">continue</code> statement is not followed by the name of a statement label, it ends program execution of the current iteration of the innermost enclosing loop statement in which it occurs.</p><p class="para">In both cases, program control is then transferred to the condition of the enclosing loop statement.</p><p class="para">In a <code class="code-voice">for</code> statement, the increment expression is still evaluated after the <code class="code-voice">continue</code> statement is executed, because the increment expression is evaluated after the execution of the loop’s body.</p><p class="para">For examples of how to use a <code class="code-voice">continue</code> statement, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID136" href="ControlFlow.xhtml#TP40016643-CH9-ID136">Continue</a> and <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID141" href="ControlFlow.xhtml#TP40016643-CH9-ID141">Labeled Statements</a> in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a continue statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="continue-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  continue-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">continue</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/label-name" href="Statements.xhtml#label-name">label-name</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID443">&#x200c;</a>
+  <h3 class="section-name">Fallthrough Statement</h3>
+  <p class="para">A <code class="code-voice">fallthrough</code> statement consists of the <code class="code-voice">fallthrough</code> keyword and occurs only in a case block of a <code class="code-voice">switch</code> statement. A <code class="code-voice">fallthrough</code> statement causes program execution to continue from one case in a <code class="code-voice">switch</code> statement to the next case. Program execution continues to the next case even if the patterns of the case label do not match the value of the <code class="code-voice">switch</code> statement’s control expression.</p><p class="para">A <code class="code-voice">fallthrough</code> statement can appear anywhere inside a <code class="code-voice">switch</code> statement, not just as the last statement of a case block, but it can’t be used in the final case block. It also cannot transfer control into a case block whose pattern contains value binding patterns.</p><p class="para">For an example of how to use a <code class="code-voice">fallthrough</code> statement in a <code class="code-voice">switch</code> statement, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID135" href="ControlFlow.xhtml#TP40016643-CH9-ID135">Control Transfer Statements</a> in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a fallthrough statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="fallthrough-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  fallthrough-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">fallthrough</code>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID444">&#x200c;</a>
+  <h3 class="section-name">Return Statement</h3>
+  <p class="para">A <code class="code-voice">return</code> statement occurs in the body of a function or method definition and causes program execution to return to the calling function or method. Program execution continues at the point immediately following the function or method call.</p><p class="para">A <code class="code-voice">return</code> statement can consist of only the <code class="code-voice">return</code> keyword, or it can consist of the <code class="code-voice">return</code> keyword followed by an expression, as shown below.</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">return</code></pre></li><li><pre class="code-voice"><code class="kt">return</code> <em class="variable-text">expression</em></pre></li>
+  </ul>
+</div><p class="para">When a <code class="code-voice">return</code> statement is followed by an expression, the value of the expression is returned to the calling function or method. If the value of the expression does not match the value of the return type declared in the function or method declaration, the expression’s value is converted to the return type before it is returned to the calling function or method.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">As described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH34-ID376" href="Declarations.xhtml#TP40016643-CH34-ID376">Failable Initializers</a>, a special form of the <code class="code-voice">return</code> statement (<code class="code-voice">return nil</code>) can be used in a failable initializer to indicate initialization failure.
+    	</p>
+    
+  </aside>
+</div><p class="para">When a <code class="code-voice">return</code> statement is not followed by an expression, it can be used only to return from a function or method that does not return a value (that is, when the return type of the function or method is <code class="code-voice">Void</code> or <code class="code-voice">()</code>).</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a return statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="return-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  return-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">return</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID518">&#x200c;</a>
+  <h3 class="section-name">Throw Statement</h3>
+  <p class="para">A <code class="code-voice">throw</code> statement occurs in the body of a throwing function or method, or in the body of a closure expression whose type is marked with the <code class="code-voice">throws</code> keyword.</p><p class="para">A <code class="code-voice">throw</code> statement causes a program to end execution of the current scope and begin error propagation to its enclosing scope. The error that’s thrown continues to propagate until it’s handled by a <code class="code-voice">catch</code> clause of a <code class="code-voice">do</code> statement.</p><p class="para">A <code class="code-voice">throw</code> statement consists of the <code class="code-voice">throw</code> keyword followed by an expression, as shown below.</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">throw</code> <em class="variable-text">expression</em></pre></li>
+  </ul>
+</div><p class="para">The value of the <em>expression</em> must have a type that conforms to the <code class="code-voice">ErrorType</code> protocol.</p><p class="para">For an example of how to use a <code class="code-voice">throw</code> statement, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH42-ID510" href="ErrorHandling.xhtml#TP40016643-CH42-ID510">Propagating Errors Using Throwing Functions</a> in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH42-ID508" href="ErrorHandling.xhtml">Error Handling</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a throw statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="throw-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  throw-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">throw</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID532">&#x200c;</a>
+  <h3 class="section-name">Defer Statement</h3>
+  <p class="para">A <code class="code-voice">defer</code> statement is used for executing code just before transferring program control outside of the scope that the <code class="code-voice">defer</code> statement appears in.</p><p class="para">A <code class="code-voice">defer</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">defer</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The statements within the <code class="code-voice">defer</code> statement are executed no matter how program control is transferred. This means that a <code class="code-voice">defer</code> statement can be used, for example, to perform manual resource management such as closing file descriptors, and to perform actions that need to happen even if an error is thrown.</p><p class="para">If multiple <code class="code-voice">defer</code> statements appear in the same scope, the order they appear is the reverse of the order they are executed. Executing the last <code class="code-voice">defer</code> statement in a given scope first means that statements inside that last <code class="code-voice">defer</code> statement can refer to resources that will be cleaned up by other <code class="code-voice">defer</code> statements.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">f</code>() {</code></li>
+            <li><code class="code-voice">    <code class="kt">defer</code> { <code class="vc">print</code>(<code class="s">&quot;First&quot;</code>) }</code></li>
+            <li><code class="code-voice">    <code class="kt">defer</code> { <code class="vc">print</code>(<code class="s">&quot;Second&quot;</code>) }</code></li>
+            <li><code class="code-voice">    <code class="kt">defer</code> { <code class="vc">print</code>(<code class="s">&quot;Third&quot;</code>) }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">f</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Third&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Second&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;First&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The statements in the <code class="code-voice">defer</code> statement can’t transfer program control outside of the <code class="code-voice">defer</code> statement.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a defer statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="defer-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  defer-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">defer</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID533">&#x200c;</a>
+  <h3 class="section-name">Do Statement</h3>
+  <p class="para">The <code class="code-voice">do</code> statement is used to introduce a new scope and can optionally contain one or more <code class="code-voice">catch</code> clauses, which contain patterns that match against defined error conditions. Variables and constants declared in the scope of a <code class="code-voice">do</code> statement can be accessed only within that scope.</p><p class="para">A <code class="code-voice">do</code> statement in Swift is similar to curly braces (<code class="code-voice">{}</code>) in C used to delimit a code block, and does not incur a performance cost at runtime.</p><p class="para">A <code class="code-voice">do</code> statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">do</code> {</pre></li><li><pre class="code-voice">    <code class="kt">try</code> <em class="variable-text">expression</em></pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">} <code class="kt">catch</code> <em class="variable-text">pattern 1</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">} <code class="kt">catch</code> <em class="variable-text">pattern 2</em> <code class="kt">where</code> <em class="variable-text">condition</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">Like a <code class="code-voice">switch</code> statement, the compiler attempts to infer whether <code class="code-voice">catch</code> clauses are exhaustive. If such a determination can be made, the error is considered handled. Otherwise, the error can propagate out of the containing scope, which means the error must be handled by an enclosing <code class="code-voice">catch</code> clause or the containing function must be declared with <code class="code-voice">throws</code>.</p><p class="para">To ensure that an error is handled, use a <code class="code-voice">catch</code> clause with a pattern that matches all errors, such as a wildcard pattern (<code class="code-voice">_</code>). If a <code class="code-voice">catch</code> clause does not specify a pattern, the <code class="code-voice">catch</code> clause matches and binds any error to a local constant named <code class="code-voice">error</code>. For more information about the pattens you can use in a <code class="code-voice">catch</code> clause, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH36-ID419" href="Patterns.xhtml">Patterns</a>.</p><p class="para">To see an example of how to use a <code class="code-voice">do</code> statement with several <code class="code-voice">catch</code> clauses, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH42-ID512" href="ErrorHandling.xhtml#TP40016643-CH42-ID512">Handling Errors</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a do statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="do-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  do-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">do</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/catch-clauses" href="Statements.xhtml#catch-clauses">catch-clauses</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="catch-clauses">&#x200c;</a>
+  <span class="syntax-def-name">
+  catch-clauses
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/catch-clause" href="Statements.xhtml#catch-clause">catch-clause</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/catch-clauses" href="Statements.xhtml#catch-clauses">catch-clauses</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="catch-clause">&#x200c;</a>
+  <span class="syntax-def-name">
+  catch-clause
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">catch</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><sub class="subscript">opt</sub></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/where-clause" href="Statements.xhtml#where-clause">where-clause</a></span><sub class="subscript">opt</sub></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/code-block" href="Declarations.xhtml#code-block">code-block</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID538">&#x200c;</a>
+  <h3 class="section-name">Compiler Control Statements</h3>
+  <p class="para">Compiler control statements allow the program to change aspects of the compiler’s behavior. Swift has two complier control statements: a build configuration statement and a line control statement.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a compiler control statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="compiler-control-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  compiler-control-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration-statement" href="Statements.xhtml#build-configuration-statement">build-configuration-statement</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_560">&#x200c;</a>
+  <span class="syntax-def-name">
+  compiler-control-statement
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/line-control-statement" href="Statements.xhtml#line-control-statement">line-control-statement</a></span>
+</p>
+</div>
+ </div>
+  <section class="section">
+	<a id="TP40016643-CH33-ID539">&#x200c;</a>
+  <h3 class="section-name">Build Configuration Statement</h3>
+  <p class="para">A build configuration statement allows code to be conditionally compiled depending on the value of one or more build configurations.</p><p class="para">Every build configuration statement begins with <code class="code-voice">#if</code> and ends with <code class="code-voice">#endif</code>. A simple build configuration statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">#if</code> <em class="variable-text">build configuration</em></pre></li><li><pre class="code-voice"><em class="variable-text">statements</em></pre></li><li><pre class="code-voice"><code class="kt">#endif</code></pre></li>
+  </ul>
+</div><p class="para">Unlike the condition of an <code class="code-voice">if</code> statement, the <em>build configuration</em> is evaluated at compile time. As a result, the <em>statements</em> are compiled and executed only if the <em>build configuration</em> evaluates to <code class="code-voice">true</code> at compile time.</p><p class="para">The <em>build configuration</em> can include the <code class="code-voice">true</code> and <code class="code-voice">false</code> Boolean literals, an identifier used with the <code class="code-voice">-D</code> command line flag, or any of the platform or language-version testing functions listed in the table below.</p><div class="tableholder">
+<!-- <table class="graybox" border="0" cellspacing="0" cellpadding="5"> -->
+  
+  <table class="graybox">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">Function</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">Valid arguments</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><p class="para"><code class="code-voice">os()</code></p></td>
+            <td><p class="para"><code class="code-voice">OSX</code>, <code class="code-voice">iOS</code>, <code class="code-voice">watchOS</code>, <code class="code-voice">tvOS</code>, <code class="code-voice">Linux</code></p></td>
+        </tr>
+        <tr>
+            <td><p class="para"><code class="code-voice">arch()</code></p></td>
+            <td><p class="para"><code class="code-voice">i386</code>, <code class="code-voice">x86_64</code>, <code class="code-voice">arm</code>, <code class="code-voice">arm64</code></p></td>
+        </tr>
+        <tr>
+            <td><p class="para"><code class="code-voice">swift()</code></p></td>
+            <td><p class="para"><code class="code-voice">&gt;=</code> followed by a version number</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p class="para">The version number for the <code class="code-voice">swift()</code> language-version testing function consists of a major and minor number, separated by a dot (<code class="code-voice">.</code>). There must not be whitespace between <code class="code-voice">&gt;=</code> and the version number.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">arch(arm)</code> platform testing function does not return <code class="code-voice">true</code> for ARM 64 devices. The <code class="code-voice">arch(i386)</code> platform testing function returns <code class="code-voice">true</code> when code is compiled for the 32–bit iOS simulator.
+    	</p>
+    
+  </aside>
+</div><p class="para">You can combine build configurations using the logical operators <code class="code-voice">&amp;&amp;</code>, <code class="code-voice">||</code>, and <code class="code-voice">!</code> and use parentheses for grouping.</p><p class="para">Similar to an <code class="code-voice">if</code> statement, you can add multiple conditional branches to test for different build configurations. You can add any number of additional branches using <code class="code-voice">#elseif</code> clauses. You can also add a final additional branch using an <code class="code-voice">#else</code> clause. Build configuration statements that contain multiple branches have the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">#if</code> <em class="variable-text">build configuration 1</em></pre></li><li><pre class="code-voice"><em class="variable-text">statements to compile if build configuration 1 is true</em></pre></li><li><pre class="code-voice"><code class="kt">#elseif</code> <em class="variable-text">build configuration 2</em></pre></li><li><pre class="code-voice"><em class="variable-text">statements to compile if build configuration 2 is true</em></pre></li><li><pre class="code-voice"><code class="kt">#else</code></pre></li><li><pre class="code-voice"><em class="variable-text">statements to compile if both build configurations are false</em></pre></li><li><pre class="code-voice"><code class="kt">#endif</code></pre></li>
+  </ul>
+</div><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Each statement in the body of a build configuration statement is parsed even if it’s not compiled. However, there is an exception if the build configuration includes a language-version testing function: The statements are parsed only if the compiler’s version of Swift matches what is specified in the language-version testing function. This exception ensures that an older compiler doesn’t attempt to parse syntax introduced in a newer version of Swift.
+    	</p>
+    
+  </aside>
+</div><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a build configuration statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="build-configuration-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">#if</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statements" href="Statements.xhtml#statements">statements</a></span><sub class="subscript">opt</sub></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration-elseif-clauses" href="Statements.xhtml#build-configuration-elseif-clauses">build-configuration-elseif-clauses</a></span><sub class="subscript">opt</sub></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration-else-clause" href="Statements.xhtml#build-configuration-else-clause">build-configuration-else-clause</a></span><sub class="subscript">opt</sub></span><code class="literal">#endif</code>
+</p><p class="syntax-def">
+  <a id="build-configuration-elseif-clauses">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration-elseif-clauses
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration-elseif-clause" href="Statements.xhtml#build-configuration-elseif-clause">build-configuration-elseif-clause</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration-elseif-clauses" href="Statements.xhtml#build-configuration-elseif-clauses">build-configuration-elseif-clauses</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="build-configuration-elseif-clause">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration-elseif-clause
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">#elseif</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statements" href="Statements.xhtml#statements">statements</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="build-configuration-else-clause">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration-else-clause
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">#else</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/statements" href="Statements.xhtml#statements">statements</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="build-configuration">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/platform-testing-function" href="Statements.xhtml#platform-testing-function">platform-testing-function</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_569">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/language-version-testing-function" href="Statements.xhtml#language-version-testing-function">language-version-testing-function</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_570">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/identifier" href="LexicalStructure.xhtml#identifier">identifier</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_571">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/boolean-literal" href="LexicalStructure.xhtml#boolean-literal">boolean-literal</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_572">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">(</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_573">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">!</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_574">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span><code class="literal">&amp;&amp;</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_575">&#x200c;</a>
+  <span class="syntax-def-name">
+  build-configuration
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span><code class="literal">||</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/build-configuration" href="Statements.xhtml#build-configuration">build-configuration</a></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="platform-testing-function">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-testing-function
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">os</code><code class="literal">(</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/operating-system" href="Statements.xhtml#operating-system">operating-system</a></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_577">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-testing-function
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">arch</code><code class="literal">(</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/architecture" href="Statements.xhtml#architecture">architecture</a></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="language-version-testing-function">&#x200c;</a>
+  <span class="syntax-def-name">
+  language-version-testing-function
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">swift</code><code class="literal">(</code><code class="literal">&gt;=</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/swift-version" href="Statements.xhtml#swift-version">swift-version</a></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="operating-system">&#x200c;</a>
+  <span class="syntax-def-name">
+  operating-system
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">OSX</code>
+</span><span class="alternative">
+  <code class="literal">iOS</code>
+</span><span class="alternative">
+  <code class="literal">watchOS</code>
+</span><span class="alternative">
+  <code class="literal">tvOS</code>
+</span>
+</p><p class="syntax-def">
+  <a id="architecture">&#x200c;</a>
+  <span class="syntax-def-name">
+  architecture
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">i386</code>
+</span><span class="alternative">
+  <code class="literal">x86_64</code>
+</span><span class="alternative">
+  <code class="literal">arm</code>
+</span><span class="alternative">
+  <code class="literal">arm64</code>
+</span>
+</p><p class="syntax-def">
+  <a id="swift-version">&#x200c;</a>
+  <span class="syntax-def-name">
+  swift-version
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span><code class="literal">.</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID540">&#x200c;</a>
+  <h3 class="section-name">Line Control Statement</h3>
+  <p class="para">A line control statement is used to specify a line number and filename that can be different from the line number and filename of the source code being compiled. Use a line control statement to change the source code location used by Swift for diagnostic and debugging purposes.</p><p class="para">A line control statement has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">#line</code> <em class="variable-text">line number</em> <em class="variable-text">filename</em></pre></li>
+  </ul>
+</div><p class="para">A line control statement changes the values of the <code class="code-voice">#line</code> and <code class="code-voice">#file</code> literal expressions, beginning with the line of code following the line control statement. The <em>line number</em> changes the value of <code class="code-voice">#line</code> and is any integer literal greater than zero. The <em>filename</em> changes the value of <code class="code-voice">#file</code> and is a string literal.</p><p class="para">You can reset the source code location back to the default line numbering and filename by writing a line control statement without specifying a <em>line number</em> and <em>filename</em>.</p><p class="para">The <code class="code-voice">#line</code> token has two meanings depending on how it is used. If it is used as a line control statement, it must appear on its own line and can’t be the last line of a source code file. If it appears elsewhere in a line, it is understood as the special literal described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH32-ID390" href="Expressions.xhtml#TP40016643-CH32-ID390">Literal Expression</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a line control statement
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="line-control-statement">&#x200c;</a>
+  <span class="syntax-def-name">
+  line-control-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">#line</code>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_584">&#x200c;</a>
+  <span class="syntax-def-name">
+  line-control-statement
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">#line</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/line-number" href="Statements.xhtml#line-number">line-number</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/file-name" href="Statements.xhtml#file-name">file-name</a></span>
+</p><p class="syntax-def">
+  <a id="line-number">&#x200c;</a>
+  <span class="syntax-def-name">
+  line-number
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">A decimal integer greater than zero</span>
+</p><p class="syntax-def">
+  <a id="file-name">&#x200c;</a>
+  <span class="syntax-def-name">
+  file-name
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/static-string-literal" href="LexicalStructure.xhtml#static-string-literal">static-string-literal</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH33-ID522">&#x200c;</a>
+  <h3 class="section-name">Availability Condition</h3>
+  <p class="para">An <em>availability condition</em> is used as a condition of an <code class="code-voice">if</code>, <code class="code-voice">while</code>, and <code class="code-voice">guard</code> statement to query the availability of APIs at runtime, based on specified platforms arguments.</p><p class="para">An availability condition has the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">if</code> <code class="kt">#available</code>(<em class="variable-text">platform name</em> <em class="variable-text">version</em>, <em class="variable-text">...</em>, *) {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements to execute if the APIs are available</em></pre></li><li><pre class="code-voice">} <code class="kt">else</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">fallback statements to execute if the APIs are unavailable</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">You use an availability condition to execute a block of code, depending on whether the APIs you want to use are available at runtime. The compiler uses the information from the availability condition when it verifies that the APIs in that block of code are available.</p><p class="para">The availability condition takes a comma-separated list of platform names and versions. Use <code class="code-voice">iOS</code>, <code class="code-voice">OSX</code>, and <code class="code-voice">watchOS</code> for the platform names, and include the corresponding version numbers. The <code class="code-voice">*</code> argument is required and specifies that on any other platform, the body of the code block guarded by the availability condition executes on the minimum deployment target specified by your target.</p><p class="para">Unlike Boolean conditions, you can’t combine availability conditions using logical operators such as <code class="code-voice">&amp;&amp;</code> and <code class="code-voice">||</code>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an availability condition
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="availability-condition">&#x200c;</a>
+  <span class="syntax-def-name">
+  availability-condition
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">#available</code><code class="literal">(</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/availability-arguments" href="Statements.xhtml#availability-arguments">availability-arguments</a></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="availability-arguments">&#x200c;</a>
+  <span class="syntax-def-name">
+  availability-arguments
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/availability-argument" href="Statements.xhtml#availability-argument">availability-argument</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/availability-argument" href="Statements.xhtml#availability-argument">availability-argument</a></span><code class="literal">,</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/availability-arguments" href="Statements.xhtml#availability-arguments">availability-arguments</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="availability-argument">&#x200c;</a>
+  <span class="syntax-def-name">
+  availability-argument
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/platform-name" href="Statements.xhtml#platform-name">platform-name</a></span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/platform-version" href="Statements.xhtml#platform-version">platform-version</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_591">&#x200c;</a>
+  <span class="syntax-def-name">
+  availability-argument
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">*</code>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="platform-name">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-name
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">iOS</code>
+</span><span class="alternative">
+  <code class="literal">iOSApplicationExtension</code>
+</span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_593">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-name
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">OSX</code>
+</span><span class="alternative">
+  <code class="literal">OSXApplicationExtension</code>
+</span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_594">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-name
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">watchOS</code>
+</p><p class="syntax-def">
+  <a id="platform-version">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-version
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_596">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-version
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span><code class="literal">.</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH33-NoLink_597">&#x200c;</a>
+  <span class="syntax-def-name">
+  platform-version
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span><code class="literal">.</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span><code class="literal">.</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/decimal-digits" href="LexicalStructure.xhtml#decimal-digits">decimal-digits</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

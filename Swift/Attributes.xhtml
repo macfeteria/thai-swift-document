@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH35">&#x200c;</a><a id="TP40016643-CH35-ID347">&#x200c;</a>
+    <h2 class="chapter-name">Attributes</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Attributes</em> provide more information about a declaration or type. There are two kinds of attributes in Swift, those that apply to declarations and those that apply to types.</p><p class="para">You specify an attribute by writing the <code class="code-voice">@</code> symbol followed by the attribute’s name and any arguments that the attribute accepts:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice">@<em class="variable-text">attribute name</em></pre></li><li><pre class="code-voice">@<em class="variable-text">attribute name</em>(<em class="variable-text">attribute arguments</em>)</pre></li>
+  </ul>
+</div><p class="para">Some declaration attributes accept arguments that specify more information about the attribute and how it applies to a particular declaration. These <em>attribute arguments</em> are enclosed in parentheses, and their format is defined by the attribute they belong to.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH35-ID348">&#x200c;</a>
+  <h3 class="section-name">Declaration Attributes</h3>
+  <p class="para">You can apply a declaration attribute to declarations only. However, you can also apply the <code class="code-voice">noreturn</code> attribute to a function or method <em>type</em>.</p><dl class="term-definition termdef">
+	<dt class="term"><code class="code-voice">autoclosure</code></dt>
+<dd class='definition'><p class="para">This attribute is used to delay the evaluation of an expression by automatically wrapping that expression in a closure with no arguments. Apply this attribute to a parameter declaration for a function or method type that takes no arguments and that returns the type of the expression. Declarations with the <code class="code-voice">autoclosure</code> attribute imply <code class="code-voice">noescape</code> as well, except when passed the optional attribute argument <code class="code-voice">escaping</code>. For an example of how to use the <code class="code-voice">autoclosure</code> attribute, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH11-ID543" href="Closures.xhtml#TP40016643-CH11-ID543">Autoclosures</a> and <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH31-ID449" href="Types.xhtml#TP40016643-CH31-ID449">Function Type</a>.</p></dd>
+<dt class="term"><code class="code-voice">available</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to any declaration to indicate the declaration’s lifecycle relative to certain platforms and operating system versions.</p><p class="para">The <code class="code-voice">available</code> attribute always appears with a list of two or more comma-separated attribute arguments. These arguments begin with one of the following platform names:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">iOS</code></p></li><li class="item"><p class="para"><code class="code-voice">iOSApplicationExtension</code></p></li><li class="item"><p class="para"><code class="code-voice">OSX</code></p></li><li class="item"><p class="para"><code class="code-voice">OSXApplicationExtension</code></p></li><li class="item"><p class="para"><code class="code-voice">watchOS</code></p></li><li class="item"><p class="para"><code class="code-voice">watchOSApplicationExtension</code></p></li><li class="item"><p class="para"><code class="code-voice">tvOS</code></p></li><li class="item"><p class="para"><code class="code-voice">tvOSApplicationExtension</code></p></li>
+</ul><p class="para">You can also use an asterisk (<code class="code-voice">*</code>) to indicate the availability of the declaration on all of the platform names listed above.</p><p class="para">The remaining arguments can appear in any order and specify additional information about the declaration’s lifecycle, including important milestones.</p><ul class="list-bullet">
+  <li class="item"><p class="para">The <code class="code-voice">unavailable</code> argument indicates that the declaration isn’t available on the specified platform.</p></li><li class="item"><p class="para">The <code class="code-voice">introduced</code> argument indicates the first version of the specified platform in which the declaration was introduced. It has the following form:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="vc">introduced</code>=<em class="variable-text">version number</em></pre></li>
+  </ul>
+</div><p class="para">The <em>version number</em> consists of one or more positive integers, separated by periods.</p></li><li class="item"><p class="para">The <code class="code-voice">deprecated</code> argument indicates the first version of the specified platform in which the declaration was deprecated. It has the following form:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="vc">deprecated</code>=<em class="variable-text">version number</em></pre></li>
+  </ul>
+</div><p class="para">The optional <em>version number</em> consists of one or more positive integers, separated by periods. Omitting the version number indicates that the declaration is currently deprecated, without giving any information about when the deprecation occurred. If you omit the version number, omit the equal sign (<code class="code-voice">=</code>) as well.</p></li><li class="item"><p class="para">The <code class="code-voice">obsoleted</code> argument indicates the first version of the specified platform in which the declaration was obsoleted. When a declaration is obsoleted, it’s removed from the specified platform and can no longer be used. It has the following form:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="vc">obsoleted</code>=<em class="variable-text">version number</em></pre></li>
+  </ul>
+</div><p class="para">The <em>version number</em> consists of one or more positive integers, separated by periods.</p></li><li class="item"><p class="para">The <code class="code-voice">message</code> argument is used to provide a textual message that’s displayed by the compiler when emitting a warning or error about the use of a deprecated or obsoleted declaration. It has the following form:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="vc">message</code>=<em class="variable-text">message</em></pre></li>
+  </ul>
+</div><p class="para">The <em>message</em> consists of a string literal.</p></li><li class="item"><p class="para">The <code class="code-voice">renamed</code> argument is used to provide a textual message that indicates the new name for a declaration that’s been renamed. The new name is displayed by the compiler when emitting an error about the use of a renamed declaration. It has the following form:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="vc">renamed</code>=<em class="variable-text">new name</em></pre></li>
+  </ul>
+</div><p class="para">The <em>new name</em> consists of a string literal.</p><p class="para">You can use the <code class="code-voice">renamed</code> argument in conjunction with the <code class="code-voice">unavailable</code> argument and a type alias declaration to indicate to clients of your code that a declaration has been renamed. For example, this is useful when the name of a declaration is changed between releases of a framework or library.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="c">// First release</code></code></li>
+            <li><code class="code-voice"><code class="kt">protocol</code> <code class="vc">MyProtocol</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// protocol definition</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+<section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="c">// Subsequent release renames MyProtocol</code></code></li>
+            <li><code class="code-voice"><code class="kt">protocol</code> <code class="vc">MyRenamedProtocol</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// protocol definition</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">@available</code>(*, <code class="vc">unavailable</code>, <code class="vc">renamed</code>=<code class="s">&quot;MyRenamedProtocol&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">typealias</code> <code class="vc">MyProtocol</code> = <code class="n"><!-- a href="" logicalPath="" -->MyRenamedProtocol<!-- /a --></code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+</li>
+</ul><p class="para">You can apply multiple <code class="code-voice">available</code> attributes on a single declaration to specify the declaration’s availability on different platforms. The compiler uses an <code class="code-voice">available</code> attribute only when the attribute specifies a platform that matches the current target platform.</p><p class="para">If an <code class="code-voice">available</code> attribute only specifies an <code class="code-voice">introduced</code> argument in addition to a platform name argument, the following shorthand syntax can be used instead:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice">@available(<em class="variable-text">platform name</em> <em class="variable-text">version number</em>, *)</pre></li>
+  </ul>
+</div><p class="para">The shorthand syntax for <code class="code-voice">available</code> attributes allows for availability for multiple platforms to be expressed concisely. Although the two forms are functionally equivalent, the shorthand form is preferred whenever possible.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">@available</code>(<code class="kt">iOS</code> <code class="m">8.0</code>, <code class="kt">OSX</code> <code class="m">10.10</code>, *)</code></li>
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">MyClass</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// class definition</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section></dd>
+
+</dl><dl class="term-definition termdef">
+	<dt class="term"><code class="code-voice">objc</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to any declaration that can be represented in Objective-C—for example, non-nested classes, protocols, nongeneric enumerations (constrained to integer raw-value types), properties and methods (including getters and setters) of classes and protocols, initializers, deinitializers, and subscripts. The <code class="code-voice">objc</code> attribute tells the compiler that a declaration is available to use in Objective-C code.</p><p class="para">Classes marked with the <code class="code-voice">objc</code> attribute must inherit from a class defined in Objective-C. If you apply the <code class="code-voice">objc</code> attribute to a class or protocol, it’s implicitly applied to the Objective-C compatible members of that class or protocol. The compiler also implicitly adds the <code class="code-voice">objc</code> attribute to a class that inherits from another class marked with the <code class="code-voice">objc</code> attribute or a class defined in Objective-C. Protocols marked with the <code class="code-voice">objc</code> attribute can’t inherit from protocols that aren’t.</p><p class="para">If you apply the <code class="code-voice">objc</code> attribute to an enumeration, each enumeration case is exposed to Objective-C code as the concatenation of the enumeration name and the case name. For example, a case named <code class="code-voice">Venus</code> in a Swift <code class="code-voice">Planet</code> enumeration is exposed to Objective-C code as a case named <code class="code-voice">PlanetVenus</code>.</p><p class="para">The <code class="code-voice">objc</code> attribute optionally accepts a single attribute argument, which consists of an identifier. Use this attribute when you want to expose a different name to Objective-C for the entity the <code class="code-voice">objc</code> attribute applies to. You can use this argument to name classes, enumerations, enumeration cases, protocols, methods, getters, setters, and initializers. The example below exposes the getter for the <code class="code-voice">enabled</code> property of the <code class="code-voice">ExampleClass</code> to Objective-C code as <code class="code-voice">isEnabled</code> rather than just as the name of the property itself.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">@objc</code></code></li>
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">ExampleClass</code>: <code class="n"><!-- a href="" logicalPath="" -->NSObject<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">enabled</code>: <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">@objc</code>(<code class="vc">isEnabled</code>) <code class="kt">get</code> {</code></li>
+            <li><code class="code-voice">            <code class="c">// Return the appropriate value</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section></dd>
+
+</dl><dl class="term-definition termdef">
+	<dt class="term"><code class="code-voice">noescape</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to a function or method declaration to indicate that a parameter will not be stored for later execution, such that it is guaranteed not to outlive the lifetime of the call. Function type parameters with the <code class="code-voice">noescape</code> declaration attribute do not require explicit use of <code class="code-voice">self.</code> for properties or methods. For an example of how to use the <code class="code-voice">noescape</code> attribute, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH11-ID546" href="Closures.xhtml#TP40016643-CH11-ID546">Nonescaping Closures</a>.</p></dd>
+<dt class="term"><code class="code-voice">nonobjc</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to a method, property, subscript, or initializer declaration to suppress an implicit <code class="code-voice">objc</code> attribute. The <code class="code-voice">nonobjc</code> attribute tells the compiler to make the declaration unavailable in Objective-C code, even though it is possible to represent it in Objective-C.</p><p class="para">You use the <code class="code-voice">nonobjc</code> attribute to resolve circularity for bridging methods in a class marked with the <code class="code-voice">objc</code> attribute, and to allow overloading of methods and initializers in a class marked with the <code class="code-voice">objc</code> attribute.</p><p class="para">A method marked with the <code class="code-voice">nonobjc</code> attribute cannot override a method marked with the <code class="code-voice">objc</code> attribute. However, a method marked with the <code class="code-voice">objc</code> attribute can override a method marked with the <code class="code-voice">nonobjc</code> attribute. Similarly, a method marked with the <code class="code-voice">nonobjc</code> attribute cannot satisfy a protocol requirement for a method marked with the <code class="code-voice">@objc</code> attribute.</p></dd>
+<dt class="term"><code class="code-voice">noreturn</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to a function or method declaration to indicate that the corresponding type of that function or method, <code class="code-voice">T</code>, is <code class="code-voice">@noreturn T</code>. You can mark a function or method type with this attribute to indicate that the function or method doesn’t return to its caller.</p><p class="para">You can override a function or method that is not marked with the <code class="code-voice">noreturn</code> attribute with a function or method that is. That said, you can’t override a function or method that is marked with the <code class="code-voice">noreturn</code> attribute with a function or method that is not. Similar rules apply when you implement a protocol method in a conforming type.</p></dd>
+<dt class="term"><code class="code-voice">NSApplicationMain</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to a class to indicate that it is the application delegate. Using this attribute is equivalent to calling the <code class="code-voice">NSApplicationMain(_:_:)</code> function and passing this class’s name as the name of the delegate class.</p><p class="para">If you do not use this attribute, supply a <code class="code-voice">main.swift</code> file with a <code class="code-voice">main()</code> function that calls the <code class="code-voice">NSApplicationMain(_:_:)</code> function. For example, if your app uses a custom subclass of <code class="code-voice">NSApplication</code> as its principal class, call the <code class="code-voice">NSApplicationMain</code> function instead of using this attribute.</p></dd>
+<dt class="term"><code class="code-voice">NSCopying</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to a stored variable property of a class. This attribute causes the property’s setter to be synthesized with a <em>copy</em> of the property’s value—returned by the <code class="code-voice">copyWithZone(_:)</code> method—instead of the value of the property itself. The type of the property must conform to the <code class="code-voice">NSCopying</code> protocol.</p><p class="para">The <code class="code-voice">NSCopying</code> attribute behaves in a way similar to the Objective-C <code class="code-voice">copy</code> property attribute.</p></dd>
+
+</dl><dl class="term-definition termdef">
+	<dt class="term"><code class="code-voice">NSManaged</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to an instance method or stored variable property of a class that inherits from <code class="code-voice">NSManagedObject</code> to indicate that Core Data dynamically provides its implementation at runtime, based on the associated entity description. For a property marked with the <code class="code-voice">NSManaged</code> attribute, Core Data also provides the storage at runtime.</p></dd>
+<dt class="term"><code class="code-voice">testable</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to <code class="code-voice">import</code> declarations for modules compiled with testing enabled to access any entities marked with the <code class="code-voice">internal</code> access level modifier as if they were declared with the <code class="code-voice">public</code> access level modifier.</p></dd>
+<dt class="term"><code class="code-voice">UIApplicationMain</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to a class to indicate that it is the application delegate. Using this attribute is equivalent to calling the <code class="code-voice">UIApplicationMain</code> function and passing this class’s name as the name of the delegate class.</p><p class="para">If you do not use this attribute, supply a <code class="code-voice">main.swift</code> file with a <code class="code-voice">main</code> function that calls the <code class="code-voice">UIApplicationMain(_:_:_:)</code> function. For example, if your app uses a custom subclass of <code class="code-voice">UIApplication</code> as its principal class, call the <code class="code-voice">UIApplicationMain(_:_:_:)</code> function instead of using this attribute.</p></dd>
+
+</dl><dl class="term-definition termdef">
+	<dt class="term"><code class="code-voice">warn_unused_result</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to a method or function declaration to have the compiler emit a warning when the method or function is called without using its result.</p><p class="para">You can use this attribute to provide a warning message about incorrect usage of a nonmutating method that has a mutating counterpart.</p><p class="para">The <code class="code-voice">warn_unused_result</code> attribute optionally accepts one of the two attribute arguments below.</p><ul class="list-bullet">
+  <li class="item"><p class="para">The <code class="code-voice">message</code> argument is used to provide a textual warning message that’s displayed when the function or method is called, but its result isn’t used. It has the following form:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="vc">message</code>=<em class="variable-text">message</em></pre></li>
+  </ul>
+</div><p class="para">The <em>message</em> consists of a string literal.</p></li><li class="item"><p class="para">The <code class="code-voice">mutable_variant</code> argument is used to provide the name of the mutating version of the method that should be used if the nonmutating method is called on a mutable value and the result isn’t used. It has the following form, where the <em>method name</em> consists of a string literal:</p>
+<span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="vc">mutable_variant</code>=<em class="variable-text">method name</em></pre></li>
+  </ul>
+</div><p class="para">For example, the Swift standard library provides both the mutating method <code class="code-voice">sortInPlace()</code> and the nonmutating method <code class="code-voice">sort()</code> to collections whose generator element conforms to the <code class="code-voice">Comparable</code> protocol. If you call the <code class="code-voice">sort()</code> method without using its result, it’s likely that you actually intended to use the mutating variant, <code class="code-voice">sortInPlace()</code> instead.</p></li>
+</ul></dd>
+
+</dl>
+  <section class="section">
+	<a id="TP40016643-CH35-ID349">&#x200c;</a>
+  <h3 class="section-name">Declaration Attributes Used by Interface Builder</h3>
+  <p class="para">Interface Builder attributes are declaration attributes used by Interface Builder to synchronize with Xcode. Swift provides the following Interface Builder attributes: <code class="code-voice">IBAction</code>, <code class="code-voice">IBDesignable</code>, <code class="code-voice">IBInspectable</code>, and <code class="code-voice">IBOutlet</code>. These attributes are conceptually the same as their Objective-C counterparts.</p><p class="para">You apply the <code class="code-voice">IBOutlet</code> and <code class="code-voice">IBInspectable</code> attributes to property declarations of a class. You apply the <code class="code-voice">IBAction</code> attribute to method declarations of a class and the <code class="code-voice">IBDesignable</code> attribute to class declarations.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH35-ID350">&#x200c;</a>
+  <h3 class="section-name">Type Attributes</h3>
+  <p class="para">You can apply type attributes to types only. However, you can also apply the <code class="code-voice">noreturn</code> attribute to a function or method <em>declaration</em>.</p><dl class="term-definition termdef">
+	<dt class="term"><code class="code-voice">convention</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to the type of a function to indicate its calling conventions.</p><p class="para">The <code class="code-voice">convention</code> attribute always appears with one of the attribute arguments below.</p><ul class="list-bullet">
+  <li class="item"><p class="para">The <code class="code-voice">swift</code> argument is used to indicate a Swift function reference. This is the standard calling convention for function values in Swift.</p></li><li class="item"><p class="para">The <code class="code-voice">block</code> argument is used to indicate an Objective-C compatible block reference. The function value is represented as a reference to the block object, which is an <code class="code-voice">id</code>-compatible Objective-C object that embeds its invocation function within the object. The invocation function uses the C calling convention.</p></li><li class="item"><p class="para">The <code class="code-voice">c</code> argument is used to indicate a C function reference. The function value carries no context and uses the C calling convention.</p></li>
+</ul><p class="para">A function with C function calling conventions can be used as a function with Objective-C block calling conventions, and a function with Objective-C block calling conventions can be used as a function with Swift function calling conventions. However, only nongeneric global functions, and local functions or closures that don’t capture any local variables, can be used as a function with C function calling conventions.</p></dd>
+<dt class="term"><code class="code-voice">noreturn</code></dt>
+<dd class='definition'><p class="para">Apply this attribute to the type of a function or method to indicate that the function or method doesn’t return to its caller. You can also mark a function or method declaration with this attribute to indicate that the corresponding type of that function or method, <code class="code-voice">T</code>, is <code class="code-voice">@noreturn T</code>.</p></dd>
+
+</dl><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an attribute
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="attribute">&#x200c;</a>
+  <span class="syntax-def-name">
+  attribute
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">@</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/attribute-name" href="Attributes.xhtml#attribute-name">attribute-name</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/attribute-argument-clause" href="Attributes.xhtml#attribute-argument-clause">attribute-argument-clause</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="attribute-name">&#x200c;</a>
+  <span class="syntax-def-name">
+  attribute-name
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/identifier" href="LexicalStructure.xhtml#identifier">identifier</a></span>
+</p><p class="syntax-def">
+  <a id="attribute-argument-clause">&#x200c;</a>
+  <span class="syntax-def-name">
+  attribute-argument-clause
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">(</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/balanced-tokens" href="Attributes.xhtml#balanced-tokens">balanced-tokens</a></span><sub class="subscript">opt</sub></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="attributes">&#x200c;</a>
+  <span class="syntax-def-name">
+  attributes
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/attribute" href="Attributes.xhtml#attribute">attribute</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/attributes" href="Attributes.xhtml#attributes">attributes</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="balanced-tokens">&#x200c;</a>
+  <span class="syntax-def-name">
+  balanced-tokens
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/balanced-token" href="Attributes.xhtml#balanced-token">balanced-token</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/balanced-tokens" href="Attributes.xhtml#balanced-tokens">balanced-tokens</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="balanced-token">&#x200c;</a>
+  <span class="syntax-def-name">
+  balanced-token
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">(</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/balanced-tokens" href="Attributes.xhtml#balanced-tokens">balanced-tokens</a></span><sub class="subscript">opt</sub></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH35-NoLink_770">&#x200c;</a>
+  <span class="syntax-def-name">
+  balanced-token
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">[</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/balanced-tokens" href="Attributes.xhtml#balanced-tokens">balanced-tokens</a></span><sub class="subscript">opt</sub></span><code class="literal">]</code>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH35-NoLink_771">&#x200c;</a>
+  <span class="syntax-def-name">
+  balanced-token
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">{</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/balanced-tokens" href="Attributes.xhtml#balanced-tokens">balanced-tokens</a></span><sub class="subscript">opt</sub></span><code class="literal">}</code>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH35-NoLink_772">&#x200c;</a>
+  <span class="syntax-def-name">
+  balanced-token
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Any identifier, keyword, literal, or operator</span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH35-NoLink_773">&#x200c;</a>
+  <span class="syntax-def-name">
+  balanced-token
+</span>
+<span class="arrow">
+  →
+</span><span class="text-description">Any punctuation except <code class="literal">(</code>, <code class="literal">)</code>, <code class="literal">[</code>, <code class="literal">]</code>, <code class="literal">{</code>, or <code class="literal">}</code></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH42">&#x200c;</a><a id="TP40016643-CH42-ID508">&#x200c;</a>
+    <h2 class="chapter-name">Error Handling</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Error handling</em> is the process of responding to and recovering from error conditions in your program. Swift provides first-class support for throwing, catching, propagating, and manipulating recoverable errors at runtime.</p><p class="para">Some operations aren’t guaranteed to always complete execution or produce a useful output. Optionals are used to represent the absence of a value, but when an operation fails, it’s often useful to understand what caused the failure, so that your code can respond accordingly.</p><p class="para">As an example, consider the task of reading and processing data from a file on disk. There are a number of ways this task can fail, including the file not existing at the specified path, the file not having read permissions, or the file not being encoded in a compatible format. Distinguishing among these different situations allows a program to resolve some errors and to communicate to the user any errors it can’t resolve.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Error handling in Swift interoperates with error handling patterns that use the <code class="code-voice">NSError</code> class in Cocoa and Objective-C. For more information about this class, see <!-- a href="" logicalPath="//apple_ref/doc/uid/TP40014216-CH7-ID10" target="_self" -->Error Handling<!-- /a --> in <em class="u-book"><!-- a href="" target="_self" logicalPath="//apple_ref/doc/uid/TP40014216" -->Using Swift with Cocoa and Objective-C (Swift 2.2)<!-- /a --></em>.
+    	</p>
+    
+  </aside>
+</div>
+
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH42-ID509">&#x200c;</a>
+  <h3 class="section-name">Representing and Throwing Errors</h3>
+  <p class="para">In Swift, errors are represented by values of types that conform to the <code class="code-voice">ErrorType</code> protocol. This empty protocol indicates that a type can be used for error handling.</p><p class="para">Swift enumerations are particularly well suited to modeling a group of related error conditions, with associated values allowing for additional information about the nature of an error to be communicated. For example, here’s how you might represent the error conditions of operating a vending machine inside a game:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">VendingMachineError</code>: <code class="n"><!-- a href="" logicalPath="" -->ErrorType<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">InvalidSelection</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">InsufficientFunds</code>(<code class="vc">coinsNeeded</code>: <code class="vc">Int</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">OutOfStock</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Throwing an error lets you indicate that something unexpected happened and the normal flow of execution can’t continue. You use a <code class="code-voice">throw</code> statement to throw an error. For example, the following code throws an error to indicate that five additional coins are needed by the vending machine:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">throw</code> <code class="vc">VendingMachineError</code>.<code class="vc">InsufficientFunds</code>(<code class="vc">coinsNeeded</code>: <code class="m">5</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH42-ID512">&#x200c;</a>
+  <h3 class="section-name">Handling Errors</h3>
+  <p class="para">When an error is thrown, some surrounding piece of code must be responsible for handling the error—for example, by correcting the problem, trying an alternative approach, or informing the user of the failure.</p><p class="para">There are four ways to handle errors in Swift. You can propagate the error from a function to the code that calls that function, handle the error using a <code class="code-voice">do</code>-<code class="code-voice">catch</code> statement, handle the error as an optional value, or assert that the error will not occur. Each approach is described in a section below.</p><p class="para">When a function throws an error, it changes the flow of your program, so it’s important that you can quickly identify places in your code that can throw errors. To identify these places in your code, write the <code class="code-voice">try</code> keyword—or the <code class="code-voice">try?</code> or <code class="code-voice">try!</code> variation—before a piece of code that calls a function, method, or initializer that can throw an error. These keywords are described in the sections below.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Error handling in Swift resembles exception handling in other languages, with the use of the <code class="code-voice">try</code>, <code class="code-voice">catch</code> and <code class="code-voice">throw</code> keywords. Unlike exception handling in many languages—including Objective-C—error handling in Swift does not involve unwinding the call stack, a process that can be computationally expensive. As such, the performance characteristics of a <code class="code-voice">throw</code> statement are comparable to those of a <code class="code-voice">return</code> statement.
+    	</p>
+    
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40016643-CH42-ID510">&#x200c;</a>
+  <h3 class="section-name">Propagating Errors Using Throwing Functions</h3>
+  <p class="para">To indicate that a function, method, or initializer can throw an error, you write the <code class="code-voice">throws</code> keyword in the function’s declaration after its parameters. A function marked with <code class="code-voice">throws</code> is called a <em>throwing function</em>. If the function specifies a return type, you write the <code class="code-voice">throws</code> keyword before the return arrow (<code class="code-voice">-&gt;</code>).</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">canThrowErrors</code>() <code class="kt">throws</code> -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">cannotThrowErrors</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">A throwing function propagates errors that are thrown inside of it to the scope from which it’s called.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Only throwing functions can propagate errors. Any errors thrown inside a nonthrowing function must be handled inside the function.
+    	</p>
+    
+  </aside>
+</div><p class="para">In the example below, the <code class="code-voice">VendingMachine</code> class has a <code class="code-voice">vend(itemNamed:)</code> method that throws an appropriate <code class="code-voice">VendingMachineError</code> if the requested item is not available, is out of stock, or has a cost that exceeds the current deposited amount:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Item</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">price</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">count</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">VendingMachine</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">inventory</code> = [</code></li>
+            <li><code class="code-voice">        <code class="s">&quot;Candy Bar&quot;</code>: <code class="vc">Item</code>(<code class="vc">price</code>: <code class="m">12</code>, <code class="vc">count</code>: <code class="m">7</code>),</code></li>
+            <li><code class="code-voice">        <code class="s">&quot;Chips&quot;</code>: <code class="vc">Item</code>(<code class="vc">price</code>: <code class="m">10</code>, <code class="vc">count</code>: <code class="m">4</code>),</code></li>
+            <li><code class="code-voice">        <code class="s">&quot;Pretzels&quot;</code>: <code class="vc">Item</code>(<code class="vc">price</code>: <code class="m">7</code>, <code class="vc">count</code>: <code class="m">11</code>)</code></li>
+            <li><code class="code-voice">    ]</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">coinsDeposited</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice">    <code class="kt">func</code> <code class="vc">dispenseSnack</code>(<code class="vc">snack</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;Dispensing </code>\(<code class="vc">snack</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="kt">func</code> <code class="vc">vend</code>(<code class="vc">itemNamed</code> <code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) <code class="kt">throws</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">guard</code> <code class="kt">let</code> <code class="vc">item</code> = <code class="vc">inventory</code>[<code class="vc">name</code>] <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">throw</code> <code class="vc">VendingMachineError</code>.<code class="vc">InvalidSelection</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        </code></li>
+            <li><code class="code-voice">        <code class="kt">guard</code> <code class="vc">item</code>.<code class="vc">count</code> &gt; <code class="m">0</code> <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">throw</code> <code class="vc">VendingMachineError</code>.<code class="vc">OutOfStock</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        </code></li>
+            <li><code class="code-voice">        <code class="kt">guard</code> <code class="vc">item</code>.<code class="vc">price</code> &lt;= <code class="vc">coinsDeposited</code> <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">throw</code> <code class="vc">VendingMachineError</code>.<code class="vc">InsufficientFunds</code>(<code class="vc">coinsNeeded</code>: <code class="vc">item</code>.<code class="vc">price</code> - <code class="vc">coinsDeposited</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        </code></li>
+            <li><code class="code-voice">        <code class="vc">coinsDeposited</code> -= <code class="vc">item</code>.<code class="vc">price</code></code></li>
+            <li><code class="code-voice">        </code></li>
+            <li><code class="code-voice">        <code class="kt">var</code> <code class="vc">newItem</code> = <code class="vc">item</code></code></li>
+            <li><code class="code-voice">        <code class="vc">newItem</code>.<code class="vc">count</code> -= <code class="m">1</code></code></li>
+            <li><code class="code-voice">        <code class="vc">inventory</code>[<code class="vc">name</code>] = <code class="vc">newItem</code></code></li>
+            <li><code class="code-voice">        </code></li>
+            <li><code class="code-voice">        <code class="vc">dispenseSnack</code>(<code class="vc">name</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The implementation of the <code class="code-voice">vend(itemNamed:)</code> method uses <code class="code-voice">guard</code> statements to exit the method early and throw appropriate errors if any of the requirements for purchasing a snack aren’t met. Because a <code class="code-voice">throw</code> statement immediately transfers program control, an item will be vended only if all of these requirements are met.</p><p class="para">Because the <code class="code-voice">vend(itemNamed:)</code> method propagates any errors it throws, any code that calls this method must either handle the errors—using a <code class="code-voice">do</code>-<code class="code-voice">catch</code> statement, <code class="code-voice">try?</code>, or <code class="code-voice">try!</code>—or continue to propagate them. For example, the <code class="code-voice">buyFavoriteSnack(_:vendingMachine:)</code> in the example below is also a throwing function, and any errors that the <code class="code-voice">vend(itemNamed:)</code> method throws will propagate up to the point where the <code class="code-voice">buyFavoriteSnack(_:vendingMachine:)</code> function is called.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">favoriteSnacks</code> = [</code></li>
+            <li><code class="code-voice">    <code class="s">&quot;Alice&quot;</code>: <code class="s">&quot;Chips&quot;</code>,</code></li>
+            <li><code class="code-voice">    <code class="s">&quot;Bob&quot;</code>: <code class="s">&quot;Licorice&quot;</code>,</code></li>
+            <li><code class="code-voice">    <code class="s">&quot;Eve&quot;</code>: <code class="s">&quot;Pretzels&quot;</code>,</code></li>
+            <li><code class="code-voice">]</code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">buyFavoriteSnack</code>(<code class="vc">person</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">vendingMachine</code>: <code class="n"><!-- a href="" logicalPath="" -->VendingMachine<!-- /a --></code>) <code class="kt">throws</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">snackName</code> = <code class="vc">favoriteSnacks</code>[<code class="vc">person</code>] ?? <code class="s">&quot;Candy Bar&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">try</code> <code class="vc">vendingMachine</code>.<code class="vc">vend</code>(<code class="vc">itemNamed</code>: <code class="vc">snackName</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In this example, the <code class="code-voice">buyFavoriteSnack(_:vendingMachine:)</code> function looks up a given person’s favorite snack and tries to buy it for them by calling the <code class="code-voice">vend(itemNamed:)</code> method. Because the <code class="code-voice">vend(itemNamed:)</code> method can throw an error, it’s called with the <code class="code-voice">try</code> keyword in front of it.</p><p class="para">Throwing initializers can propagate errors in the same way as throwing functions. For example, the initializer for the <code class="code-voice">PurchasedSnack</code> structure in the listing below calls a throwing function as part of the initialization process, and it handles any errors that it encounters by propagating them to its caller.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">PurchasedSnack</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">init</code>(<code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">vendingMachine</code>: <code class="n"><!-- a href="" logicalPath="" -->VendingMachine<!-- /a --></code>) <code class="kt">throws</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">try</code> <code class="vc">vendingMachine</code>.<code class="vc">vend</code>(<code class="vc">itemNamed</code>: <code class="vc">name</code>)</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code>.<code class="vc">name</code> = <code class="vc">name</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH42-ID541">&#x200c;</a>
+  <h3 class="section-name">Handling Errors Using Do-Catch</h3>
+  <p class="para">You use a <code class="code-voice">do</code>-<code class="code-voice">catch</code> statement to handle errors by running a block of code. If an error is thrown by the code in the <code class="code-voice">do</code> clause, it is matched against the <code class="code-voice">catch</code> clauses to determine which one of them can handle the error.</p><p class="para">Here is the general form of a <code class="code-voice">do</code>-<code class="code-voice">catch</code> statement:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">do</code> {</pre></li><li><pre class="code-voice">    <code class="kt">try</code> <em class="variable-text">expression</em></pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">} <code class="kt">catch</code> <em class="variable-text">pattern 1</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">} <code class="kt">catch</code> <em class="variable-text">pattern 2</em> <code class="kt">where</code> <em class="variable-text">condition</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">You write a pattern after <code class="code-voice">catch</code> to indicate what errors that clause can handle. If a <code class="code-voice">catch</code> clause doesn’t have a pattern, the clause matches any error and binds the error to a local constant named <code class="code-voice">error</code>. For more information about pattern matching, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH36-ID419" href="Patterns.xhtml">Patterns</a>.</p><p class="para">The <code class="code-voice">catch</code> clauses don’t have to handle every possible error that the code in its <code class="code-voice">do</code> clause can throw. If none of the <code class="code-voice">catch</code> clauses handle the error, the error propagates to the surrounding scope. However, the error must be handled by <em>some</em> surrounding scope—either by an enclosing <code class="code-voice">do</code>-<code class="code-voice">catch</code> clause that handles the error or by being inside a throwing function. For example, the following code handles all three cases of the <code class="code-voice">VendingMachineError</code> enumeration, but all other errors have to be handled by its surrounding scope:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">vendingMachine</code> = <code class="vc">VendingMachine</code>()</code></li>
+            <li><code class="code-voice"><code class="vc">vendingMachine</code>.<code class="vc">coinsDeposited</code> = <code class="m">8</code></code></li>
+            <li><code class="code-voice"><code class="kt">do</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">try</code> <code class="vc">buyFavoriteSnack</code>(<code class="s">&quot;Alice&quot;</code>, <code class="vc">vendingMachine</code>: <code class="vc">vendingMachine</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">catch</code> <code class="vc">VendingMachineError</code>.<code class="vc">InvalidSelection</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Invalid Selection.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">catch</code> <code class="vc">VendingMachineError</code>.<code class="vc">OutOfStock</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Out of Stock.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">catch</code> <code class="vc">VendingMachineError</code>.<code class="vc">InsufficientFunds</code>(<code class="kt">let</code> <code class="vc">coinsNeeded</code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Insufficient funds. Please insert an additional </code>\(<code class="vc">coinsNeeded</code>)<code class="s"> coins.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Insufficient funds. Please insert an additional 2 coins.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In the above example, the <code class="code-voice">buyFavoriteSnack(_:vendingMachine:)</code> function is called in a <code class="code-voice">try</code> expression, because it can throw an error. If an error is thrown, execution immediately transfers to the <code class="code-voice">catch</code> clauses, which decide whether to allow propagation to continue. If no error is thrown, the remaining statements in the <code class="code-voice">do</code> statement are executed.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH42-ID542">&#x200c;</a>
+  <h3 class="section-name">Converting Errors to Optional Values</h3>
+  <p class="para">You use <code class="code-voice">try?</code> to handle an error by converting it to an optional value. If an error is thrown while evaluating the <code class="code-voice">try?</code> expression, the value of the expression is <code class="code-voice">nil</code>. For example, in the following code <code class="code-voice">x</code> and <code class="code-voice">y</code> have the same value and behavior:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">someThrowingFunction</code>() <code class="kt">throws</code> -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// ...</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">x</code> = <code class="kt">try</code>? <code class="vc">someThrowingFunction</code>()</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">y</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>?</code></li>
+            <li><code class="code-voice"><code class="kt">do</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">y</code> = <code class="kt">try</code> <code class="vc">someThrowingFunction</code>()</code></li>
+            <li><code class="code-voice">} <code class="kt">catch</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">y</code> = <code class="kt">nil</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If <code class="code-voice">someThrowingFunction()</code> throws an error, the value of <code class="code-voice">x</code> and <code class="code-voice">y</code> is <code class="code-voice">nil</code>. Otherwise, the value of <code class="code-voice">x</code> and <code class="code-voice">y</code> is the value that the function returned. Note that <code class="code-voice">x</code> and <code class="code-voice">y</code> are an optional of whatever type <code class="code-voice">someThrowingFunction()</code> returns. Here the function returns an integer, so <code class="code-voice">x</code> and <code class="code-voice">y</code> are optional integers.</p><p class="para">Using <code class="code-voice">try?</code> lets you write concise error handling code when you want to handle all errors in the same way. For example, the following code uses several approaches to fetch data, or returns <code class="code-voice">nil</code> if all of the approaches fail.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">fetchData</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Data<!-- /a --></code>? {</code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="kt">let</code> <code class="vc">data</code> = <code class="kt">try</code>? <code class="vc">fetchDataFromDisk</code>() { <code class="kt">return</code> <code class="vc">data</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="kt">let</code> <code class="vc">data</code> = <code class="kt">try</code>? <code class="vc">fetchDataFromServer</code>() { <code class="kt">return</code> <code class="vc">data</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="kt">nil</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH42-ID513">&#x200c;</a>
+  <h3 class="section-name">Disabling Error Propagation</h3>
+  <p class="para">Sometimes you know a throwing function or method won’t, in fact, throw an error at runtime. On those occasions, you can write <code class="code-voice">try!</code> before the expression to disable error propagation and wrap the call in a runtime assertion that no error will be thrown. If an error actually is thrown, you’ll get a runtime error.</p><p class="para">For example, the following code uses a <code class="code-voice">loadImage(_:)</code> function, which loads the image resource at a given path or throws an error if the image can’t be loaded. In this case, because the image is shipped with the application, no error will be thrown at runtime, so it is appropriate to disable error propagation.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">photo</code> = <code class="kt">try</code>! <code class="vc">loadImage</code>(<code class="s">&quot;./Resources/John Appleseed.jpg&quot;</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH42-ID514">&#x200c;</a>
+  <h3 class="section-name">Specifying Cleanup Actions</h3>
+  <p class="para">You use a <code class="code-voice">defer</code> statement to execute a set of statements just before code execution leaves the current block of code. This statement lets you do any necessary cleanup that should be performed regardless of <em>how</em> execution leaves the current block of code—whether it leaves because an error was thrown or because of a statement such as <code class="code-voice">return</code> or <code class="code-voice">break</code>. For example, you can use a <code class="code-voice">defer</code> statement to ensure that file descriptors are closed and manually allocated memory is freed.</p><p class="para">A <code class="code-voice">defer</code> statement defers execution until the current scope is exited. This statement consists of the <code class="code-voice">defer</code> keyword and the statements to be executed later. The deferred statements may not contain any code that would transfer control out of the statements, such as a <code class="code-voice">break</code> or a <code class="code-voice">return</code> statement, or by throwing an error. Deferred actions are executed in reverse order of how they are specified—that is, the code in the first <code class="code-voice">defer</code> statement executes after code in the second, and so on.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">processFile</code>(<code class="vc">filename</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) <code class="kt">throws</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="vc">exists</code>(<code class="vc">filename</code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">let</code> <code class="vc">file</code> = <code class="vc">open</code>(<code class="vc">filename</code>)</code></li>
+            <li><code class="code-voice">        <code class="kt">defer</code> {</code></li>
+            <li><code class="code-voice">            <code class="vc">close</code>(<code class="vc">file</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="kt">while</code> <code class="kt">let</code> <code class="vc">line</code> = <code class="kt">try</code> <code class="vc">file</code>.<code class="vc">readline</code>() {</code></li>
+            <li><code class="code-voice">            <code class="c">// Work with the file.</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="c">// close(file) is called here, at the end of the scope.</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The above example uses a <code class="code-voice">defer</code> statement to ensure that the <code class="code-voice">open(_:)</code> function has a corresponding call to <code class="code-voice">close(_:)</code>.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">You can use a <code class="code-voice">defer</code> statement even when no error handling code is involved.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

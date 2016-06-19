@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH22">&#x200c;</a><a id="TP40016643-CH22-ID338">&#x200c;</a>
+    <h2 class="chapter-name">Type Casting</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Type casting</em> is a way to check the type of an instance, or to treat that instance as a different superclass or subclass from somewhere else in its own class hierarchy.</p><p class="para">Type casting in Swift is implemented with the <code class="code-voice">is</code> and <code class="code-voice">as</code> operators. These two operators provide a simple and expressive way to check the type of a value or cast a value to a different type.</p><p class="para">You can also use type casting to check whether a type conforms to a protocol, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH25-ID283" href="Protocols.xhtml#TP40016643-CH25-ID283">Checking for Protocol Conformance</a>.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH22-ID339">&#x200c;</a>
+  <h3 class="section-name">Defining a Class Hierarchy for Type Casting</h3>
+  <p class="para">You can use type casting with a hierarchy of classes and subclasses to check the type of a particular class instance and to cast that instance to another class within the same hierarchy. The three code snippets below define a hierarchy of classes and an array containing instances of those classes, for use in an example of type casting.</p><p class="para">The first snippet defines a new base class called <code class="code-voice">MediaItem</code>. This class provides basic functionality for any kind of item that appears in a digital media library. Specifically, it declares a <code class="code-voice">name</code> property of type <code class="code-voice">String</code>, and an <code class="code-voice">init name</code> initializer. (It is assumed that all media items, including all movies and songs, will have a name.)</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">MediaItem</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">init</code>(<code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code>.<code class="vc">name</code> = <code class="vc">name</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The next snippet defines two subclasses of <code class="code-voice">MediaItem</code>. The first subclass, <code class="code-voice">Movie</code>, encapsulates additional information about a movie or film. It adds a <code class="code-voice">director</code> property on top of the base <code class="code-voice">MediaItem</code> class, with a corresponding initializer. The second subclass, <code class="code-voice">Song</code>, adds an <code class="code-voice">artist</code> property and initializer on top of the base class:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">Movie</code>: <code class="n"><!-- a href="" logicalPath="" -->MediaItem<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">director</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">init</code>(<code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">director</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code>.<code class="vc">director</code> = <code class="vc">director</code></code></li>
+            <li><code class="code-voice">        <code class="kt">super</code>.<code class="kt">init</code>(<code class="vc">name</code>: <code class="vc">name</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">Song</code>: <code class="n"><!-- a href="" logicalPath="" -->MediaItem<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">artist</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">init</code>(<code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">artist</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code>.<code class="vc">artist</code> = <code class="vc">artist</code></code></li>
+            <li><code class="code-voice">        <code class="kt">super</code>.<code class="kt">init</code>(<code class="vc">name</code>: <code class="vc">name</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The final snippet creates a constant array called <code class="code-voice">library</code>, which contains two <code class="code-voice">Movie</code> instances and three <code class="code-voice">Song</code> instances. The type of the <code class="code-voice">library</code> array is inferred by initializing it with the contents of an array literal. Swift’s type checker is able to deduce that <code class="code-voice">Movie</code> and <code class="code-voice">Song</code> have a common superclass of <code class="code-voice">MediaItem</code>, and so it infers a type of <code class="code-voice">[MediaItem]</code> for the <code class="code-voice">library</code> array:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">library</code> = [</code></li>
+            <li><code class="code-voice">    <code class="vc">Movie</code>(<code class="vc">name</code>: <code class="s">&quot;Casablanca&quot;</code>, <code class="vc">director</code>: <code class="s">&quot;Michael Curtiz&quot;</code>),</code></li>
+            <li><code class="code-voice">    <code class="vc">Song</code>(<code class="vc">name</code>: <code class="s">&quot;Blue Suede Shoes&quot;</code>, <code class="vc">artist</code>: <code class="s">&quot;Elvis Presley&quot;</code>),</code></li>
+            <li><code class="code-voice">    <code class="vc">Movie</code>(<code class="vc">name</code>: <code class="s">&quot;Citizen Kane&quot;</code>, <code class="vc">director</code>: <code class="s">&quot;Orson Welles&quot;</code>),</code></li>
+            <li><code class="code-voice">    <code class="vc">Song</code>(<code class="vc">name</code>: <code class="s">&quot;The One And Only&quot;</code>, <code class="vc">artist</code>: <code class="s">&quot;Chesney Hawkes&quot;</code>),</code></li>
+            <li><code class="code-voice">    <code class="vc">Song</code>(<code class="vc">name</code>: <code class="s">&quot;Never Gonna Give You Up&quot;</code>, <code class="vc">artist</code>: <code class="s">&quot;Rick Astley&quot;</code>)</code></li>
+            <li><code class="code-voice">]</code></li>
+            <li><code class="code-voice"><code class="c">// the type of &quot;library&quot; is inferred to be [MediaItem]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The items stored in <code class="code-voice">library</code> are still <code class="code-voice">Movie</code> and <code class="code-voice">Song</code> instances behind the scenes. However, if you iterate over the contents of this array, the items you receive back are typed as <code class="code-voice">MediaItem</code>, and not as <code class="code-voice">Movie</code> or <code class="code-voice">Song</code>. In order to work with them as their native type, you need to <em>check</em> their type, or <em>downcast</em> them to a different type, as described below.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH22-ID340">&#x200c;</a>
+  <h3 class="section-name">Checking Type</h3>
+  <p class="para">Use the <em>type check operator</em> (<code class="code-voice">is</code>) to check whether an instance is of a certain subclass type. The type check operator returns <code class="code-voice">true</code> if the instance is of that subclass type and <code class="code-voice">false</code> if it is not.</p><p class="para">The example below defines two variables, <code class="code-voice">movieCount</code> and <code class="code-voice">songCount</code>, which count the number of <code class="code-voice">Movie</code> and <code class="code-voice">Song</code> instances in the <code class="code-voice">library</code> array:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">movieCount</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">songCount</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">item</code> <code class="kt">in</code> <code class="vc">library</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="vc">item</code> <code class="kt">is</code> <code class="n"><!-- a href="" logicalPath="" -->Movie<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="vc">movieCount</code> += <code class="m">1</code></code></li>
+            <li><code class="code-voice">    } <code class="kt">else</code> <code class="kt">if</code> <code class="vc">item</code> <code class="kt">is</code> <code class="n"><!-- a href="" logicalPath="" -->Song<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="vc">songCount</code> += <code class="m">1</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;Media library contains </code>\(<code class="vc">movieCount</code>)<code class="s"> movies and </code>\(<code class="vc">songCount</code>)<code class="s"> songs&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Media library contains 2 movies and 3 songs&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example iterates through all items in the <code class="code-voice">library</code> array. On each pass, the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop sets the <code class="code-voice">item</code> constant to the next <code class="code-voice">MediaItem</code> in the array.</p><p class="para"><code class="code-voice">item is Movie</code> returns <code class="code-voice">true</code> if the current <code class="code-voice">MediaItem</code> is a <code class="code-voice">Movie</code> instance and <code class="code-voice">false</code> if it is not. Similarly, <code class="code-voice">item is Song</code> checks whether the item is a <code class="code-voice">Song</code> instance. At the end of the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop, the values of <code class="code-voice">movieCount</code> and <code class="code-voice">songCount</code> contain a count of how many <code class="code-voice">MediaItem</code> instances were found of each type.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH22-ID341">&#x200c;</a>
+  <h3 class="section-name">Downcasting</h3>
+  <p class="para">A constant or variable of a certain class type may actually refer to an instance of a subclass behind the scenes. Where you believe this is the case, you can try to <em>downcast</em> to the subclass type with a <em>type cast operator</em> (<code class="code-voice">as?</code> or <code class="code-voice">as!</code>).</p><p class="para">Because downcasting can fail, the type cast operator comes in two different forms. The conditional form, <code class="code-voice">as?</code>, returns an optional value of the type you are trying to downcast to. The forced form, <code class="code-voice">as!</code>, attempts the downcast and force-unwraps the result as a single compound action.</p><p class="para">Use the conditional form of the type cast operator (<code class="code-voice">as?</code>) when you are not sure if the downcast will succeed. This form of the operator will always return an optional value, and the value will be <code class="code-voice">nil</code> if the downcast was not possible. This enables you to check for a successful downcast.</p><p class="para">Use the forced form of the type cast operator (<code class="code-voice">as!</code>) only when you are sure that the downcast will always succeed. This form of the operator will trigger a runtime error if you try to downcast to an incorrect class type.</p><p class="para">The example below iterates over each <code class="code-voice">MediaItem</code> in <code class="code-voice">library</code>, and prints an appropriate description for each item. To do this, it needs to access each item as a true <code class="code-voice">Movie</code> or <code class="code-voice">Song</code>, and not just as a <code class="code-voice">MediaItem</code>. This is necessary in order for it to be able to access the <code class="code-voice">director</code> or <code class="code-voice">artist</code> property of a <code class="code-voice">Movie</code> or <code class="code-voice">Song</code> for use in the description.</p><p class="para">In this example, each item in the array might be a <code class="code-voice">Movie</code>, or it might be a <code class="code-voice">Song</code>. You don’t know in advance which actual class to use for each item, and so it is appropriate to use the conditional form of the type cast operator (<code class="code-voice">as?</code>) to check the downcast each time through the loop:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">item</code> <code class="kt">in</code> <code class="vc">library</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="kt">let</code> <code class="vc">movie</code> = <code class="vc">item</code> <code class="kt">as</code>? <code class="n"><!-- a href="" logicalPath="" -->Movie<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;Movie: </code>\(<code class="vc">movie</code>.<code class="vc">name</code>)<code class="s">, dir. </code>\(<code class="vc">movie</code>.<code class="vc">director</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">    } <code class="kt">else</code> <code class="kt">if</code> <code class="kt">let</code> <code class="vc">song</code> = <code class="vc">item</code> <code class="kt">as</code>? <code class="n"><!-- a href="" logicalPath="" -->Song<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;Song: </code>\(<code class="vc">song</code>.<code class="vc">name</code>)<code class="s">, by </code>\(<code class="vc">song</code>.<code class="vc">artist</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="c">// Movie: Casablanca, dir. Michael Curtiz</code></code></li>
+            <li><code class="code-voice"><code class="c">// Song: Blue Suede Shoes, by Elvis Presley</code></code></li>
+            <li><code class="code-voice"><code class="c">// Movie: Citizen Kane, dir. Orson Welles</code></code></li>
+            <li><code class="code-voice"><code class="c">// Song: The One And Only, by Chesney Hawkes</code></code></li>
+            <li><code class="code-voice"><code class="c">// Song: Never Gonna Give You Up, by Rick Astley</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The example starts by trying to downcast the current <code class="code-voice">item</code> as a <code class="code-voice">Movie</code>. Because <code class="code-voice">item</code> is a <code class="code-voice">MediaItem</code> instance, it’s possible that it <em>might</em> be a <code class="code-voice">Movie</code>; equally, it’s also possible that it might be a <code class="code-voice">Song</code>, or even just a base <code class="code-voice">MediaItem</code>. Because of this uncertainty, the <code class="code-voice">as?</code> form of the type cast operator returns an <em>optional</em> value when attempting to downcast to a subclass type. The result of <code class="code-voice">item as? Movie</code> is of type <code class="code-voice">Movie?</code>, or “optional <code class="code-voice">Movie</code>”.</p><p class="para">Downcasting to <code class="code-voice">Movie</code> fails when applied to the <code class="code-voice">Song</code> instances in the library array. To cope with this, the example above uses optional binding to check whether the optional <code class="code-voice">Movie</code> actually contains a value (that is, to find out whether the downcast succeeded.) This optional binding is written “<code class="code-voice">if let movie = item as? Movie</code>”, which can be read as:</p><p class="para">“Try to access <code class="code-voice">item</code> as a <code class="code-voice">Movie</code>. If this is successful, set a new temporary constant called <code class="code-voice">movie</code> to the value stored in the returned optional <code class="code-voice">Movie</code>.”</p><p class="para">If the downcasting succeeds, the properties of <code class="code-voice">movie</code> are then used to print a description for that <code class="code-voice">Movie</code> instance, including the name of its <code class="code-voice">director</code>. A similar principle is used to check for <code class="code-voice">Song</code> instances, and to print an appropriate description (including <code class="code-voice">artist</code> name) whenever a <code class="code-voice">Song</code> is found in the library.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Casting does not actually modify the instance or change its values. The underlying instance remains the same; it is simply treated and accessed as an instance of the type to which it has been cast.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH22-ID342">&#x200c;</a>
+  <h3 class="section-name">Type Casting for Any and AnyObject</h3>
+  <p class="para">Swift provides two special type aliases for working with non-specific types:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">AnyObject</code> can represent an instance of any class type.</p></li><li class="item"><p class="para"><code class="code-voice">Any</code> can represent an instance of any type at all, including function types.</p></li>
+</ul><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Use <code class="code-voice">Any</code> and <code class="code-voice">AnyObject</code> only when you explicitly need the behavior and capabilities they provide. It is always better to be specific about the types you expect to work with in your code.
+    	</p>
+    
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40016643-CH22-ID343">&#x200c;</a>
+  <h3 class="section-name">AnyObject</h3>
+  <p class="para">When working with Cocoa APIs, sometimes you receive an array with a type of <code class="code-voice">[AnyObject]</code>, or “an array of values of any object type”. Objective-C currently supports explicitly typed arrays, but older versions of the language did not have this feature. However, you can often be confident about the type of objects contained in such an array just from the information you know about the API that provided the array.</p><p class="para">In these situations, you can use the forced version of the type cast operator (<code class="code-voice">as!</code>) to downcast each item in the array to a more specific class type than <code class="code-voice">AnyObject</code>, without the need for optional unwrapping.</p><p class="para">The example below defines an array of type <code class="code-voice">[AnyObject]</code> and populates this array with three instances of the <code class="code-voice">Movie</code> class:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">someObjects</code>: [<code class="n"><!-- a href="" logicalPath="" -->AnyObject<!-- /a --></code>] = [</code></li>
+            <li><code class="code-voice">    <code class="vc">Movie</code>(<code class="vc">name</code>: <code class="s">&quot;2001: A Space Odyssey&quot;</code>, <code class="vc">director</code>: <code class="s">&quot;Stanley Kubrick&quot;</code>),</code></li>
+            <li><code class="code-voice">    <code class="vc">Movie</code>(<code class="vc">name</code>: <code class="s">&quot;Moon&quot;</code>, <code class="vc">director</code>: <code class="s">&quot;Duncan Jones&quot;</code>),</code></li>
+            <li><code class="code-voice">    <code class="vc">Movie</code>(<code class="vc">name</code>: <code class="s">&quot;Alien&quot;</code>, <code class="vc">director</code>: <code class="s">&quot;Ridley Scott&quot;</code>)</code></li>
+            <li><code class="code-voice">]</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Because this array is known to contain only <code class="code-voice">Movie</code> instances, you can downcast and unwrap directly to a nonoptional <code class="code-voice">Movie</code> with the forced version of the type cast operator (<code class="code-voice">as!</code>):</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">object</code> <code class="kt">in</code> <code class="vc">someObjects</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">movie</code> = <code class="vc">object</code> <code class="kt">as</code>! <code class="n"><!-- a href="" logicalPath="" -->Movie<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Movie: </code>\(<code class="vc">movie</code>.<code class="vc">name</code>)<code class="s">, dir. </code>\(<code class="vc">movie</code>.<code class="vc">director</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Movie: 2001: A Space Odyssey, dir. Stanley Kubrick</code></code></li>
+            <li><code class="code-voice"><code class="c">// Movie: Moon, dir. Duncan Jones</code></code></li>
+            <li><code class="code-voice"><code class="c">// Movie: Alien, dir. Ridley Scott</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">For an even shorter form of this loop, downcast the <code class="code-voice">someObjects</code> array to a type of <code class="code-voice">[Movie]</code> instead of downcasting each item:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">movie</code> <code class="kt">in</code> <code class="vc">someObjects</code> <code class="kt">as</code>! [<code class="n"><!-- a href="" logicalPath="" -->Movie<!-- /a --></code>] {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Movie: </code>\(<code class="vc">movie</code>.<code class="vc">name</code>)<code class="s">, dir. </code>\(<code class="vc">movie</code>.<code class="vc">director</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Movie: 2001: A Space Odyssey, dir. Stanley Kubrick</code></code></li>
+            <li><code class="code-voice"><code class="c">// Movie: Moon, dir. Duncan Jones</code></code></li>
+            <li><code class="code-voice"><code class="c">// Movie: Alien, dir. Ridley Scott</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH22-ID344">&#x200c;</a>
+  <h3 class="section-name">Any</h3>
+  <p class="para">Here’s an example of using <code class="code-voice">Any</code> to work with a mix of different types, including function types and non-class types. The example creates an array called <code class="code-voice">things</code>, which can store values of type <code class="code-voice">Any</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">things</code> = [<code class="vc">Any</code>]()</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>(<code class="m">0</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>(<code class="m">0.0</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>(<code class="m">42</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>(<code class="m">3.14159</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>(<code class="s">&quot;hello&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>((<code class="m">3.0</code>, <code class="m">5.0</code>))</code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>(<code class="vc">Movie</code>(<code class="vc">name</code>: <code class="s">&quot;Ghostbusters&quot;</code>, <code class="vc">director</code>: <code class="s">&quot;Ivan Reitman&quot;</code>))</code></li>
+            <li><code class="code-voice"><code class="vc">things</code>.<code class="vc">append</code>({ (<code class="vc">name</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> <code class="kt">in</code> <code class="s">&quot;Hello, </code>\(<code class="vc">name</code>)<code class="s">&quot;</code> })</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">things</code> array contains two <code class="code-voice">Int</code> values, two <code class="code-voice">Double</code> values, a <code class="code-voice">String</code> value, a tuple of type <code class="code-voice">(Double, Double)</code>, the movie “Ghostbusters”, and a closure expression that takes a <code class="code-voice">String</code> value and returns another <code class="code-voice">String</code> value.</p><p class="para">You can use the <code class="code-voice">is</code> and <code class="code-voice">as</code> operators in a <code class="code-voice">switch</code> statement’s cases to discover the specific type of a constant or variable that is known only to be of type <code class="code-voice">Any</code> or <code class="code-voice">AnyObject</code>. The example below iterates over the items in the <code class="code-voice">things</code> array and queries the type of each item with a <code class="code-voice">switch</code> statement. Several of the <code class="code-voice">switch</code> statement’s cases bind their matched value to a constant of the specified type to enable its value to be printed:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">thing</code> <code class="kt">in</code> <code class="vc">things</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">switch</code> <code class="vc">thing</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="m">0</code> <code class="kt">as</code> <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;zero as an Int&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="m">0</code> <code class="kt">as</code> <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;zero as a Double&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> <code class="vc">someInt</code> <code class="kt">as</code> <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;an integer value of </code>\(<code class="vc">someInt</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> <code class="vc">someDouble</code> <code class="kt">as</code> <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> <code class="kt">where</code> <code class="vc">someDouble</code> &gt; <code class="m">0</code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;a positive double value of </code>\(<code class="vc">someDouble</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">is</code> <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;some other double value that I don&#39;t want to print&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> <code class="vc">someString</code> <code class="kt">as</code> <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;a string value of \&quot;</code>\(<code class="vc">someString</code>)<code class="s">\&quot;&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> (<code class="vc">x</code>, <code class="vc">y</code>) <code class="kt">as</code> (<code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code>, <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code>):</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;an (x, y) point at </code>\(<code class="vc">x</code>)<code class="s">, </code>\(<code class="vc">y</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> <code class="vc">movie</code> <code class="kt">as</code> <code class="n"><!-- a href="" logicalPath="" -->Movie<!-- /a --></code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;a movie called </code>\(<code class="vc">movie</code>.<code class="vc">name</code>)<code class="s">, dir. </code>\(<code class="vc">movie</code>.<code class="vc">director</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> <code class="vc">stringConverter</code> <code class="kt">as</code> <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="vc">stringConverter</code>(<code class="s">&quot;Michael&quot;</code>))</code></li>
+            <li><code class="code-voice">    <code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;something else&quot;</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="c">// zero as an Int</code></code></li>
+            <li><code class="code-voice"><code class="c">// zero as a Double</code></code></li>
+            <li><code class="code-voice"><code class="c">// an integer value of 42</code></code></li>
+            <li><code class="code-voice"><code class="c">// a positive double value of 3.14159</code></code></li>
+            <li><code class="code-voice"><code class="c">// a string value of &quot;hello&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// an (x, y) point at 3.0, 5.0</code></code></li>
+            <li><code class="code-voice"><code class="c">// a movie called Ghostbusters, dir. Ivan Reitman</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hello, Michael</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

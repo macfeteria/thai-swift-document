@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH23">&#x200c;</a><a id="TP40016643-CH23-ID242">&#x200c;</a>
+    <h2 class="chapter-name">Nested Types</h2>
+      
+      	<section class="section">
+      		<p class="para">Enumerations are often created to support a specific class or structure’s functionality. Similarly, it can be convenient to define utility classes and structures purely for use within the context of a more complex type. To accomplish this, Swift enables you to define <em>nested types</em>, whereby you nest supporting enumerations, classes, and structures within the definition of the type they support.</p><p class="para">To nest a type within another type, write its definition within the outer braces of the type it supports. Types can be nested to as many levels as are required.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH23-ID243">&#x200c;</a>
+  <h3 class="section-name">Nested Types in Action</h3>
+  <p class="para">The example below defines a structure called <code class="code-voice">BlackjackCard</code>, which models a playing card as used in the game of Blackjack. The <code class="code-voice">BlackJack</code> structure contains two nested enumeration types called <code class="code-voice">Suit</code> and <code class="code-voice">Rank</code>.</p><p class="para">In Blackjack, the Ace cards have a value of either one or eleven. This feature is represented by a structure called <code class="code-voice">Values</code>, which is nested within the <code class="code-voice">Rank</code> enumeration:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">BlackjackCard</code> {</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="c">// nested Suit enumeration</code></code></li>
+            <li><code class="code-voice">    <code class="kt">enum</code> <code class="vc">Suit</code>: <code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> <code class="vc">Spades</code> = <code class="s">&quot;♠&quot;</code>, <code class="vc">Hearts</code> = <code class="s">&quot;♡&quot;</code>, <code class="vc">Diamonds</code> = <code class="s">&quot;♢&quot;</code>, <code class="vc">Clubs</code> = <code class="s">&quot;♣&quot;</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="c">// nested Rank enumeration</code></code></li>
+            <li><code class="code-voice">    <code class="kt">enum</code> <code class="vc">Rank</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> <code class="vc">Two</code> = <code class="m">2</code>, <code class="vc">Three</code>, <code class="vc">Four</code>, <code class="vc">Five</code>, <code class="vc">Six</code>, <code class="vc">Seven</code>, <code class="vc">Eight</code>, <code class="vc">Nine</code>, <code class="vc">Ten</code></code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> <code class="vc">Jack</code>, <code class="vc">Queen</code>, <code class="vc">King</code>, <code class="vc">Ace</code></code></li>
+            <li><code class="code-voice">        <code class="kt">struct</code> <code class="vc">Values</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">let</code> <code class="vc">first</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="vc">second</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>?</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="kt">var</code> <code class="vc">values</code>: <code class="n"><!-- a href="" logicalPath="" -->Values<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">switch</code> <code class="kt">self</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">case</code> .<code class="vc">Ace</code>:</code></li>
+            <li><code class="code-voice">                <code class="kt">return</code> <code class="vc">Values</code>(<code class="vc">first</code>: <code class="m">1</code>, <code class="vc">second</code>: <code class="m">11</code>)</code></li>
+            <li><code class="code-voice">            <code class="kt">case</code> .<code class="vc">Jack</code>, .<code class="vc">Queen</code>, .<code class="vc">King</code>:</code></li>
+            <li><code class="code-voice">                <code class="kt">return</code> <code class="vc">Values</code>(<code class="vc">first</code>: <code class="m">10</code>, <code class="vc">second</code>: <code class="kt">nil</code>)</code></li>
+            <li><code class="code-voice">            <code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">                <code class="kt">return</code> <code class="vc">Values</code>(<code class="vc">first</code>: <code class="kt">self</code>.<code class="vc">rawValue</code>, <code class="vc">second</code>: <code class="kt">nil</code>)</code></li>
+            <li><code class="code-voice">            }</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="c">// BlackjackCard properties and methods</code></code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">rank</code>: <code class="n"><!-- a href="" logicalPath="" -->Rank<!-- /a --></code>, <code class="vc">suit</code>: <code class="n"><!-- a href="" logicalPath="" -->Suit<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">description</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">var</code> <code class="vc">output</code> = <code class="s">&quot;suit is </code>\(<code class="vc">suit</code>.<code class="vc">rawValue</code>)<code class="s">,&quot;</code></code></li>
+            <li><code class="code-voice">        <code class="vc">output</code> += <code class="s">&quot; value is </code>\(<code class="vc">rank</code>.<code class="vc">values</code>.<code class="vc">first</code>)<code class="s">&quot;</code></code></li>
+            <li><code class="code-voice">        <code class="kt">if</code> <code class="kt">let</code> <code class="vc">second</code> = <code class="vc">rank</code>.<code class="vc">values</code>.<code class="vc">second</code> {</code></li>
+            <li><code class="code-voice">            <code class="vc">output</code> += <code class="s">&quot; or </code>\(<code class="vc">second</code>)<code class="s">&quot;</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">output</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">Suit</code> enumeration describes the four common playing card suits, together with a raw <code class="code-voice">Character</code> value to represent their symbol.</p><p class="para">The <code class="code-voice">Rank</code> enumeration describes the thirteen possible playing card ranks, together with a raw <code class="code-voice">Int</code> value to represent their face value. (This raw <code class="code-voice">Int</code> value is not used for the Jack, Queen, King, and Ace cards.)</p><p class="para">As mentioned above, the <code class="code-voice">Rank</code> enumeration defines a further nested structure of its own, called <code class="code-voice">Values</code>. This structure encapsulates the fact that most cards have one value, but the Ace card has two values. The <code class="code-voice">Values</code> structure defines two properties to represent this:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">first</code>, of type <code class="code-voice">Int</code></p></li><li class="item"><p class="para"><code class="code-voice">second</code>, of type <code class="code-voice">Int?</code>, or “optional <code class="code-voice">Int</code>”</p></li>
+</ul><p class="para"><code class="code-voice">Rank</code> also defines a computed property, <code class="code-voice">values</code>, which returns an instance of the <code class="code-voice">Values</code> structure. This computed property considers the rank of the card and initializes a new <code class="code-voice">Values</code> instance with appropriate values based on its rank. It uses special values for <code class="code-voice">Jack</code>, <code class="code-voice">Queen</code>, <code class="code-voice">King</code>, and <code class="code-voice">Ace</code>. For the numeric cards, it uses the rank’s raw <code class="code-voice">Int</code> value.</p><p class="para">The <code class="code-voice">BlackjackCard</code> structure itself has two properties—<code class="code-voice">rank</code> and <code class="code-voice">suit</code>. It also defines a computed property called <code class="code-voice">description</code>, which uses the values stored in <code class="code-voice">rank</code> and <code class="code-voice">suit</code> to build a description of the name and value of the card. The <code class="code-voice">description</code> property uses optional binding to check whether there is a second value to display, and if so, inserts additional description detail for that second value.</p><p class="para">Because <code class="code-voice">BlackjackCard</code> is a structure with no custom initializers, it has an implicit memberwise initializer, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID214" href="Initialization.xhtml#TP40016643-CH18-ID214">Memberwise Initializers for Structure Types</a>. You can use this initializer to initialize a new constant called <code class="code-voice">theAceOfSpades</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">theAceOfSpades</code> = <code class="vc">BlackjackCard</code>(<code class="vc">rank</code>: .<code class="vc">Ace</code>, <code class="vc">suit</code>: .<code class="vc">Spades</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;theAceOfSpades: </code>\(<code class="vc">theAceOfSpades</code>.<code class="vc">description</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;theAceOfSpades: suit is ♠, value is 1 or 11&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Even though <code class="code-voice">Rank</code> and <code class="code-voice">Suit</code> are nested within <code class="code-voice">BlackjackCard</code>, their type can be inferred from context, and so the initialization of this instance is able to refer to the enumeration cases by their case names (<code class="code-voice">.Ace</code> and <code class="code-voice">.Spades</code>) alone. In the example above, the <code class="code-voice">description</code> property correctly reports that the Ace of Spades has a value of <code class="code-voice">1</code> or <code class="code-voice">11</code>.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH23-ID244">&#x200c;</a>
+  <h3 class="section-name">Referring to Nested Types</h3>
+  <p class="para">To use a nested type outside of its definition context, prefix its name with the name of the type it is nested within:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">heartsSymbol</code> = <code class="vc">BlackjackCard</code>.<code class="vc">Suit</code>.<code class="vc">Hearts</code>.<code class="vc">rawValue</code></code></li>
+            <li><code class="code-voice"><code class="c">// heartsSymbol is &quot;♡&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">For the example above, this enables the names of <code class="code-voice">Suit</code>, <code class="code-voice">Rank</code>, and <code class="code-voice">Values</code> to be kept deliberately short, because their names are naturally qualified by the context in which they are defined.</p>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH26">&#x200c;</a><a id="TP40016643-CH26-ID179">&#x200c;</a>
+    <h2 class="chapter-name">Generics</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Generic code</em> enables you to write flexible, reusable functions and types that can work with any type, subject to requirements that you define. You can write code that avoids duplication and expresses its intent in a clear, abstracted manner.</p><p class="para">Generics are one of the most powerful features of Swift, and much of the Swift standard library is built with generic code. In fact, you’ve been using generics throughout the <em>Language Guide</em>, even if you didn’t realize it. For example, Swift’s <code class="code-voice">Array</code> and <code class="code-voice">Dictionary</code> types are both generic collections. You can create an array that holds <code class="code-voice">Int</code> values, or an array that holds <code class="code-voice">String</code> values, or indeed an array for any other type that can be created in Swift. Similarly, you can create a dictionary to store values of any specified type, and there are no limitations on what that type can be.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH26-ID180">&#x200c;</a>
+  <h3 class="section-name">The Problem That Generics Solve</h3>
+  <p class="para">Here’s a standard, non-generic function called <code class="code-voice">swapTwoInts(_:_:)</code>, which swaps two <code class="code-voice">Int</code> values:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">swapTwoInts</code>(<code class="kt">inout</code> <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="kt">inout</code> <code class="kt">_</code> <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">temporaryA</code> = <code class="vc">a</code></code></li>
+            <li><code class="code-voice">    <code class="vc">a</code> = <code class="vc">b</code></code></li>
+            <li><code class="code-voice">    <code class="vc">b</code> = <code class="vc">temporaryA</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This function makes use of in-out parameters to swap the values of <code class="code-voice">a</code> and <code class="code-voice">b</code>, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH10-ID173" href="Functions.xhtml#TP40016643-CH10-ID173">In-Out Parameters</a>.</p><p class="para">The <code class="code-voice">swapTwoInts(_:_:)</code> function swaps the original value of <code class="code-voice">b</code> into <code class="code-voice">a</code>, and the original value of <code class="code-voice">a</code> into <code class="code-voice">b</code>. You can call this function to swap the values in two <code class="code-voice">Int</code> variables:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">someInt</code> = <code class="m">3</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">anotherInt</code> = <code class="m">107</code></code></li>
+            <li><code class="code-voice"><code class="vc">swapTwoInts</code>(&amp;<code class="vc">someInt</code>, &amp;<code class="vc">anotherInt</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;someInt is now </code>\(<code class="vc">someInt</code>)<code class="s">, and anotherInt is now </code>\(<code class="vc">anotherInt</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;someInt is now 107, and anotherInt is now 3&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">swapTwoInts(_:_:)</code> function is useful, but it can only be used with <code class="code-voice">Int</code> values. If you want to swap two <code class="code-voice">String</code> values, or two <code class="code-voice">Double</code> values, you have to write more functions, such as the <code class="code-voice">swapTwoStrings(_:_:)</code> and <code class="code-voice">swapTwoDoubles(_:_:)</code> functions shown below:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">swapTwoStrings</code>(<code class="kt">inout</code> <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="kt">inout</code> <code class="kt">_</code> <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">temporaryA</code> = <code class="vc">a</code></code></li>
+            <li><code class="code-voice">    <code class="vc">a</code> = <code class="vc">b</code></code></li>
+            <li><code class="code-voice">    <code class="vc">b</code> = <code class="vc">temporaryA</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">swapTwoDoubles</code>(<code class="kt">inout</code> <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code>, <code class="kt">inout</code> <code class="kt">_</code> <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">temporaryA</code> = <code class="vc">a</code></code></li>
+            <li><code class="code-voice">    <code class="vc">a</code> = <code class="vc">b</code></code></li>
+            <li><code class="code-voice">    <code class="vc">b</code> = <code class="vc">temporaryA</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You may have noticed that the bodies of the <code class="code-voice">swapTwoInts(_:_:)</code>, <code class="code-voice">swapTwoStrings(_:_:)</code>, and <code class="code-voice">swapTwoDoubles(_:_:)</code> functions are identical. The only difference is the type of the values that they accept (<code class="code-voice">Int</code>, <code class="code-voice">String</code>, and <code class="code-voice">Double</code>).</p><p class="para">It would be much more useful, and considerably more flexible, to write a single function that could swap two values of <em>any</em> type. Generic code enables you to write such a function. (A generic version of these functions is defined below.)</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">In all three functions, it is important that the types of <code class="code-voice">a</code> and <code class="code-voice">b</code> are defined to be the same as each other. If <code class="code-voice">a</code> and <code class="code-voice">b</code> were not of the same type, it would not be possible to swap their values. Swift is a type-safe language, and does not allow (for example) a variable of type <code class="code-voice">String</code> and a variable of type <code class="code-voice">Double</code> to swap values with each other. Attempting to do so would be reported as a compile-time error.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID181">&#x200c;</a>
+  <h3 class="section-name">Generic Functions</h3>
+  <p class="para"><em>Generic functions</em> can work with any type. Here’s a generic version of the <code class="code-voice">swapTwoInts(_:_:)</code> function from above, called <code class="code-voice">swapTwoValues(_:_:)</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">swapTwoValues</code>&lt;<code class="vc">T</code>&gt;(<code class="kt">inout</code> <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>, <code class="kt">inout</code> <code class="kt">_</code> <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="kt">let</code> <code class="vc">temporaryA</code> = <code class="vc">a</code></code></li>
+            <li><code class="code-voice">    <code class="vc">a</code> = <code class="vc">b</code></code></li>
+            <li><code class="code-voice">    <code class="vc">b</code> = <code class="vc">temporaryA</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The body of the <code class="code-voice">swapTwoValues(_:_:)</code> function is identical to the body of the <code class="code-voice">swapTwoInts(_:_:)</code> function. However, the first line of <code class="code-voice">swapTwoValues(_:_:)</code> is slightly different from <code class="code-voice">swapTwoInts(_:_:)</code>. Here’s how the first lines compare:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">swapTwoInts</code>(<code class="kt">inout</code> <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>, <code class="kt">inout</code> <code class="kt">_</code> <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>)</code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">swapTwoValues</code>&lt;<code class="vc">T</code>&gt;(<code class="kt">inout</code> <code class="vc">a</code>: <code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>, <code class="kt">inout</code> <code class="kt">_</code> <code class="vc">b</code>: <code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The generic version of the function uses a <em>placeholder</em> type name (called <code class="code-voice">T</code>, in this case) instead of an <em>actual</em> type name (such as <code class="code-voice">Int</code>, <code class="code-voice">String</code>, or <code class="code-voice">Double</code>). The placeholder type name doesn’t say anything about what <code class="code-voice">T</code> must be, but it <em>does</em> say that both <code class="code-voice">a</code> and <code class="code-voice">b</code> must be of the same type <code class="code-voice">T</code>, whatever <code class="code-voice">T</code> represents. The actual type to use in place of <code class="code-voice">T</code> will be determined each time the <code class="code-voice">swapTwoValues(_:_:)</code> function is called.</p><p class="para">The other difference is that the generic function’s name (<code class="code-voice">swapTwoValues(_:_:)</code>) is followed by the placeholder type name (<code class="code-voice">T</code>) inside angle brackets (<code class="code-voice">&lt;T&gt;</code>). The brackets tell Swift that <code class="code-voice">T</code> is a placeholder type name within the <code class="code-voice">swapTwoValues(_:_:)</code> function definition. Because <code class="code-voice">T</code> is a placeholder, Swift does not look for an actual type called <code class="code-voice">T</code>.</p><p class="para">The <code class="code-voice">swapTwoValues(_:_:)</code> function can now be called in the same way as <code class="code-voice">swapTwoInts</code>, except that it can be passed two values of <em>any</em> type, as long as both of those values are of the same type as each other. Each time <code class="code-voice">swapTwoValues(_:_:)</code> is called, the type to use for <code class="code-voice">T</code> is inferred from the types of values passed to the function.</p><p class="para">In the two examples below, <code class="code-voice">T</code> is inferred to be <code class="code-voice">Int</code> and <code class="code-voice">String</code> respectively:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">someInt</code> = <code class="m">3</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">anotherInt</code> = <code class="m">107</code></code></li>
+            <li><code class="code-voice"><code class="vc">swapTwoValues</code>(&amp;<code class="vc">someInt</code>, &amp;<code class="vc">anotherInt</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// someInt is now 107, and anotherInt is now 3</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">someString</code> = <code class="s">&quot;hello&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">anotherString</code> = <code class="s">&quot;world&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">swapTwoValues</code>(&amp;<code class="vc">someString</code>, &amp;<code class="vc">anotherString</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// someString is now &quot;world&quot;, and anotherString is now &quot;hello&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">swapTwoValues(_:_:)</code> function defined above is inspired by a generic function called <code class="code-voice">swap</code>, which is part of the Swift standard library, and is automatically made available for you to use in your apps. If you need the behavior of the <code class="code-voice">swapTwoValues(_:_:)</code> function in your own code, you can use Swift’s existing <code class="code-voice">swap(_:_:)</code> function rather than providing your own implementation.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID182">&#x200c;</a>
+  <h3 class="section-name">Type Parameters</h3>
+  <p class="para">In the <code class="code-voice">swapTwoValues(_:_:)</code> example above, the placeholder type <code class="code-voice">T</code> is an example of a <em>type parameter</em>. Type parameters specify and name a placeholder type, and are written immediately after the function’s name, between a pair of matching angle brackets (such as <code class="code-voice">&lt;T&gt;</code>).</p><p class="para">Once you specify a type parameter, you can use it to define the type of a function’s parameters (such as the <code class="code-voice">a</code> and <code class="code-voice">b</code> parameters of the <code class="code-voice">swapTwoValues(_:_:)</code> function), or as the function’s return type, or as a type annotation within the body of the function. In each case, the type parameter is replaced with an <em>actual</em> type whenever the function is called. (In the <code class="code-voice">swapTwoValues(_:_:)</code> example above, <code class="code-voice">T</code> was replaced with <code class="code-voice">Int</code> the first time the function was called, and was replaced with <code class="code-voice">String</code> the second time it was called.)</p><p class="para">You can provide more than one type parameter by writing multiple type parameter names within the angle brackets, separated by commas.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID183">&#x200c;</a>
+  <h3 class="section-name">Naming Type Parameters</h3>
+  <p class="para">In most cases, type parameters have descriptive names, such as <code class="code-voice">Key</code> and <code class="code-voice">Value</code> in <code class="code-voice">Dictionary&lt;Key, Value&gt;</code> and <code class="code-voice">Element</code> in <code class="code-voice">Array&lt;Element&gt;</code>, which tells the reader about the relationship between the type parameter and the generic type or function it’s used in. However, when there isn’t a meaningful relationship between them, it’s traditional to name them using single letters such as <code class="code-voice">T</code>, <code class="code-voice">U</code>, and <code class="code-voice">V</code>, such as <code class="code-voice">T</code> in the <code class="code-voice">swapTwoValues(_:_:)</code> function above.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Always give type parameters upper camel case names (such as <code class="code-voice">T</code> and <code class="code-voice">MyTypeParameter</code>) to indicate that they are a placeholder for a <em>type</em>, not a value.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID184">&#x200c;</a>
+  <h3 class="section-name">Generic Types</h3>
+  <p class="para">In addition to generic functions, Swift enables you to define your own <em>generic types</em>. These are custom classes, structures, and enumerations that can work with <em>any</em> type, in a similar way to <code class="code-voice">Array</code> and <code class="code-voice">Dictionary</code>.</p><p class="para">This section shows you how to write a generic collection type called <code class="code-voice">Stack</code>. A stack is an ordered set of values, similar to an array, but with a more restricted set of operations than Swift’s <code class="code-voice">Array</code> type. An array allows new items to be inserted and removed at any location in the array. A stack, however, allows new items to be appended only to the end of the collection (known as <em>pushing</em> a new value on to the stack). Similarly, a stack allows items to be removed only from the end of the collection (known as <em>popping</em> a value off the stack).</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The concept of a stack is used by the <code class="code-voice">UINavigationController</code> class to model the view controllers in its navigation hierarchy. You call the <code class="code-voice">UINavigationController</code> class <code class="code-voice">pushViewController(_:animated:)</code> method to add (or push) a view controller on to the navigation stack, and its <code class="code-voice">popViewControllerAnimated(_:)</code> method to remove (or pop) a view controller from the navigation stack. A stack is a useful collection model whenever you need a strict “last in, first out” approach to managing a collection.
+    	</p>
+    
+  </aside>
+</div><p class="para">The illustration below shows the push / pop behavior for a stack:</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/stackPushPop_2x.png" alt="image: ../Art/stackPushPop_2x.png" width="664" height="273" />
+</div><ol class="list-number">
+  <li class="item"><p class="para">There are currently three values on the stack.</p></li><li class="item"><p class="para">A fourth value is “pushed” on to the top of the stack.</p></li><li class="item"><p class="para">The stack now holds four values, with the most recent one at the top.</p></li><li class="item"><p class="para">The top item in the stack is removed, or “popped”.</p></li><li class="item"><p class="para">After popping a value, the stack once again holds three values.</p></li>
+</ol><p class="para">Here’s how to write a non-generic version of a stack, in this case for a stack of <code class="code-voice">Int</code> values:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">IntStack</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">items</code> = [<code class="vc">Int</code>]()</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">push</code>(<code class="vc">item</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="vc">items</code>.<code class="vc">append</code>(<code class="vc">item</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">pop</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>.<code class="vc">removeLast</code>()</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This structure uses an <code class="code-voice">Array</code> property called <code class="code-voice">items</code> to store the values in the stack. <code class="code-voice">Stack</code> provides two methods, <code class="code-voice">push</code> and <code class="code-voice">pop</code>, to push and pop values on and off the stack. These methods are marked as <code class="code-voice">mutating</code>, because they need to modify (or <em>mutate</em>) the structure’s <code class="code-voice">items</code> array.</p><p class="para">The <code class="code-voice">IntStack</code> type shown above can only be used with <code class="code-voice">Int</code> values, however. It would be much more useful to define a <em>generic</em> <code class="code-voice">Stack</code> class, that can manage a stack of <em>any</em> type of value.</p><p class="para">Here’s a generic version of the same code:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Stack</code>&lt;<code class="vc">Element</code>&gt; {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">items</code> = [<code class="vc">Element</code>]()</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">push</code>(<code class="vc">item</code>: <code class="n"><!-- a href="" logicalPath="" -->Element<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="vc">items</code>.<code class="vc">append</code>(<code class="vc">item</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">pop</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Element<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>.<code class="vc">removeLast</code>()</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Note how the generic version of <code class="code-voice">Stack</code> is essentially the same as the non-generic version, but with a type parameter called <code class="code-voice">Element</code> instead of an actual type of <code class="code-voice">Int</code>. This type parameter is written within a pair of angle brackets (<code class="code-voice">&lt;Element&gt;</code>) immediately after the structure’s name.</p><p class="para"><code class="code-voice">Element</code> defines a placeholder name for “some type <code class="code-voice">Element</code>” to be provided later on. This future type can be referred to as “<code class="code-voice">Element</code>” anywhere within the structure’s definition. In this case, <code class="code-voice">Element</code> is used as a placeholder in three places:</p><ul class="list-bullet">
+  <li class="item"><p class="para">To create a property called <code class="code-voice">items</code>, which is initialized with an empty array of values of type <code class="code-voice">Element</code></p></li><li class="item"><p class="para">To specify that the <code class="code-voice">push(_:)</code> method has a single parameter called <code class="code-voice">item</code>, which must be of type <code class="code-voice">Element</code></p></li><li class="item"><p class="para">To specify that the value returned by the <code class="code-voice">pop()</code> method will be a value of type <code class="code-voice">Element</code></p></li>
+</ul><p class="para">Because it is a generic type, <code class="code-voice">Stack</code> can be used to create a stack of <em>any</em> valid type in Swift, in a similar manner to <code class="code-voice">Array</code> and <code class="code-voice">Dictionary</code>.</p><p class="para">You create a new <code class="code-voice">Stack</code> instance by writing the type to be stored in the stack within angle brackets. For example, to create a new stack of strings, you write <code class="code-voice">Stack&lt;String&gt;()</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">stackOfStrings</code> = <code class="vc">Stack</code>&lt;<code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>&gt;()</code></li>
+            <li><code class="code-voice"><code class="vc">stackOfStrings</code>.<code class="vc">push</code>(<code class="s">&quot;uno&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">stackOfStrings</code>.<code class="vc">push</code>(<code class="s">&quot;dos&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">stackOfStrings</code>.<code class="vc">push</code>(<code class="s">&quot;tres&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">stackOfStrings</code>.<code class="vc">push</code>(<code class="s">&quot;cuatro&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// the stack now contains 4 strings</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Here’s how <code class="code-voice">stackOfStrings</code> looks after pushing these four values on to the stack:</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/stackPushedFourStrings_2x.png" alt="image: ../Art/stackPushedFourStrings_2x.png" width="664" height="218" />
+</div><p class="para">Popping a value from the stack returns and removes the top value, <code class="code-voice">&quot;cuatro&quot;</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">fromTheTop</code> = <code class="vc">stackOfStrings</code>.<code class="vc">pop</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// fromTheTop is equal to &quot;cuatro&quot;, and the stack now contains 3 strings</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Here’s how the stack looks after popping its top value:</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/stackPoppedOneString_2x.png" alt="image: ../Art/stackPoppedOneString_2x.png" width="405" height="207" />
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID185">&#x200c;</a>
+  <h3 class="section-name">Extending a Generic Type</h3>
+  <p class="para">When you extend a generic type, you do not provide a type parameter list as part of the extension’s definition. Instead, the type parameter list from the <em>original</em> type definition is available within the body of the extension, and the original type parameter names are used to refer to the type parameters from the original definition.</p><p class="para">The following example extends the generic <code class="code-voice">Stack</code> type to add a read-only computed property called <code class="code-voice">topItem</code>, which returns the top item on the stack without popping it from the stack:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Stack<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">topItem</code>: <code class="n"><!-- a href="" logicalPath="" -->Element<!-- /a --></code>? {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>.<code class="vc">isEmpty</code> ? <code class="kt">nil</code> : <code class="vc">items</code>[<code class="vc">items</code>.<code class="vc">count</code> - <code class="m">1</code>]</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">topItem</code> property returns an optional value of type <code class="code-voice">Element</code>. If the stack is empty, <code class="code-voice">topItem</code> returns <code class="code-voice">nil</code>; if the stack is not empty, <code class="code-voice">topItem</code> returns the final item in the <code class="code-voice">items</code> array.</p><p class="para">Note that this extension does not define a type parameter list. Instead, the <code class="code-voice">Stack</code> type’s existing type parameter name, <code class="code-voice">Element</code>, is used within the extension to indicate the optional type of the <code class="code-voice">topItem</code> computed property.</p><p class="para">The <code class="code-voice">topItem</code> computed property can now be used with any <code class="code-voice">Stack</code> instance to access and query its top item without removing it:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">topItem</code> = <code class="vc">stackOfStrings</code>.<code class="vc">topItem</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The top item on the stack is </code>\(<code class="vc">topItem</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The top item on the stack is tres.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID186">&#x200c;</a>
+  <h3 class="section-name">Type Constraints</h3>
+  <p class="para">The <code class="code-voice">swapTwoValues(_:_:)</code> function and the <code class="code-voice">Stack</code> type can work with any type. However, it is sometimes useful to enforce certain <em>type constraints</em> on the types that can be used with generic functions and generic types. Type constraints specify that a type parameter must inherit from a specific class, or conform to a particular protocol or protocol composition.</p><p class="para">For example, Swift’s <code class="code-voice">Dictionary</code> type places a limitation on the types that can be used as keys for a dictionary. As described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH8-ID113" href="CollectionTypes.xhtml#TP40016643-CH8-ID113">Dictionaries</a>, the type of a dictionary’s keys must be <em>hashable</em>. That is, it must provide a way to make itself uniquely representable. <code class="code-voice">Dictionary</code> needs its keys to be hashable so that it can check whether it already contains a value for a particular key. Without this requirement, <code class="code-voice">Dictionary</code> could not tell whether it should insert or replace a value for a particular key, nor would it be able to find a value for a given key that is already in the dictionary.</p><p class="para">This requirement is enforced by a type constraint on the key type for <code class="code-voice">Dictionary</code>, which specifies that the key type must conform to the <code class="code-voice">Hashable</code> protocol, a special protocol defined in the Swift standard library. All of Swift’s basic types (such as <code class="code-voice">String</code>, <code class="code-voice">Int</code>, <code class="code-voice">Double</code>, and <code class="code-voice">Bool</code>) are hashable by default.</p><p class="para">You can define your own type constraints when creating custom generic types, and these constraints provide much of the power of generic programming. Abstract concepts like <code class="code-voice">Hashable</code> characterize types in terms of their conceptual characteristics, rather than their explicit type.</p>
+  <section class="section">
+	<a id="TP40016643-CH26-ID187">&#x200c;</a>
+  <h3 class="section-name">Type Constraint Syntax</h3>
+  <p class="para">You write type constraints by placing a single class or protocol constraint after a type parameter’s name, separated by a colon, as part of the type parameter list. The basic syntax for type constraints on a generic function is shown below (although the syntax is the same for generic types):</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">someFunction</code>&lt;<code class="vc">T</code>: <code class="n"><!-- a href="" logicalPath="" -->SomeClass<!-- /a --></code>, <code class="vc">U</code>: <code class="n"><!-- a href="" logicalPath="" -->SomeProtocol<!-- /a --></code>&gt;(<code class="vc">someT</code>: <code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>, <code class="vc">someU</code>: <code class="n"><!-- a href="" logicalPath="" -->U<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="c">// function body goes here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The hypothetical function above has two type parameters. The first type parameter, <code class="code-voice">T</code>, has a type constraint that requires <code class="code-voice">T</code> to be a subclass of <code class="code-voice">SomeClass</code>. The second type parameter, <code class="code-voice">U</code>, has a type constraint that requires <code class="code-voice">U</code> to conform to the protocol <code class="code-voice">SomeProtocol</code>.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID188">&#x200c;</a>
+  <h3 class="section-name">Type Constraints in Action</h3>
+  <p class="para">Here’s a non-generic function called <code class="code-voice">findStringIndex</code>, which is given a <code class="code-voice">String</code> value to find and an array of <code class="code-voice">String</code> values within which to find it. The <code class="code-voice">findStringIndex(_:_:)</code> function returns an optional <code class="code-voice">Int</code> value, which will be the index of the first matching string in the array if it is found, or <code class="code-voice">nil</code> if the string cannot be found:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">findStringIndex</code>(<code class="vc">array</code>: [<code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>], <code class="kt">_</code> <code class="vc">valueToFind</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>? {</code></li>
+            <li><code class="code-voice">    <code class="kt">for</code> (<code class="vc">index</code>, <code class="vc">value</code>) <code class="kt">in</code> <code class="vc">array</code>.<code class="vc">enumerate</code>() {</code></li>
+            <li><code class="code-voice">        <code class="kt">if</code> <code class="vc">value</code> == <code class="vc">valueToFind</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> <code class="vc">index</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="kt">nil</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">findStringIndex(_:_:)</code> function can be used to find a string value in an array of strings:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">strings</code> = [<code class="s">&quot;cat&quot;</code>, <code class="s">&quot;dog&quot;</code>, <code class="s">&quot;llama&quot;</code>, <code class="s">&quot;parakeet&quot;</code>, <code class="s">&quot;terrapin&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">foundIndex</code> = <code class="vc">findStringIndex</code>(<code class="vc">strings</code>, <code class="s">&quot;llama&quot;</code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The index of llama is </code>\(<code class="vc">foundIndex</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The index of llama is 2&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The principle of finding the index of a value in an array isn’t useful only for strings, however. You can write the same functionality as a generic function called <code class="code-voice">findIndex</code>, by replacing any mention of strings with values of some type <code class="code-voice">T</code> instead.</p><p class="para">Here’s how you might expect a generic version of <code class="code-voice">findStringIndex</code>, called <code class="code-voice">findIndex</code>, to be written. Note that the return type of this function is still <code class="code-voice">Int?</code>, because the function returns an optional index number, not an optional value from the array. Be warned, though—this function does not compile, for reasons explained after the example:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">findIndex</code>&lt;<code class="vc">T</code>&gt;(<code class="vc">array</code>: [<code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>], <code class="kt">_</code> <code class="vc">valueToFind</code>: <code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>? {</code></li>
+            <li><code class="code-voice">    <code class="kt">for</code> (<code class="vc">index</code>, <code class="vc">value</code>) <code class="kt">in</code> <code class="vc">array</code>.<code class="vc">enumerate</code>() {</code></li>
+            <li><code class="code-voice">        <code class="kt">if</code> <code class="vc">value</code> == <code class="vc">valueToFind</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> <code class="vc">index</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="kt">nil</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This function does not compile as written above. The problem lies with the equality check, “<code class="code-voice">if value == valueToFind</code>”. Not every type in Swift can be compared with the equal to operator (<code class="code-voice">==</code>). If you create your own class or structure to represent a complex data model, for example, then the meaning of “equal to” for that class or structure is not something that Swift can guess for you. Because of this, it is not possible to guarantee that this code will work for <em>every</em> possible type <code class="code-voice">T</code>, and an appropriate error is reported when you try to compile the code.</p><p class="para">All is not lost, however. The Swift standard library defines a protocol called <code class="code-voice">Equatable</code>, which requires any conforming type to implement the equal to operator (<code class="code-voice">==</code>) and the not equal to operator (<code class="code-voice">!=</code>) to compare any two values of that type. All of Swift’s standard types automatically support the <code class="code-voice">Equatable</code> protocol.</p><p class="para">Any type that is <code class="code-voice">Equatable</code> can be used safely with the <code class="code-voice">findIndex(_:_:)</code> function, because it is guaranteed to support the equal to operator. To express this fact, you write a type constraint of <code class="code-voice">Equatable</code> as part of the type parameter’s definition when you define the function:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">findIndex</code>&lt;<code class="vc">T</code>: <code class="n"><!-- a href="" logicalPath="" -->Equatable<!-- /a --></code>&gt;(<code class="vc">array</code>: [<code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>], <code class="kt">_</code> <code class="vc">valueToFind</code>: <code class="n"><!-- a href="" logicalPath="" -->T<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>? {</code></li>
+            <li><code class="code-voice">    <code class="kt">for</code> (<code class="vc">index</code>, <code class="vc">value</code>) <code class="kt">in</code> <code class="vc">array</code>.<code class="vc">enumerate</code>() {</code></li>
+            <li><code class="code-voice">        <code class="kt">if</code> <code class="vc">value</code> == <code class="vc">valueToFind</code> {</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> <code class="vc">index</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="kt">nil</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The single type parameter for <code class="code-voice">findIndex</code> is written as <code class="code-voice">T: Equatable</code>, which means “any type <code class="code-voice">T</code> that conforms to the <code class="code-voice">Equatable</code> protocol.”</p><p class="para">The <code class="code-voice">findIndex(_:_:)</code> function now compiles successfully and can be used with any type that is <code class="code-voice">Equatable</code>, such as <code class="code-voice">Double</code> or <code class="code-voice">String</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">doubleIndex</code> = <code class="vc">findIndex</code>([<code class="m">3.14159</code>, <code class="m">0.1</code>, <code class="m">0.25</code>], <code class="m">9.3</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// doubleIndex is an optional Int with no value, because 9.3 is not in the array</code></code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">stringIndex</code> = <code class="vc">findIndex</code>([<code class="s">&quot;Mike&quot;</code>, <code class="s">&quot;Malcolm&quot;</code>, <code class="s">&quot;Andrea&quot;</code>], <code class="s">&quot;Andrea&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// stringIndex is an optional Int containing a value of 2</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID189">&#x200c;</a>
+  <h3 class="section-name">Associated Types</h3>
+  <p class="para">When defining a protocol, it is sometimes useful to declare one or more associated types as part of the protocol’s definition. An <em>associated type</em> gives a placeholder name to a type that is used as part of the protocol. The actual type to use for that associated type is not specified until the protocol is adopted. Associated types are specified with the <code class="code-voice">associatedtype</code> keyword.</p>
+  <section class="section">
+	<a id="TP40016643-CH26-ID190">&#x200c;</a>
+  <h3 class="section-name">Associated Types in Action</h3>
+  <p class="para">Here’s an example of a protocol called <code class="code-voice">Container</code>, which declares an associated type called <code class="code-voice">ItemType</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">protocol</code> <code class="vc">Container</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">associatedtype</code> <code class="vc">ItemType</code></code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">append</code>(<code class="vc">item</code>: <code class="n"><!-- a href="" logicalPath="" -->ItemType<!-- /a --></code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">count</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> { <code class="kt">get</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">subscript</code>(<code class="vc">i</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->ItemType<!-- /a --></code> { <code class="kt">get</code> }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">Container</code> protocol defines three required capabilities that any container must provide:</p><ul class="list-bullet">
+  <li class="item"><p class="para">It must be possible to add a new item to the container with an <code class="code-voice">append(_:)</code> method.</p></li><li class="item"><p class="para">It must be possible to access a count of the items in the container through a <code class="code-voice">count</code> property that returns an <code class="code-voice">Int</code> value.</p></li><li class="item"><p class="para">It must be possible to retrieve each item in the container with a subscript that takes an <code class="code-voice">Int</code> index value.</p></li>
+</ul><p class="para">This protocol doesn’t specify how the items in the container should be stored or what type they are allowed to be. The protocol only specifies the three bits of functionality that any type must provide in order to be considered a <code class="code-voice">Container</code>. A conforming type can provide additional functionality, as long as it satisfies these three requirements.</p><p class="para">Any type that conforms to the <code class="code-voice">Container</code> protocol must be able to specify the type of values it stores. Specifically, it must ensure that only items of the right type are added to the container, and it must be clear about the type of the items returned by its subscript.</p><p class="para">To define these requirements, the <code class="code-voice">Container</code> protocol needs a way to refer to the type of the elements that a container will hold, without knowing what that type is for a specific container. The <code class="code-voice">Container</code> protocol needs to specify that any value passed to the <code class="code-voice">append(_:)</code> method must have the same type as the container’s element type, and that the value returned by the container’s subscript will be of the same type as the container’s element type.</p><p class="para">To achieve this, the <code class="code-voice">Container</code> protocol declares an associated type called <code class="code-voice">ItemType</code>, written as <code class="code-voice">associatedtype ItemType</code>. The protocol does not define what <code class="code-voice">ItemType</code> is—that information is left for any conforming type to provide. Nonetheless, the <code class="code-voice">ItemType</code> alias provides a way to refer to the type of the items in a <code class="code-voice">Container</code>, and to define a type for use with the <code class="code-voice">append(_:)</code> method and subscript, to ensure that the expected behavior of any <code class="code-voice">Container</code> is enforced.</p><p class="para">Here’s a version of the non-generic <code class="code-voice">IntStack</code> type from earlier, adapted to conform to the <code class="code-voice">Container</code> protocol:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">IntStack</code>: <code class="n"><!-- a href="" logicalPath="" -->Container<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// original IntStack implementation</code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">items</code> = [<code class="vc">Int</code>]()</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">push</code>(<code class="vc">item</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="vc">items</code>.<code class="vc">append</code>(<code class="vc">item</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">pop</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>.<code class="vc">removeLast</code>()</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="c">// conformance to the Container protocol</code></code></li>
+            <li><code class="code-voice">    <code class="kt">typealias</code> <code class="vc">ItemType</code> = <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">append</code>(<code class="vc">item</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code>.<code class="vc">push</code>(<code class="vc">item</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">count</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>.<code class="vc">count</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">subscript</code>(<code class="vc">i</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>[<code class="vc">i</code>]</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">IntStack</code> type implements all three of the <code class="code-voice">Container</code> protocol’s requirements, and in each case wraps part of the <code class="code-voice">IntStack</code> type’s existing functionality to satisfy these requirements.</p><p class="para">Moreover, <code class="code-voice">IntStack</code> specifies that for this implementation of <code class="code-voice">Container</code>, the appropriate <code class="code-voice">ItemType</code> to use is a type of <code class="code-voice">Int</code>. The definition of <code class="code-voice">typealias ItemType = Int</code> turns the abstract type of <code class="code-voice">ItemType</code> into a concrete type of <code class="code-voice">Int</code> for this implementation of the <code class="code-voice">Container</code> protocol.</p><p class="para">Thanks to Swift’s type inference, you don’t actually need to declare a concrete <code class="code-voice">ItemType</code> of <code class="code-voice">Int</code> as part of the definition of <code class="code-voice">IntStack</code>. Because <code class="code-voice">IntStack</code> conforms to all of the requirements of the <code class="code-voice">Container</code> protocol, Swift can infer the appropriate <code class="code-voice">ItemType</code> to use, simply by looking at the type of the <code class="code-voice">append(_:)</code> method’s <code class="code-voice">item</code> parameter and the return type of the subscript. Indeed, if you delete the <code class="code-voice">typealias ItemType = Int</code> line from the code above, everything still works, because it is clear what type should be used for <code class="code-voice">ItemType</code>.</p><p class="para">You can also make the generic <code class="code-voice">Stack</code> type conform to the <code class="code-voice">Container</code> protocol:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Stack</code>&lt;<code class="vc">Element</code>&gt;: <code class="n"><!-- a href="" logicalPath="" -->Container<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// original Stack&lt;Element&gt; implementation</code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">items</code> = [<code class="vc">Element</code>]()</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">push</code>(<code class="vc">item</code>: <code class="n"><!-- a href="" logicalPath="" -->Element<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="vc">items</code>.<code class="vc">append</code>(<code class="vc">item</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">pop</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Element<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>.<code class="vc">removeLast</code>()</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="c">// conformance to the Container protocol</code></code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">append</code>(<code class="vc">item</code>: <code class="n"><!-- a href="" logicalPath="" -->Element<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code>.<code class="vc">push</code>(<code class="vc">item</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">count</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>.<code class="vc">count</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">subscript</code>(<code class="vc">i</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Element<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">items</code>[<code class="vc">i</code>]</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This time, the type parameter <code class="code-voice">Element</code> is used as the type of the <code class="code-voice">append(_:)</code> method’s <code class="code-voice">item</code> parameter and the return type of the subscript. Swift can therefore infer that <code class="code-voice">Element</code> is the appropriate type to use as the <code class="code-voice">ItemType</code> for this particular container.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID191">&#x200c;</a>
+  <h3 class="section-name">Extending an Existing Type to Specify an Associated Type</h3>
+  <p class="para">You can extend an existing type to add conformance to a protocol, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH25-ID277" href="Protocols.xhtml#TP40016643-CH25-ID277">Adding Protocol Conformance with an Extension</a>. This includes a protocol with an associated type.</p><p class="para">Swift’s <code class="code-voice">Array</code> type already provides an <code class="code-voice">append(_:)</code> method, a <code class="code-voice">count</code> property, and a subscript with an <code class="code-voice">Int</code> index to retrieve its elements. These three capabilities match the requirements of the <code class="code-voice">Container</code> protocol. This means that you can extend <code class="code-voice">Array</code> to conform to the <code class="code-voice">Container</code> protocol simply by declaring that <code class="code-voice">Array</code> adopts the protocol. You do this with an empty extension, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH25-ID278" href="Protocols.xhtml#TP40016643-CH25-ID278">Declaring Protocol Adoption with an Extension</a>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Array<!-- /a --></code>: <code class="n"><!-- a href="" logicalPath="" -->Container<!-- /a --></code> {}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Array’s existing <code class="code-voice">append(_:)</code> method and subscript enable Swift to infer the appropriate type to use for <code class="code-voice">ItemType</code>, just as for the generic <code class="code-voice">Stack</code> type above. After defining this extension, you can use any <code class="code-voice">Array</code> as a <code class="code-voice">Container</code>.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH26-ID192">&#x200c;</a>
+  <h3 class="section-name">Where Clauses</h3>
+  <p class="para">Type constraints, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH26-ID186" href="Generics.xhtml#TP40016643-CH26-ID186">Type Constraints</a>, enable you to define requirements on the type parameters associated with a generic function or type.</p><p class="para">It can also be useful to define requirements for associated types. You do this by defining <em>where clauses</em> as part of a type parameter list. A where clause enables you to require that an associated type must conform to a certain protocol, or that certain type parameters and associated types must be the same. You write a where clause by placing the <code class="code-voice">where</code> keyword immediately after the list of type parameters, followed by constraints for associated types or equality relationships between types and associated types.</p><p class="para">The example below defines a generic function called <code class="code-voice">allItemsMatch</code>, which checks to see if two <code class="code-voice">Container</code> instances contain the same items in the same order. The function returns a Boolean value of <code class="code-voice">true</code> if all items match and a value of <code class="code-voice">false</code> if they do not.</p><p class="para">The two containers to be checked do not have to be the same type of container (although they can be), but they do have to hold the same type of items. This requirement is expressed through a combination of type constraints and where clauses:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">allItemsMatch</code>&lt;</code></li>
+            <li><code class="code-voice">    <code class="vc">C1</code>: <code class="n"><!-- a href="" logicalPath="" -->Container<!-- /a --></code>, <code class="vc">C2</code>: <code class="n"><!-- a href="" logicalPath="" -->Container<!-- /a --></code></code></li>
+            <li><code class="code-voice">    <code class="kt">where</code> <code class="n"><!-- a href="" logicalPath="" -->C1<!-- /a --></code>.<code class="n"><!-- a href="" logicalPath="" -->ItemType<!-- /a --></code> == <code class="n"><!-- a href="" logicalPath="" -->C2<!-- /a --></code>.<code class="n"><!-- a href="" logicalPath="" -->ItemType<!-- /a --></code>, <code class="n"><!-- a href="" logicalPath="" -->C1<!-- /a --></code>.<code class="n"><!-- a href="" logicalPath="" -->ItemType<!-- /a --></code>: <code class="n"><!-- a href="" logicalPath="" -->Equatable<!-- /a --></code>&gt;</code></li>
+            <li><code class="code-voice">    (<code class="vc">someContainer</code>: <code class="n"><!-- a href="" logicalPath="" -->C1<!-- /a --></code>, <code class="kt">_</code> <code class="vc">anotherContainer</code>: <code class="n"><!-- a href="" logicalPath="" -->C2<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="c">// check that both containers contain the same number of items</code></code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="vc">someContainer</code>.<code class="vc">count</code> != <code class="vc">anotherContainer</code>.<code class="vc">count</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="kt">false</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="c">// check each pair of items to see if they are equivalent</code></code></li>
+            <li><code class="code-voice">    <code class="kt">for</code> <code class="vc">i</code> <code class="kt">in</code> <code class="m">0</code>..&lt;<code class="vc">someContainer</code>.<code class="vc">count</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">if</code> <code class="vc">someContainer</code>[<code class="vc">i</code>] != <code class="vc">anotherContainer</code>[<code class="vc">i</code>] {</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> <code class="kt">false</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="c">// all items match, so return true</code></code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="kt">true</code></code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This function takes two arguments called <code class="code-voice">someContainer</code> and <code class="code-voice">anotherContainer</code>. The <code class="code-voice">someContainer</code> argument is of type <code class="code-voice">C1</code>, and the <code class="code-voice">anotherContainer</code> argument is of type <code class="code-voice">C2</code>. Both <code class="code-voice">C1</code> and <code class="code-voice">C2</code> are type parameters for two container types to be determined when the function is called.</p><p class="para">The function’s type parameter list places the following requirements on the two type parameters:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">C1</code> must conform to the <code class="code-voice">Container</code> protocol (written as <code class="code-voice">C1: Container</code>).</p></li><li class="item"><p class="para"><code class="code-voice">C2</code> must also conform to the <code class="code-voice">Container</code> protocol (written as <code class="code-voice">C2: Container</code>).</p></li><li class="item"><p class="para">The <code class="code-voice">ItemType</code> for <code class="code-voice">C1</code> must be the same as the <code class="code-voice">ItemType</code> for <code class="code-voice">C2</code> (written as <code class="code-voice">C1.ItemType == C2.ItemType</code>).</p></li><li class="item"><p class="para">The <code class="code-voice">ItemType</code> for <code class="code-voice">C1</code> must conform to the <code class="code-voice">Equatable</code> protocol (written as <code class="code-voice">C1.ItemType: Equatable</code>).</p></li>
+</ul><p class="para">The third and fourth requirements are defined as part of a where clause, and are written after the <code class="code-voice">where</code> keyword as part of the function’s type parameter list.</p><p class="para">These requirements mean:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">someContainer</code> is a container of type <code class="code-voice">C1</code>.</p></li><li class="item"><p class="para"><code class="code-voice">anotherContainer</code> is a container of type <code class="code-voice">C2</code>.</p></li><li class="item"><p class="para"><code class="code-voice">someContainer</code> and <code class="code-voice">anotherContainer</code> contain the same type of items.</p></li><li class="item"><p class="para">The items in <code class="code-voice">someContainer</code> can be checked with the not equal operator (<code class="code-voice">!=</code>) to see if they are different from each other.</p></li>
+</ul><p class="para">The third and fourth requirements combine to mean that the items in <code class="code-voice">anotherContainer</code> can <em>also</em> be checked with the <code class="code-voice">!=</code> operator, because they are exactly the same type as the items in <code class="code-voice">someContainer</code>.</p><p class="para">These requirements enable the <code class="code-voice">allItemsMatch(_:_:)</code> function to compare the two containers, even if they are of a different container type.</p><p class="para">The <code class="code-voice">allItemsMatch(_:_:)</code> function starts by checking that both containers contain the same number of items. If they contain a different number of items, there is no way that they can match, and the function returns <code class="code-voice">false</code>.</p><p class="para">After making this check, the function iterates over all of the items in <code class="code-voice">someContainer</code> with a <code class="code-voice">for</code>-<code class="code-voice">in</code> loop and the half-open range operator (<code class="code-voice">..&lt;</code>). For each item, the function checks whether the item from <code class="code-voice">someContainer</code> is not equal to the corresponding item in <code class="code-voice">anotherContainer</code>. If the two items are not equal, then the two containers do not match, and the function returns <code class="code-voice">false</code>.</p><p class="para">If the loop finishes without finding a mismatch, the two containers match, and the function returns <code class="code-voice">true</code>.</p><p class="para">Here’s how the <code class="code-voice">allItemsMatch(_:_:)</code> function looks in action:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">stackOfStrings</code> = <code class="vc">Stack</code>&lt;<code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>&gt;()</code></li>
+            <li><code class="code-voice"><code class="vc">stackOfStrings</code>.<code class="vc">push</code>(<code class="s">&quot;uno&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">stackOfStrings</code>.<code class="vc">push</code>(<code class="s">&quot;dos&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">stackOfStrings</code>.<code class="vc">push</code>(<code class="s">&quot;tres&quot;</code>)</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">arrayOfStrings</code> = [<code class="s">&quot;uno&quot;</code>, <code class="s">&quot;dos&quot;</code>, <code class="s">&quot;tres&quot;</code>]</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">allItemsMatch</code>(<code class="vc">stackOfStrings</code>, <code class="vc">arrayOfStrings</code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;All items match.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Not all items match.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;All items match.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The example above creates a <code class="code-voice">Stack</code> instance to store <code class="code-voice">String</code> values, and pushes three strings onto the stack. The example also creates an <code class="code-voice">Array</code> instance initialized with an array literal containing the same three strings as the stack. Even though the stack and the array are of a different type, they both conform to the <code class="code-voice">Container</code> protocol, and both contain the same type of values. You can therefore call the <code class="code-voice">allItemsMatch(_:_:)</code> function with these two containers as its arguments. In the example above, the <code class="code-voice">allItemsMatch(_:_:)</code> function correctly reports that all of the items in the two containers match.</p>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

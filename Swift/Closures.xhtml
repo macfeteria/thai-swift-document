@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH11">&#x200c;</a><a id="TP40016643-CH11-ID94">&#x200c;</a>
+    <h2 class="chapter-name">Closures</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Closures</em> are self-contained blocks of functionality that can be passed around and used in your code. Closures in Swift are similar to blocks in C and Objective-C and to lambdas in other programming languages.</p><p class="para">Closures can capture and store references to any constants and variables from the context in which they are defined. This is known as <em>closing over</em> those constants and variables. Swift handles all of the memory management of capturing for you.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Don’t worry if you are not familiar with the concept of capturing. It is explained in detail below in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH11-ID103" href="Closures.xhtml#TP40016643-CH11-ID103">Capturing Values</a>.
+    	</p>
+    
+  </aside>
+</div>
+<p class="para">Global and nested functions, as introduced in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH10-ID158" href="Functions.xhtml">Functions</a>, are actually special cases of closures. Closures take one of three forms:</p><ul class="list-bullet">
+  <li class="item"><p class="para">Global functions are closures that have a name and do not capture any values.</p></li><li class="item"><p class="para">Nested functions are closures that have a name and can capture values from their enclosing function.</p></li><li class="item"><p class="para">Closure expressions are unnamed closures written in a lightweight syntax that can capture values from their surrounding context.</p></li>
+</ul>
+<p class="para">Swift’s closure expressions have a clean, clear style, with optimizations that encourage brief, clutter-free syntax in common scenarios. These optimizations include:</p><ul class="list-bullet">
+  <li class="item"><p class="para">Inferring parameter and return value types from context</p></li><li class="item"><p class="para">Implicit returns from single-expression closures</p></li><li class="item"><p class="para">Shorthand argument names</p></li><li class="item"><p class="para">Trailing closure syntax</p></li>
+</ul>
+
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH11-ID95">&#x200c;</a>
+  <h3 class="section-name">Closure Expressions</h3>
+  <p class="para">Nested functions, as introduced in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH10-ID178" href="Functions.xhtml#TP40016643-CH10-ID178">Nested Functions</a>, are a convenient means of naming and defining self-contained blocks of code as part of a larger function. However, it is sometimes useful to write shorter versions of function-like constructs without a full declaration and name. This is particularly true when you work with functions or methods that take functions as one or more of their arguments.</p><p class="para"><em>Closure expressions</em> are a way to write inline closures in a brief, focused syntax. Closure expressions provide several syntax optimizations for writing closures in a shortened form without loss of clarity or intent. The closure expression examples below illustrate these optimizations by refining a single example of the <code class="code-voice">sort(_:)</code> method over several iterations, each of which expresses the same functionality in a more succinct way.</p>
+  <section class="section">
+	<a id="TP40016643-CH11-ID96">&#x200c;</a>
+  <h3 class="section-name">The Sort Method</h3>
+  <p class="para">Swift’s standard library provides a method called <code class="code-voice">sort(_:)</code>, which sorts an array of values of a known type, based on the output of a sorting closure that you provide. Once it completes the sorting process, the <code class="code-voice">sort(_:)</code> method returns a new array of the same type and size as the old one, with its elements in the correct sorted order. The original array is not modified by the <code class="code-voice">sort(_:)</code> method.</p><p class="para">The closure expression examples below use the <code class="code-voice">sort(_:)</code> method to sort an array of <code class="code-voice">String</code> values in reverse alphabetical order. Here’s the initial array to be sorted:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">names</code> = [<code class="s">&quot;Chris&quot;</code>, <code class="s">&quot;Alex&quot;</code>, <code class="s">&quot;Ewa&quot;</code>, <code class="s">&quot;Barry&quot;</code>, <code class="s">&quot;Daniella&quot;</code>]</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">sort(_:)</code> method accepts a closure that takes two arguments of the same type as the array’s contents, and returns a <code class="code-voice">Bool</code> value to say whether the first value should appear before or after the second value once the values are sorted. The sorting closure needs to return <code class="code-voice">true</code> if the first value should appear <em>before</em> the second value, and <code class="code-voice">false</code> otherwise.</p><p class="para">This example is sorting an array of <code class="code-voice">String</code> values, and so the sorting closure needs to be a function of type <code class="code-voice">(String, String) -&gt; Bool</code>.</p><p class="para">One way to provide the sorting closure is to write a normal function of the correct type, and to pass it in as an argument to the <code class="code-voice">sort(_:)</code> method:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">backwards</code>(<code class="vc">s1</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="kt">_</code> <code class="vc">s2</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">s1</code> &gt; <code class="vc">s2</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>(<code class="vc">backwards</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// reversed is equal to [&quot;Ewa&quot;, &quot;Daniella&quot;, &quot;Chris&quot;, &quot;Barry&quot;, &quot;Alex&quot;]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If the first string (<code class="code-voice">s1</code>) is greater than the second string (<code class="code-voice">s2</code>), the <code class="code-voice">backwards(_:_:)</code> function will return <code class="code-voice">true</code>, indicating that <code class="code-voice">s1</code> should appear before <code class="code-voice">s2</code> in the sorted array. For characters in strings, “greater than” means “appears later in the alphabet than”. This means that the letter <code class="code-voice">&quot;B&quot;</code> is “greater than” the letter <code class="code-voice">&quot;A&quot;</code>, and the string <code class="code-voice">&quot;Tom&quot;</code> is greater than the string <code class="code-voice">&quot;Tim&quot;</code>. This gives a reverse alphabetical sort, with <code class="code-voice">&quot;Barry&quot;</code> being placed before <code class="code-voice">&quot;Alex&quot;</code>, and so on.</p><p class="para">However, this is a rather long-winded way to write what is essentially a single-expression function (<code class="code-voice">a &gt; b</code>). In this example, it would be preferable to write the sorting closure inline, using closure expression syntax.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID97">&#x200c;</a>
+  <h3 class="section-name">Closure Expression Syntax</h3>
+  <p class="para">Closure expression syntax has the following general form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice">{ (<em class="variable-text">parameters</em>) -&gt; <em class="variable-text">return type</em> <code class="kt">in</code></pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">Closure expression syntax can use constant parameters, variable parameters, and <code class="code-voice">inout</code> parameters. Default values cannot be provided. Variadic parameters can be used if you name the variadic parameter. Tuples can also be used as parameter types and return types.</p><p class="para">The example below shows a closure expression version of the <code class="code-voice">backwards(_:_:)</code> function from earlier:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>({ (<code class="vc">s1</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">s2</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code> <code class="kt">in</code></code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">s1</code> &gt; <code class="vc">s2</code></code></li>
+            <li><code class="code-voice">})</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Note that the declaration of parameters and return type for this inline closure is identical to the declaration from the <code class="code-voice">backwards(_:_:)</code> function. In both cases, it is written as <code class="code-voice">(s1: String, s2: String) -&gt; Bool</code>. However, for the inline closure expression, the parameters and return type are written <em>inside</em> the curly braces, not outside of them.</p><p class="para">The start of the closure’s body is introduced by the <code class="code-voice">in</code> keyword. This keyword indicates that the definition of the closure’s parameters and return type has finished, and the body of the closure is about to begin.</p><p class="para">Because the body of the closure is so short, it can even be written on a single line:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>( { (<code class="vc">s1</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">s2</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code> <code class="kt">in</code> <code class="kt">return</code> <code class="vc">s1</code> &gt; <code class="vc">s2</code> } )</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This illustrates that the overall call to the <code class="code-voice">sort(_:)</code> method has remained the same. A pair of parentheses still wrap the entire argument for the method. However, that argument is now an inline closure.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID98">&#x200c;</a>
+  <h3 class="section-name">Inferring Type From Context</h3>
+  <p class="para">Because the sorting closure is passed as an argument to a method, Swift can infer the types of its parameters and the type of the value it returns. The <code class="code-voice">sort(_:)</code> method is being called on an array of strings, so its argument must be a function of type <code class="code-voice">(String, String) -&gt; Bool</code>. This means that the <code class="code-voice">(String, String)</code> and <code class="code-voice">Bool</code> types do not need to be written as part of the closure expression’s definition. Because all of the types can be inferred, the return arrow (<code class="code-voice">-&gt;</code>) and the parentheses around the names of the parameters can also be omitted:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>( { <code class="vc">s1</code>, <code class="vc">s2</code> <code class="kt">in</code> <code class="kt">return</code> <code class="vc">s1</code> &gt; <code class="vc">s2</code> } )</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">It is always possible to infer the parameter types and return type when passing a closure to a function or method as an inline closure expression. As a result, you never need to write an inline closure in its fullest form when the closure is used as a function or method argument.</p><p class="para">Nonetheless, you can still make the types explicit if you wish, and doing so is encouraged if it avoids ambiguity for readers of your code. In the case of the <code class="code-voice">sort(_:)</code> method, the purpose of the closure is clear from the fact that sorting is taking place, and it is safe for a reader to assume that the closure is likely to be working with <code class="code-voice">String</code> values, because it is assisting with the sorting of an array of strings.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID99">&#x200c;</a>
+  <h3 class="section-name">Implicit Returns from Single-Expression Closures</h3>
+  <p class="para">Single-expression closures can implicitly return the result of their single expression by omitting the <code class="code-voice">return</code> keyword from their declaration, as in this version of the previous example:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>( { <code class="vc">s1</code>, <code class="vc">s2</code> <code class="kt">in</code> <code class="vc">s1</code> &gt; <code class="vc">s2</code> } )</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Here, the function type of the <code class="code-voice">sort(_:)</code> method’s argument makes it clear that a <code class="code-voice">Bool</code> value must be returned by the closure. Because the closure’s body contains a single expression (<code class="code-voice">s1 &gt; s2</code>) that returns a <code class="code-voice">Bool</code> value, there is no ambiguity, and the <code class="code-voice">return</code> keyword can be omitted.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID100">&#x200c;</a>
+  <h3 class="section-name">Shorthand Argument Names</h3>
+  <p class="para">Swift automatically provides shorthand argument names to inline closures, which can be used to refer to the values of the closure’s arguments by the names <code class="code-voice">$0</code>, <code class="code-voice">$1</code>, <code class="code-voice">$2</code>, and so on.</p><p class="para">If you use these shorthand argument names within your closure expression, you can omit the closure’s argument list from its definition, and the number and type of the shorthand argument names will be inferred from the expected function type. The <code class="code-voice">in</code> keyword can also be omitted, because the closure expression is made up entirely of its body:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>( { <code class="vc">$0</code> &gt; <code class="vc">$1</code> } )</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Here, <code class="code-voice">$0</code> and <code class="code-voice">$1</code> refer to the closure’s first and second <code class="code-voice">String</code> arguments.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID101">&#x200c;</a>
+  <h3 class="section-name">Operator Functions</h3>
+  <p class="para">There’s actually an even <em>shorter</em> way to write the closure expression above. Swift’s <code class="code-voice">String</code> type defines its string-specific implementation of the greater-than operator (<code class="code-voice">&gt;</code>) as a function that has two parameters of type <code class="code-voice">String</code>, and returns a value of type <code class="code-voice">Bool</code>. This exactly matches the function type needed by the <code class="code-voice">sort(_:)</code> method. Therefore, you can simply pass in the greater-than operator, and Swift will infer that you want to use its string-specific implementation:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>(&gt;)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">For more about operator functions, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH27-ID42" href="AdvancedOperators.xhtml#TP40016643-CH27-ID42">Operator Functions</a>.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID102">&#x200c;</a>
+  <h3 class="section-name">Trailing Closures</h3>
+  <p class="para">If you need to pass a closure expression to a function as the function’s final argument and the closure expression is long, it can be useful to write it as a <em>trailing closure</em> instead. A trailing closure is a closure expression that is written outside of (and <em>after</em>) the parentheses of the function call it supports:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">someFunctionThatTakesAClosure</code>(<code class="vc">closure</code>: () -&gt; <code class="n"><!-- a href="" logicalPath="" -->Void<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="c">// function body goes here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="c">// here&#39;s how you call this function without using a trailing closure:</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">someFunctionThatTakesAClosure</code>({</code></li>
+            <li><code class="code-voice">    <code class="c">// closure&#39;s body goes here</code></code></li>
+            <li><code class="code-voice">})</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="c">// here&#39;s how you call this function with a trailing closure instead:</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">someFunctionThatTakesAClosure</code>() {</code></li>
+            <li><code class="code-voice">    <code class="c">// trailing closure&#39;s body goes here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The string-sorting closure from the <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH11-ID97" href="Closures.xhtml#TP40016643-CH11-ID97">Closure Expression Syntax</a> section above can be written outside of the <code class="code-voice">sort(_:)</code> method’s parentheses as a trailing closure:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code>() { <code class="vc">$0</code> &gt; <code class="vc">$1</code> }</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If a closure expression is provided as the function or method’s only argument and you provide that expression as a trailing closure, you do not need to write a pair of parentheses <code class="code-voice">()</code> after the function or method’s name when you call the function:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">reversed</code> = <code class="vc">names</code>.<code class="vc">sort</code> { <code class="vc">$0</code> &gt; <code class="vc">$1</code> }</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Trailing closures are most useful when the closure is sufficiently long that it is not possible to write it inline on a single line. As an example, Swift’s <code class="code-voice">Array</code> type has a <code class="code-voice">map(_:)</code> method which takes a closure expression as its single argument. The closure is called once for each item in the array, and returns an alternative mapped value (possibly of some other type) for that item. The nature of the mapping and the type of the returned value is left up to the closure to specify.</p><p class="para">After applying the provided closure to each array element, the <code class="code-voice">map(_:)</code> method returns a new array containing all of the new mapped values, in the same order as their corresponding values in the original array.</p><p class="para">Here’s how you can use the <code class="code-voice">map(_:)</code> method with a trailing closure to convert an array of <code class="code-voice">Int</code> values into an array of <code class="code-voice">String</code> values. The array <code class="code-voice">[16, 58, 510]</code> is used to create the new array <code class="code-voice">[&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">digitNames</code> = [</code></li>
+            <li><code class="code-voice">    <code class="m">0</code>: <code class="s">&quot;Zero&quot;</code>, <code class="m">1</code>: <code class="s">&quot;One&quot;</code>, <code class="m">2</code>: <code class="s">&quot;Two&quot;</code>,   <code class="m">3</code>: <code class="s">&quot;Three&quot;</code>, <code class="m">4</code>: <code class="s">&quot;Four&quot;</code>,</code></li>
+            <li><code class="code-voice">    <code class="m">5</code>: <code class="s">&quot;Five&quot;</code>, <code class="m">6</code>: <code class="s">&quot;Six&quot;</code>, <code class="m">7</code>: <code class="s">&quot;Seven&quot;</code>, <code class="m">8</code>: <code class="s">&quot;Eight&quot;</code>, <code class="m">9</code>: <code class="s">&quot;Nine&quot;</code></code></li>
+            <li><code class="code-voice">]</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">numbers</code> = [<code class="m">16</code>, <code class="m">58</code>, <code class="m">510</code>]</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The code above creates a dictionary of mappings between the integer digits and English-language versions of their names. It also defines an array of integers, ready to be converted into strings.</p><p class="para">You can now use the <code class="code-voice">numbers</code> array to create an array of <code class="code-voice">String</code> values, by passing a closure expression to the array’s <code class="code-voice">map(_:)</code> method as a trailing closure:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">strings</code> = <code class="vc">numbers</code>.<code class="vc">map</code> {</code></li>
+            <li><code class="code-voice">    (<code class="vc">number</code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> <code class="kt">in</code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">number</code> = <code class="vc">number</code></code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">output</code> = <code class="s">&quot;&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">while</code> <code class="vc">number</code> &gt; <code class="m">0</code> {</code></li>
+            <li><code class="code-voice">        <code class="vc">output</code> = <code class="vc">digitNames</code>[<code class="vc">number</code> % <code class="m">10</code>]! + <code class="vc">output</code></code></li>
+            <li><code class="code-voice">        <code class="vc">number</code> /= <code class="m">10</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">output</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// strings is inferred to be of type [String]</code></code></li>
+            <li><code class="code-voice"><code class="c">// its value is [&quot;OneSix&quot;, &quot;FiveEight&quot;, &quot;FiveOneZero&quot;]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">map(_:)</code> method calls the closure expression once for each item in the array. You do not need to specify the type of the closure’s input parameter, <code class="code-voice">number</code>, because the type can be inferred from the values in the array to be mapped.</p><p class="para">In this example, the variable <code class="code-voice">number</code> is initialized with the value of the closure’s <code class="code-voice">number</code> parameter, so that the value can be modified within the closure body. (The parameters to functions and closures are always constants.) The closure expression also specifies a return type of <code class="code-voice">String</code>, to indicate the type that will be stored in the mapped output array.</p><p class="para">The closure expression builds a string called <code class="code-voice">output</code> each time it is called. It calculates the last digit of <code class="code-voice">number</code> by using the remainder operator (<code class="code-voice">number % 10</code>), and uses this digit to look up an appropriate string in the <code class="code-voice">digitNames</code> dictionary. The closure can be used to create a string representation of any integer number greater than zero.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The call to the <code class="code-voice">digitNames</code> dictionary’s subscript is followed by an exclamation mark (<code class="code-voice">!</code>), because dictionary subscripts return an optional value to indicate that the dictionary lookup can fail if the key does not exist. In the example above, it is guaranteed that <code class="code-voice">number % 10</code> will always be a valid subscript key for the <code class="code-voice">digitNames</code> dictionary, and so an exclamation mark is used to force-unwrap the <code class="code-voice">String</code> value stored in the subscript’s optional return value.
+    	</p>
+    
+  </aside>
+</div><p class="para">The string retrieved from the <code class="code-voice">digitNames</code> dictionary is added to the <em>front</em> of <code class="code-voice">output</code>, effectively building a string version of the number in reverse. (The expression <code class="code-voice">number % 10</code> gives a value of <code class="code-voice">6</code> for <code class="code-voice">16</code>, <code class="code-voice">8</code> for <code class="code-voice">58</code>, and <code class="code-voice">0</code> for <code class="code-voice">510</code>.)</p><p class="para">The <code class="code-voice">number</code> variable is then divided by <code class="code-voice">10</code>. Because it is an integer, it is rounded down during the division, so <code class="code-voice">16</code> becomes <code class="code-voice">1</code>, <code class="code-voice">58</code> becomes <code class="code-voice">5</code>, and <code class="code-voice">510</code> becomes <code class="code-voice">51</code>.</p><p class="para">The process is repeated until <code class="code-voice">number</code> is equal to <code class="code-voice">0</code>, at which point the <code class="code-voice">output</code> string is returned by the closure, and is added to the output array by the <code class="code-voice">map(_:)</code> method.</p><p class="para">The use of trailing closure syntax in the example above neatly encapsulates the closure’s functionality immediately after the function that closure supports, without needing to wrap the entire closure within the <code class="code-voice">map(_:)</code> method’s outer parentheses.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID103">&#x200c;</a>
+  <h3 class="section-name">Capturing Values</h3>
+  <p class="para">A closure can <em>capture</em> constants and variables from the surrounding context in which it is defined. The closure can then refer to and modify the values of those constants and variables from within its body, even if the original scope that defined the constants and variables no longer exists.</p><p class="para">In Swift, the simplest form of a closure that can capture values is a nested function, written within the body of another function. A nested function can capture any of its outer function’s arguments and can also capture any constants and variables defined within the outer function.</p><p class="para">Here’s an example of a function called <code class="code-voice">makeIncrementer</code>, which contains a nested function called <code class="code-voice">incrementer</code>. The nested <code class="code-voice">incrementer()</code> function captures two values, <code class="code-voice">runningTotal</code> and <code class="code-voice">amount</code>, from its surrounding context. After capturing these values, <code class="code-voice">incrementer</code> is returned by <code class="code-voice">makeIncrementer</code> as a closure that increments <code class="code-voice">runningTotal</code> by <code class="code-voice">amount</code> each time it is called.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">makeIncrementer</code>(<code class="vc">forIncrement</code> <code class="vc">amount</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; () -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">runningTotal</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice">    <code class="kt">func</code> <code class="vc">incrementer</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="vc">runningTotal</code> += <code class="vc">amount</code></code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">runningTotal</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">incrementer</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The return type of <code class="code-voice">makeIncrementer</code> is <code class="code-voice">() -&gt; Int</code>. This means that it returns a <em>function</em>, rather than a simple value. The function it returns has no parameters, and returns an <code class="code-voice">Int</code> value each time it is called. To learn how functions can return other functions, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH10-ID177" href="Functions.xhtml#TP40016643-CH10-ID177">Function Types as Return Types</a>.</p><p class="para">The <code class="code-voice">makeIncrementer(forIncrement:)</code> function defines an integer variable called <code class="code-voice">runningTotal</code>, to store the current running total of the incrementer that will be returned. This variable is initialized with a value of <code class="code-voice">0</code>.</p><p class="para">The <code class="code-voice">makeIncrementer(forIncrement:)</code> function has a single <code class="code-voice">Int</code> parameter with an external name of <code class="code-voice">forIncrement</code>, and a local name of <code class="code-voice">amount</code>. The argument value passed to this parameter specifies how much <code class="code-voice">runningTotal</code> should be incremented by each time the returned incrementer function is called. The <code class="code-voice">makeIncrementer</code> function defines a nested function called <code class="code-voice">incrementer</code>, which performs the actual incrementing. This function simply adds <code class="code-voice">amount</code> to <code class="code-voice">runningTotal</code>, and returns the result.</p><p class="para">When considered in isolation, the nested <code class="code-voice">incrementer()</code> function might seem unusual:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">incrementer</code>() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">runningTotal</code> += <code class="vc">amount</code></code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">runningTotal</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">incrementer()</code> function doesn’t have any parameters, and yet it refers to <code class="code-voice">runningTotal</code> and <code class="code-voice">amount</code> from within its function body. It does this by capturing a <em>reference</em> to <code class="code-voice">runningTotal</code> and <code class="code-voice">amount</code> from the surrounding function and using them within its own function body. Capturing by reference ensures that <code class="code-voice">runningTotal</code> and <code class="code-voice">amount</code> do not disappear when the call to <code class="code-voice">makeIncrementer</code> ends, and also ensures that <code class="code-voice">runningTotal</code> is available the next time the <code class="code-voice">incrementer</code> function is called.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">As an optimization, Swift may instead capture and store a <em>copy</em> of a value if that value is not mutated by a closure, and if the value is not mutated after the closure is created.
+    	</p>
+    <p class="para">Swift also handles all memory management involved in disposing of variables when they are no longer needed.</p>
+  </aside>
+</div><p class="para">Here’s an example of <code class="code-voice">makeIncrementer</code> in action:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">incrementByTen</code> = <code class="vc">makeIncrementer</code>(<code class="vc">forIncrement</code>: <code class="m">10</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example sets a constant called <code class="code-voice">incrementByTen</code> to refer to an incrementer function that adds <code class="code-voice">10</code> to its <code class="code-voice">runningTotal</code> variable each time it is called. Calling the function multiple times shows this behavior in action:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">incrementByTen</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// returns a value of 10</code></code></li>
+            <li><code class="code-voice"><code class="vc">incrementByTen</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// returns a value of 20</code></code></li>
+            <li><code class="code-voice"><code class="vc">incrementByTen</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// returns a value of 30</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If you create a second incrementer, it will have its own stored reference to a new, separate <code class="code-voice">runningTotal</code> variable:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">incrementBySeven</code> = <code class="vc">makeIncrementer</code>(<code class="vc">forIncrement</code>: <code class="m">7</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">incrementBySeven</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// returns a value of 7</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Calling the original incrementer (<code class="code-voice">incrementByTen</code>) again continues to increment its own <code class="code-voice">runningTotal</code> variable, and does not affect the variable captured by <code class="code-voice">incrementBySeven</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">incrementByTen</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// returns a value of 40</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you assign a closure to a property of a class instance, and the closure captures that instance by referring to the instance or its members, you will create a strong reference cycle between the closure and the instance. Swift uses <em>capture lists</em> to break these strong reference cycles. For more information, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH20-ID56" href="AutomaticReferenceCounting.xhtml#TP40016643-CH20-ID56">Strong Reference Cycles for Closures</a>.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID104">&#x200c;</a>
+  <h3 class="section-name">Closures Are Reference Types</h3>
+  <p class="para">In the example above, <code class="code-voice">incrementBySeven</code> and <code class="code-voice">incrementByTen</code> are constants, but the closures these constants refer to are still able to increment the <code class="code-voice">runningTotal</code> variables that they have captured. This is because functions and closures are <em>reference types</em>.</p><p class="para">Whenever you assign a function or a closure to a constant or a variable, you are actually setting that constant or variable to be a <em>reference</em> to the function or closure. In the example above, it is the choice of closure that <code class="code-voice">incrementByTen</code> <em>refers to</em> that is constant, and not the contents of the closure itself.</p><p class="para">This also means that if you assign a closure to two different constants or variables, both of those constants or variables will refer to the same closure:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">alsoIncrementByTen</code> = <code class="vc">incrementByTen</code></code></li>
+            <li><code class="code-voice"><code class="vc">alsoIncrementByTen</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// returns a value of 50</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID546">&#x200c;</a>
+  <h3 class="section-name">Nonescaping Closures</h3>
+  <p class="para">A closure is said to <em>escape</em> a function when the closure is passed as an argument to the function, but is called after the function returns. When you declare a function that takes a closure as one of its parameters, you can write <code class="code-voice">@noescape</code> before the parameter name to indicate that the closure is not allowed to escape. Marking a closure with <code class="code-voice">@noescape</code> lets the compiler make more aggressive optimizations because it knows more information about the closure’s lifespan.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">someFunctionWithNonescapingClosure</code>(<code class="kt">@noescape</code> <code class="vc">closure</code>: () -&gt; <code class="n"><!-- a href="" logicalPath="" -->Void<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">closure</code>()</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">As an example, the <code class="code-voice">sort(_:)</code> method takes a closure as its parameter, which is used to compare elements. The parameter is marked <code class="code-voice">@noescape</code> because it is guaranteed not to be needed after sorting is complete.</p><p class="para">One way that a closure can escape is by being stored in a variable that is defined outside the function. As an example, many functions that start an asynchronous operation take a closure argument as a completion handler. The function returns after it starts the operation, but the closure isn’t called until the operation is completed—the closure needs to escape, to be called later. For example:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">completionHandlers</code>: [() -&gt; <code class="n"><!-- a href="" logicalPath="" -->Void<!-- /a --></code>] = []</code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">someFunctionWithEscapingClosure</code>(<code class="vc">completionHandler</code>: () -&gt; <code class="n"><!-- a href="" logicalPath="" -->Void<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">completionHandlers</code>.<code class="vc">append</code>(<code class="vc">completionHandler</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">someFunctionWithEscapingClosure(_:)</code> function takes a closure as its argument and adds it to an array that’s declared outside the function. If you tried to mark the parameter of this function with <code class="code-voice">@noescape</code>, you would get a compiler error.</p><p class="para">Marking a closure with <code class="code-voice">@noescape</code> lets you refer to <code class="code-voice">self</code> implicitly within the closure.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">class</code> <code class="vc">SomeClass</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">x</code> = <code class="m">10</code></code></li>
+            <li><code class="code-voice">    <code class="kt">func</code> <code class="vc">doSomething</code>() {</code></li>
+            <li><code class="code-voice">        <code class="vc">someFunctionWithEscapingClosure</code> { <code class="kt">self</code>.<code class="vc">x</code> = <code class="m">100</code> }</code></li>
+            <li><code class="code-voice">        <code class="vc">someFunctionWithNonescapingClosure</code> { <code class="vc">x</code> = <code class="m">200</code> }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">instance</code> = <code class="vc">SomeClass</code>()</code></li>
+            <li><code class="code-voice"><code class="vc">instance</code>.<code class="vc">doSomething</code>()</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">instance</code>.<code class="vc">x</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;200&quot;</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">completionHandlers</code>.<code class="vc">first</code>?()</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">instance</code>.<code class="vc">x</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;100&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH11-ID543">&#x200c;</a>
+  <h3 class="section-name">Autoclosures</h3>
+  <p class="para">An <em>autoclosure</em> is a closure that is automatically created to wrap an expression that’s being passed as an argument to a function. It doesn’t take any arguments, and when it’s called, it returns the value of the expression that’s wrapped inside of it. This syntactic convenience lets you omit braces around a function’s parameter by writing a normal expression instead of an explicit closure.</p><p class="para">It’s common to <em>call</em> functions that take autoclosures, but it’s not common to <em>implement</em> that kind of function. For example, the <code class="code-voice">assert(condition:message:file:line:)</code> function takes an autoclosure for its <code class="code-voice">condition</code> and <code class="code-voice">message</code> parameters; its <code class="code-voice">condition</code> parameter is evaluated only in debug builds and its <code class="code-voice">message</code> parameter is evaluated only if <code class="code-voice">condition</code> is <code class="code-voice">false</code>.</p><p class="para">An autoclosure lets you delay evaluation, because the code inside isn’t run until you call the closure. Delaying evaluation is useful for code that has side effects or is computationally expensive, because it lets you control when that code is evaluated. The code below shows how a closure delays evaluation.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">customersInLine</code> = [<code class="s">&quot;Chris&quot;</code>, <code class="s">&quot;Alex&quot;</code>, <code class="s">&quot;Ewa&quot;</code>, <code class="s">&quot;Barry&quot;</code>, <code class="s">&quot;Daniella&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">customersInLine</code>.<code class="vc">count</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;5&quot;</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">customerProvider</code> = { <code class="vc">customersInLine</code>.<code class="vc">removeAtIndex</code>(<code class="m">0</code>) }</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">customersInLine</code>.<code class="vc">count</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;5&quot;</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;Now serving </code>\(<code class="vc">customerProvider</code>())<code class="s">!&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Now serving Chris!&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">customersInLine</code>.<code class="vc">count</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;4&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Even though the first element of the <code class="code-voice">customersInLine</code> array is removed by the code inside the closure, the array element isn’t removed until the closure is actually called. If the closure is never called, the expression inside the closure is never evaluated, which means the array element is never removed. Note that the type of <code class="code-voice">customerProvider</code> is not <code class="code-voice">String</code> but <code class="code-voice">() -&gt; String</code>—a function with no parameters that returns a string.</p><p class="para">You get the same behavior of delayed evaluation when you pass a closure as an argument to a function.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="c">// customersInLine is [&quot;Alex&quot;, &quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]</code></code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">serveCustomer</code>(<code class="vc">customerProvider</code>: () -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Now serving </code>\(<code class="vc">customerProvider</code>())<code class="s">!&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">serveCustomer</code>( { <code class="vc">customersInLine</code>.<code class="vc">removeAtIndex</code>(<code class="m">0</code>) } )</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Now serving Alex!&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">serveCustomer(_:)</code> function in the listing above takes an explicit closure that returns a customer’s name. The version of <code class="code-voice">serveCustomer(_:)</code> below performs the same operation but, instead of taking an explicit closure, it takes an autoclosure by marking its parameter with the <code class="code-voice">@autoclosure</code> attribute. Now you can call the function as if it took a <code class="code-voice">String</code> argument instead of a closure. The argument is automatically converted to a closure, because the <code class="code-voice">customerProvider</code> parameter is marked with the <code class="code-voice">@autoclosure</code> attribute.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="c">// customersInLine is [&quot;Ewa&quot;, &quot;Barry&quot;, &quot;Daniella&quot;]</code></code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">serveCustomer</code>(<code class="kt">@autoclosure</code> <code class="vc">customerProvider</code>: () -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Now serving </code>\(<code class="vc">customerProvider</code>())<code class="s">!&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">serveCustomer</code>(<code class="vc">customersInLine</code>.<code class="vc">removeAtIndex</code>(<code class="m">0</code>))</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Now serving Ewa!&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Overusing autoclosures can make your code hard to understand. The context and function name should make it clear that evaluation is being deferred.
+    	</p>
+    
+  </aside>
+</div><p class="para">The <code class="code-voice">@autoclosure</code> attribute implies the <code class="code-voice">@noescape</code> attribute, which is described above in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH11-ID546" href="Closures.xhtml#TP40016643-CH11-ID546">Nonescaping Closures</a>. If you want an autoclosure that is allowed to escape, use the <code class="code-voice">@autoclosure(escaping)</code> form of the attribute.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="c">// customersInLine is [&quot;Barry&quot;, &quot;Daniella&quot;]</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">customerProviders</code>: [() -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>] = []</code></li>
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">collectCustomerProviders</code>(<code class="kt">@autoclosure(escaping)</code> <code class="vc">customerProvider</code>: () -&gt; <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">customerProviders</code>.<code class="vc">append</code>(<code class="vc">customerProvider</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">collectCustomerProviders</code>(<code class="vc">customersInLine</code>.<code class="vc">removeAtIndex</code>(<code class="m">0</code>))</code></li>
+            <li><code class="code-voice"><code class="vc">collectCustomerProviders</code>(<code class="vc">customersInLine</code>.<code class="vc">removeAtIndex</code>(<code class="m">0</code>))</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;Collected </code>\(<code class="vc">customerProviders</code>.<code class="vc">count</code>)<code class="s"> closures.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Collected 2 closures.&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">customerProvider</code> <code class="kt">in</code> <code class="vc">customerProviders</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Now serving </code>\(<code class="vc">customerProvider</code>())<code class="s">!&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Now serving Barry!&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Now serving Daniella!&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In the code above, instead of calling the closure passed to it as its <code class="code-voice">customerProvider</code> argument, the <code class="code-voice">collectCustomerProviders(_:)</code> function appends the closure to the <code class="code-voice">customerProviders</code> array. The array is declared outside the scope of the function, which means the closures in the array can be executed after the function returns. As a result, the value of the <code class="code-voice">customerProvider</code> argument must be allowed to escape the function’s scope.</p>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

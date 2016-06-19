@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH36">&#x200c;</a><a id="TP40016643-CH36-ID419">&#x200c;</a>
+    <h2 class="chapter-name">Patterns</h2>
+      
+      	<section class="section">
+      		<p class="para">A <em>pattern</em> represents the structure of a single value or a composite value. For example, the structure of a tuple <code class="code-voice">(1, 2)</code> is a comma-separated list of two elements. Because patterns represent the structure of a value rather than any one particular value, you can match them with a variety of values. For instance, the pattern <code class="code-voice">(x, y)</code> matches the tuple <code class="code-voice">(1, 2)</code> and any other two-element tuple. In addition to matching a pattern with a value, you can extract part or all of a composite value and bind each part to a constant or variable name.</p><p class="para">In Swift, there are two basic kinds of patterns: those that successfully match any kind of value, and those that may fail to match a specified value at runtime.</p><p class="para">The first kind of pattern is used for destructuring values in simple variable, constant, and optional bindings. These include wildcard patterns, identifier patterns, and any value binding or tuple patterns containing them. You can specify a type annotation for these patterns to constrain them to match only values of a certain type.</p><p class="para">The second kind of pattern is used for full pattern matching, where the values you’re trying to match against may not be there at runtime. These include enumeration case patterns, optional patterns, expression patterns, and type-casting patterns. You use these patterns in a case label of a <code class="code-voice">switch</code> statement, a <code class="code-voice">catch</code> clause of a <code class="code-voice">do</code> statement, or in the case condition of an <code class="code-voice">if</code>, <code class="code-voice">while</code>, <code class="code-voice">guard</code>, or <code class="code-voice">for</code>-<code class="code-voice">in</code> statement.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/wildcard-pattern" href="Patterns.xhtml#wildcard-pattern">wildcard-pattern</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/type-annotation" href="Types.xhtml#type-annotation">type-annotation</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH36-NoLink_777">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/identifier-pattern" href="Patterns.xhtml#identifier-pattern">identifier-pattern</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/type-annotation" href="Types.xhtml#type-annotation">type-annotation</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH36-NoLink_778">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/value-binding-pattern" href="Patterns.xhtml#value-binding-pattern">value-binding-pattern</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH36-NoLink_779">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/tuple-pattern" href="Patterns.xhtml#tuple-pattern">tuple-pattern</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/type-annotation" href="Types.xhtml#type-annotation">type-annotation</a></span><sub class="subscript">opt</sub></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH36-NoLink_780">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/enum-case-pattern" href="Patterns.xhtml#enum-case-pattern">enum-case-pattern</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH36-NoLink_781">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/optional-pattern" href="Patterns.xhtml#optional-pattern">optional-pattern</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH36-NoLink_782">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/type-casting-pattern" href="Patterns.xhtml#type-casting-pattern">type-casting-pattern</a></span>
+</p><p class="syntax-def">
+  <a id="TP40016643-CH36-NoLink_783">&#x200c;</a>
+  <span class="syntax-def-name">
+  pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression-pattern" href="Patterns.xhtml#expression-pattern">expression-pattern</a></span>
+</p>
+</div>
+ </div>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH36-ID420">&#x200c;</a>
+  <h3 class="section-name">Wildcard Pattern</h3>
+  <p class="para">A <em>wildcard pattern</em> matches and ignores any value and consists of an underscore (<code class="code-voice">_</code>). Use a wildcard pattern when you don’t care about the values being matched against. For example, the following code iterates through the closed range <code class="code-voice">1...3</code>, ignoring the current value of the range on each iteration of the loop:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="kt">_</code> <code class="kt">in</code> <code class="m">1</code>...<code class="m">3</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// Do something three times.</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a wildcard pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="wildcard-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  wildcard-pattern
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">_</code>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH36-ID421">&#x200c;</a>
+  <h3 class="section-name">Identifier Pattern</h3>
+  <p class="para">An <em>identifier pattern</em> matches any value and binds the matched value to a variable or constant name. For example, in the following constant declaration, <code class="code-voice">someValue</code> is an identifier pattern that matches the value <code class="code-voice">42</code> of type <code class="code-voice">Int</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">someValue</code> = <code class="m">42</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">When the match succeeds, the value <code class="code-voice">42</code> is bound (assigned) to the constant name <code class="code-voice">someValue</code>.</p><p class="para">When the pattern on the left-hand side of a variable or constant declaration is an identifier pattern, the identifier pattern is implicitly a subpattern of a value-binding pattern.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an identifier pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="identifier-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  identifier-pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/identifier" href="LexicalStructure.xhtml#identifier">identifier</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH36-ID422">&#x200c;</a>
+  <h3 class="section-name">Value-Binding Pattern</h3>
+  <p class="para">A <em>value-binding pattern</em> binds matched values to variable or constant names. Value-binding patterns that bind a matched value to the name of a constant begin with the <code class="code-voice">let</code> keyword; those that bind to the name of variable begin with the <code class="code-voice">var</code> keyword.</p><p class="para">Identifiers patterns within a value-binding pattern bind new named variables or constants to their matching values. For example, you can decompose the elements of a tuple and bind the value of each element to a corresponding identifier pattern.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">point</code> = (<code class="m">3</code>, <code class="m">2</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">point</code> {</code></li>
+            <li><code class="code-voice"><code class="c">// Bind x and y to the elements of point.</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> (<code class="vc">x</code>, <code class="vc">y</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The point is at (</code>\(<code class="vc">x</code>)<code class="s">, </code>\(<code class="vc">y</code>)<code class="s">).&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The point is at (3, 2).&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In the example above, <code class="code-voice">let</code> distributes to each identifier pattern in the tuple pattern <code class="code-voice">(x, y)</code>. Because of this behavior, the <code class="code-voice">switch</code> cases <code class="code-voice">case let (x, y):</code> and <code class="code-voice">case (let x, let y):</code> match the same values.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a value-binding pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="value-binding-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  value-binding-pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <code class="literal">var</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span>
+</span><span class="alternative">
+  <code class="literal">let</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span>
+</span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH36-ID423">&#x200c;</a>
+  <h3 class="section-name">Tuple Pattern</h3>
+  <p class="para">A <em>tuple pattern</em> is a comma-separated list of zero or more patterns, enclosed in parentheses. Tuple patterns match values of corresponding tuple types.</p><p class="para">You can constrain a tuple pattern to match certain kinds of tuple types by using type annotations. For example, the tuple pattern <code class="code-voice">(x, y): (Int, Int)</code> in the constant declaration <code class="code-voice">let (x, y): (Int, Int) = (1, 2)</code> matches only tuple types in which both elements are of type <code class="code-voice">Int</code>.</p><p class="para">When a tuple pattern is used as the pattern in a <code class="code-voice">for</code>-<code class="code-voice">in</code> statement or in a variable or constant declaration, it can contain only wildcard patterns, identifier patterns, optional patterns, or other tuple patterns that contain those. For example, the following code isn’t valid because the element <code class="code-voice">0</code> in the tuple pattern <code class="code-voice">(x, 0)</code> is an expression pattern:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">points</code> = [(<code class="m">0</code>, <code class="m">0</code>), (<code class="m">1</code>, <code class="m">0</code>), (<code class="m">1</code>, <code class="m">1</code>), (<code class="m">2</code>, <code class="m">0</code>), (<code class="m">2</code>, <code class="m">1</code>)]</code></li>
+            <li><code class="code-voice"><code class="c">// This code isn&#39;t valid.</code></code></li>
+            <li><code class="code-voice"><code class="kt">for</code> (<code class="vc">x</code>, <code class="m">0</code>) <code class="kt">in</code> <code class="vc">points</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">/* ... */</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The parentheses around a tuple pattern that contains a single element have no effect. The pattern matches values of that single element’s type. For example, the following are equivalent:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">a</code> = <code class="m">2</code>        <code class="c">// a: Int = 2</code></code></li>
+            <li><code class="code-voice"><code class="kt">let</code> (<code class="vc">a</code>) = <code class="m">2</code>      <code class="c">// a: Int = 2</code></code></li>
+            <li><code class="code-voice"><code class="kt">let</code> (<code class="vc">a</code>): <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> = <code class="m">2</code> <code class="c">// a: Int = 2</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a tuple pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="tuple-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  tuple-pattern
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">(</code><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/tuple-pattern-element-list" href="Patterns.xhtml#tuple-pattern-element-list">tuple-pattern-element-list</a></span><sub class="subscript">opt</sub></span><code class="literal">)</code>
+</p><p class="syntax-def">
+  <a id="tuple-pattern-element-list">&#x200c;</a>
+  <span class="syntax-def-name">
+  tuple-pattern-element-list
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/tuple-pattern-element" href="Patterns.xhtml#tuple-pattern-element">tuple-pattern-element</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/tuple-pattern-element" href="Patterns.xhtml#tuple-pattern-element">tuple-pattern-element</a></span><code class="literal">,</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/tuple-pattern-element-list" href="Patterns.xhtml#tuple-pattern-element-list">tuple-pattern-element-list</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="tuple-pattern-element">&#x200c;</a>
+  <span class="syntax-def-name">
+  tuple-pattern-element
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/identifier" href="LexicalStructure.xhtml#identifier">identifier</a></span><code class="literal">:</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span>
+</span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH36-ID424">&#x200c;</a>
+  <h3 class="section-name">Enumeration Case Pattern</h3>
+  <p class="para">An <em>enumeration case pattern</em> matches a case of an existing enumeration type. Enumeration case patterns appear in <code class="code-voice">switch</code> statement case labels and in the case conditions of <code class="code-voice">if</code>, <code class="code-voice">while</code>, <code class="code-voice">guard</code>, and <code class="code-voice">for</code>-<code class="code-voice">in</code> statements.</p><p class="para">If the enumeration case you’re trying to match has any associated values, the corresponding enumeration case pattern must specify a tuple pattern that contains one element for each associated value. For an example that uses a <code class="code-voice">switch</code> statement to match enumeration cases containing associated values, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH12-ID148" href="Enumerations.xhtml#TP40016643-CH12-ID148">Associated Values</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an enumeration case pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="enum-case-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  enum-case-pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/type-identifier" href="Types.xhtml#type-identifier">type-identifier</a></span><sub class="subscript">opt</sub></span><code class="literal">.</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/enum-case-name" href="Declarations.xhtml#enum-case-name">enum-case-name</a></span><span class="optional"><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/tuple-pattern" href="Patterns.xhtml#tuple-pattern">tuple-pattern</a></span><sub class="subscript">opt</sub></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH36-ID520">&#x200c;</a>
+  <h3 class="section-name">Optional Pattern</h3>
+  <p class="para">An <em>optional pattern</em> matches values wrapped in a <code class="code-voice">Some(Wrapped)</code> case of an <code class="code-voice">Optional&lt;Wrapped&gt;</code> or <code class="code-voice">ImplicitlyUnwrappedOptional&lt;Wrapped&gt;</code> enumeration. Optional patterns consist of an identifier pattern followed immediately by a question mark and appear in the same places as enumeration case patterns.</p><p class="para">Because optional patterns are syntactic sugar for <code class="code-voice">Optional</code> and <code class="code-voice">ImplicitlyUnwrappedOptional</code> enumeration case patterns, the following are equivalent:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">someOptional</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>? = <code class="m">42</code></code></li>
+            <li><code class="code-voice"><code class="c">// Match using an enumeration case pattern</code></code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">case</code> .<code class="vc">Some</code>(<code class="kt">let</code> <code class="vc">x</code>) = <code class="vc">someOptional</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="vc">x</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="c">// Match using an optional pattern</code></code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">case</code> <code class="kt">let</code> <code class="vc">x</code>? = <code class="vc">someOptional</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="vc">x</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The optional pattern provides a convenient way to iterate over an array of optional values in a <code class="code-voice">for</code>-<code class="code-voice">in</code> statement, executing the body of the loop only for non-<code class="code-voice">nil</code> elements.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">arrayOfOptionalInts</code>: [<code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>?] = [<code class="kt">nil</code>, <code class="m">2</code>, <code class="m">3</code>, <code class="kt">nil</code>, <code class="m">5</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// Match only non-nil values</code></code></li>
+            <li><code class="code-voice"><code class="kt">for</code> <code class="kt">case</code> <code class="kt">let</code> <code class="vc">number</code>? <code class="kt">in</code> <code class="vc">arrayOfOptionalInts</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Found a </code>\(<code class="vc">number</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Found a 2</code></code></li>
+            <li><code class="code-voice"><code class="c">// Found a 3</code></code></li>
+            <li><code class="code-voice"><code class="c">// Found a 5</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an optional pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="optional-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  optional-pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/identifier-pattern" href="Patterns.xhtml#identifier-pattern">identifier-pattern</a></span><code class="literal">?</code>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH36-ID425">&#x200c;</a>
+  <h3 class="section-name">Type-Casting Patterns</h3>
+  <p class="para">There are two type-casting patterns, the <code class="code-voice">is</code> pattern and the <code class="code-voice">as</code> pattern. The <code class="code-voice">is</code> pattern appears only in <code class="code-voice">switch</code> statement case labels. The <code class="code-voice">is</code> and <code class="code-voice">as</code> patterns have the following form:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">is</code> <em class="variable-text">type</em></pre></li><li><pre class="code-voice"><em class="variable-text">pattern</em> <code class="kt">as</code> <em class="variable-text">type</em></pre></li>
+  </ul>
+</div><p class="para">The <code class="code-voice">is</code> pattern matches a value if the type of that value at runtime is the same as the type specified in the right-hand side of the <code class="code-voice">is</code> pattern—or a subclass of that type. The <code class="code-voice">is</code> pattern behaves like the <code class="code-voice">is</code> operator in that they both perform a type cast but discard the returned type.</p><p class="para">The <code class="code-voice">as</code> pattern matches a value if the type of that value at runtime is the same as the type specified in the right-hand side of the <code class="code-voice">as</code> pattern—or a subclass of that type. If the match succeeds, the type of the matched value is cast to the <em>pattern</em> specified in the left-hand side of the <code class="code-voice">as</code> pattern.</p><p class="para">For an example that uses a <code class="code-voice">switch</code> statement to match values with <code class="code-voice">is</code> and <code class="code-voice">as</code> patterns, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH22-ID342" href="TypeCasting.xhtml#TP40016643-CH22-ID342">Type Casting for Any and AnyObject</a>.</p><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of a type casting pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="type-casting-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  type-casting-pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/is-pattern" href="Patterns.xhtml#is-pattern">is-pattern</a></span>
+</span><span class="alternative">
+  <span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/as-pattern" href="Patterns.xhtml#as-pattern">as-pattern</a></span>
+</span>
+</p><p class="syntax-def">
+  <a id="is-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  is-pattern
+</span>
+<span class="arrow">
+  →
+</span><code class="literal">is</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/type" href="Types.xhtml#type">type</a></span>
+</p><p class="syntax-def">
+  <a id="as-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  as-pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/pattern" href="Patterns.xhtml#pattern">pattern</a></span><code class="literal">as</code><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/type" href="Types.xhtml#type">type</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH36-ID426">&#x200c;</a>
+  <h3 class="section-name">Expression Pattern</h3>
+  <p class="para">An <em>expression pattern</em> represents the value of an expression. Expression patterns appear only in <code class="code-voice">switch</code> statement case labels.</p><p class="para">The expression represented by the expression pattern is compared with the value of an input expression using the Swift standard library <code class="code-voice">~=</code> operator. The matches succeeds if the <code class="code-voice">~=</code> operator returns <code class="code-voice">true</code>. By default, the <code class="code-voice">~=</code> operator compares two values of the same type using the <code class="code-voice">==</code> operator. It can also match an integer value with a range of integers in a <code class="code-voice">Range</code> object, as the following example shows:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">point</code> = (<code class="m">1</code>, <code class="m">2</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">point</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (<code class="m">0</code>, <code class="m">0</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(0, 0) is at the origin.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (-<code class="m">2</code>...<code class="m">2</code>, -<code class="m">2</code>...<code class="m">2</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(</code>\(<code class="vc">point</code>.<code class="m">0</code>)<code class="s">, </code>\(<code class="vc">point</code>.<code class="m">1</code>)<code class="s">) is near the origin.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The point is at (</code>\(<code class="vc">point</code>.<code class="m">0</code>)<code class="s">, </code>\(<code class="vc">point</code>.<code class="m">1</code>)<code class="s">).&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;(1, 2) is near the origin.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can overload the <code class="code-voice">~=</code> operator to provide custom expression matching behavior. For example, you can rewrite the above example to compare the <code class="code-voice">point</code> expression with a string representations of points.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="c">// Overload the ~= operator to match a string with an integer</code></code></li>
+            <li><code class="code-voice"><code class="kt">func</code> ~=(<code class="vc">pattern</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>, <code class="vc">value</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Bool<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">return</code> <code class="vc">pattern</code> == <code class="s">&quot;</code>\(<code class="vc">value</code>)<code class="s">&quot;</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">point</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (<code class="s">&quot;0&quot;</code>, <code class="s">&quot;0&quot;</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(0, 0) is at the origin.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The point is at (</code>\(<code class="vc">point</code>.<code class="m">0</code>)<code class="s">, </code>\(<code class="vc">point</code>.<code class="m">1</code>)<code class="s">).&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The point is at (1, 2).&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="syntax-defs">
+  <p class="syntax-defs-name">
+  Grammar of an expression pattern
+</p><div class="syntax-defs-group">
+  <p class="syntax-def">
+  <a id="expression-pattern">&#x200c;</a>
+  <span class="syntax-def-name">
+  expression-pattern
+</span>
+<span class="arrow">
+  →
+</span><span class="syntactic-cat"><a rel="me" data-id="//apple_ref/swift/grammar/expression" href="Expressions.xhtml#expression">expression</a></span>
+</p>
+</div>
+ </div>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

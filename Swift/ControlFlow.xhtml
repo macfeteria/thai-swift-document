@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH9">&#x200c;</a><a id="TP40016643-CH9-ID120">&#x200c;</a>
+    <h2 class="chapter-name">Control Flow</h2>
+      
+      	<section class="section">
+      		<p class="para">Swift provides a variety of control flow statements. These include <code class="code-voice">while</code> loops to perform a task multiple times; <code class="code-voice">if</code>, <code class="code-voice">guard</code>, and <code class="code-voice">switch</code> statements to execute different branches of code based on certain conditions; and statements such as <code class="code-voice">break</code> and <code class="code-voice">continue</code> to transfer the flow of execution to another point in your code.</p><p class="para">Swift also provides a <code class="code-voice">for</code>-<code class="code-voice">in</code> loop that makes it easy to iterate over arrays, dictionaries, ranges, strings, and other sequences.</p><p class="para">Swift’s <code class="code-voice">switch</code> statement is also considerably more powerful than its counterpart in many C-like languages. Because the cases of a <code class="code-voice">switch</code> statement do not fall through to the next case in Swift, it avoids common C errors caused by missing <code class="code-voice">break</code> statements. Cases can match many different patterns, including interval matches, tuples, and casts to a specific type. Matched values in a <code class="code-voice">switch</code> case can be bound to temporary constants or variables for use within the case’s body, and complex matching conditions can be expressed with a <code class="code-voice">where</code> clause for each case.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH9-ID121">&#x200c;</a>
+  <h3 class="section-name">For-In Loops</h3>
+  <p class="para">You use the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop to iterate over a sequence, such as ranges of numbers, items in an array, or characters in a string.</p><p class="para">This example prints the first few entries in the five-times table:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">index</code> <code class="kt">in</code> <code class="m">1</code>...<code class="m">5</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">index</code>)<code class="s"> times 5 is </code>\(<code class="vc">index</code> * <code class="m">5</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// 1 times 5 is 5</code></code></li>
+            <li><code class="code-voice"><code class="c">// 2 times 5 is 10</code></code></li>
+            <li><code class="code-voice"><code class="c">// 3 times 5 is 15</code></code></li>
+            <li><code class="code-voice"><code class="c">// 4 times 5 is 20</code></code></li>
+            <li><code class="code-voice"><code class="c">// 5 times 5 is 25</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The sequence being iterated over is a range of numbers from <code class="code-voice">1</code> to <code class="code-voice">5</code>, inclusive, as indicated by the use of the closed range operator (<code class="code-voice">...</code>). The value of <code class="code-voice">index</code> is set to the first number in the range (<code class="code-voice">1</code>), and the statements inside the loop are executed. In this case, the loop contains only one statement, which prints an entry from the five-times table for the current value of <code class="code-voice">index</code>. After the statement is executed, the value of <code class="code-voice">index</code> is updated to contain the second value in the range (<code class="code-voice">2</code>), and the <code class="code-voice">print(_:separator:terminator:)</code> function is called again. This process continues until the end of the range is reached.</p><p class="para">In the example above, <code class="code-voice">index</code> is a constant whose value is automatically set at the start of each iteration of the loop. As such, <code class="code-voice">index</code> does not have to be declared before it is used. It is implicitly declared simply by its inclusion in the loop declaration, without the need for a <code class="code-voice">let</code> declaration keyword.</p><p class="para">If you don’t need each value from a sequence, you can ignore the values by using an underscore in place of a variable name.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">base</code> = <code class="m">3</code></code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">power</code> = <code class="m">10</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">answer</code> = <code class="m">1</code></code></li>
+            <li><code class="code-voice"><code class="kt">for</code> <code class="kt">_</code> <code class="kt">in</code> <code class="m">1</code>...<code class="vc">power</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">answer</code> *= <code class="vc">base</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">base</code>)<code class="s"> to the power of </code>\(<code class="vc">power</code>)<code class="s"> is </code>\(<code class="vc">answer</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;3 to the power of 10 is 59049&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The example above calculates the value of one number to the power of another (in this case, <code class="code-voice">3</code> to the power of <code class="code-voice">10</code>). It multiplies a starting value of <code class="code-voice">1</code> (that is, <code class="code-voice">3</code> to the power of <code class="code-voice">0</code>) by <code class="code-voice">3</code>, ten times, using a closed range that starts with <code class="code-voice">1</code> and ends with <code class="code-voice">10</code>. For this calculation, the individual counter values each time through the loop are unnecessary—the code simply executes the loop the correct number of times. The underscore character (<code class="code-voice">_</code>) used in place of a loop variable causes the individual values to be ignored and does not provide access to the current value during each iteration of the loop.</p><p class="para">Use a <code class="code-voice">for</code>-<code class="code-voice">in</code> loop with an array to iterate over its items.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">names</code> = [<code class="s">&quot;Anna&quot;</code>, <code class="s">&quot;Alex&quot;</code>, <code class="s">&quot;Brian&quot;</code>, <code class="s">&quot;Jack&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">name</code> <code class="kt">in</code> <code class="vc">names</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Hello, </code>\(<code class="vc">name</code>)<code class="s">!&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Hello, Anna!</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hello, Alex!</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hello, Brian!</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hello, Jack!</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can also iterate over a dictionary to access its key-value pairs. Each item in the dictionary is returned as a <code class="code-voice">(key, value)</code> tuple when the dictionary is iterated, and you can decompose the <code class="code-voice">(key, value)</code> tuple’s members as explicitly named constants for use within the body of the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop. Here, the dictionary’s keys are decomposed into a constant called <code class="code-voice">animalName</code>, and the dictionary’s values are decomposed into a constant called <code class="code-voice">legCount</code>.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">numberOfLegs</code> = [<code class="s">&quot;spider&quot;</code>: <code class="m">8</code>, <code class="s">&quot;ant&quot;</code>: <code class="m">6</code>, <code class="s">&quot;cat&quot;</code>: <code class="m">4</code>]</code></li>
+            <li><code class="code-voice"><code class="kt">for</code> (<code class="vc">animalName</code>, <code class="vc">legCount</code>) <code class="kt">in</code> <code class="vc">numberOfLegs</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">animalName</code>)<code class="s">s have </code>\(<code class="vc">legCount</code>)<code class="s"> legs&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// ants have 6 legs</code></code></li>
+            <li><code class="code-voice"><code class="c">// cats have 4 legs</code></code></li>
+            <li><code class="code-voice"><code class="c">// spiders have 8 legs</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Items in a <code class="code-voice">Dictionary</code> may not necessarily be iterated in the same order in which they were inserted. The contents of a <code class="code-voice">Dictionary</code> are inherently unordered, and iterating over them does not guarantee the order in which they will be retrieved. For more on arrays and dictionaries, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH8-ID105" href="CollectionTypes.xhtml">Collection Types</a>.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID124">&#x200c;</a>
+  <h3 class="section-name">While Loops</h3>
+  <p class="para">A <code class="code-voice">while</code> loop performs a set of statements until a condition becomes <code class="code-voice">false</code>. These kinds of loops are best used when the number of iterations is not known before the first iteration begins. Swift provides two kinds of <code class="code-voice">while</code> loops:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">while</code> evaluates its condition at the start of each pass through the loop.</p></li><li class="item"><p class="para"><code class="code-voice">repeat</code>-<code class="code-voice">while</code> evaluates its condition at the end of each pass through the loop.</p></li>
+</ul>
+  <section class="section">
+	<a id="TP40016643-CH9-ID125">&#x200c;</a>
+  <h3 class="section-name">While</h3>
+  <p class="para">A <code class="code-voice">while</code> loop starts by evaluating a single condition. If the condition is <code class="code-voice">true</code>, a set of statements is repeated until the condition becomes <code class="code-voice">false</code>.</p><p class="para">Here’s the general form of a <code class="code-voice">while</code> loop:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">while</code> <em class="variable-text">condition</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">This example plays a simple game of <em>Snakes and Ladders</em> (also known as <em>Chutes and Ladders</em>):</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/snakesAndLadders_2x.png" alt="image: ../Art/snakesAndLadders_2x.png" width="623" height="299" />
+</div><p class="para">The rules of the game are as follows:</p><ul class="list-bullet">
+  <li class="item"><p class="para">The board has 25 squares, and the aim is to land on or beyond square 25.</p></li><li class="item"><p class="para">Each turn, you roll a six-sided dice and move by that number of squares, following the horizontal path indicated by the dotted arrow above.</p></li><li class="item"><p class="para">If your turn ends at the bottom of a ladder, you move up that ladder.</p></li><li class="item"><p class="para">If your turn ends at the head of a snake, you move down that snake.</p></li>
+</ul><p class="para">The game board is represented by an array of <code class="code-voice">Int</code> values. Its size is based on a constant called <code class="code-voice">finalSquare</code>, which is used to initialize the array and also to check for a win condition later in the example. The board is initialized with 26 zero <code class="code-voice">Int</code> values, not 25 (one each at indexes <code class="code-voice">0</code> through <code class="code-voice">25</code>).</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">finalSquare</code> = <code class="m">25</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">board</code> = [<code class="vc">Int</code>](<code class="vc">count</code>: <code class="vc">finalSquare</code> + <code class="m">1</code>, <code class="vc">repeatedValue</code>: <code class="m">0</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Some squares are then set to have more specific values for the snakes and ladders. Squares with a ladder base have a positive number to move you up the board, whereas squares with a snake head have a negative number to move you back down the board.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">board</code>[<code class="m">03</code>] = +<code class="m">08</code>; <code class="vc">board</code>[<code class="m">06</code>] = +<code class="m">11</code>; <code class="vc">board</code>[<code class="m">09</code>] = +<code class="m">09</code>; <code class="vc">board</code>[<code class="m">10</code>] = +<code class="m">02</code></code></li>
+            <li><code class="code-voice"><code class="vc">board</code>[<code class="m">14</code>] = -<code class="m">10</code>; <code class="vc">board</code>[<code class="m">19</code>] = -<code class="m">11</code>; <code class="vc">board</code>[<code class="m">22</code>] = -<code class="m">02</code>; <code class="vc">board</code>[<code class="m">24</code>] = -<code class="m">08</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Square 3 contains the bottom of a ladder that moves you up to square 11. To represent this, <code class="code-voice">board[03]</code> is equal to <code class="code-voice">+08</code>, which is equivalent to an integer value of <code class="code-voice">8</code> (the difference between <code class="code-voice">3</code> and <code class="code-voice">11</code>). The unary plus operator (<code class="code-voice">+i</code>) balances with the unary minus operator (<code class="code-voice">-i</code>), and numbers lower than <code class="code-voice">10</code> are padded with zeros so that all board definitions align. (Neither stylistic tweak is strictly necessary, but they lead to neater code.)</p><p class="para">The player’s starting square is “square zero”, which is just off the bottom-left corner of the board. The first dice roll always moves the player onto the board.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">square</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">diceRoll</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice"><code class="kt">while</code> <code class="vc">square</code> &lt; <code class="vc">finalSquare</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// roll the dice</code></code></li>
+            <li><code class="code-voice">    <code class="vc">diceRoll</code> += <code class="m">1</code></code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="vc">diceRoll</code> == <code class="m">7</code> { <code class="vc">diceRoll</code> = <code class="m">1</code> }</code></li>
+            <li><code class="code-voice">    <code class="c">// move by the rolled amount</code></code></li>
+            <li><code class="code-voice">    <code class="vc">square</code> += <code class="vc">diceRoll</code></code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="vc">square</code> &lt; <code class="vc">board</code>.<code class="vc">count</code> {</code></li>
+            <li><code class="code-voice">        <code class="c">// if we&#39;re still on the board, move up or down for a snake or a ladder</code></code></li>
+            <li><code class="code-voice">        <code class="vc">square</code> += <code class="vc">board</code>[<code class="vc">square</code>]</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;Game over!&quot;</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The example above uses a very simple approach to dice rolling. Instead of generating a random number, it starts with a <code class="code-voice">diceRoll</code> value of <code class="code-voice">0</code>. Each time through the <code class="code-voice">while</code> loop, <code class="code-voice">diceRoll</code> is incremented by one and is then checked to see whether it has become too large. Whenever this return value equals <code class="code-voice">7</code>, the dice roll has become too large and is reset to a value of <code class="code-voice">1</code>. The result is a sequence of <code class="code-voice">diceRoll</code> values that is always <code class="code-voice">1</code>, <code class="code-voice">2</code>, <code class="code-voice">3</code>, <code class="code-voice">4</code>, <code class="code-voice">5</code>, <code class="code-voice">6</code>, <code class="code-voice">1</code>, <code class="code-voice">2</code> and so on.</p><p class="para">After rolling the dice, the player moves forward by <code class="code-voice">diceRoll</code> squares. It’s possible that the dice roll may have moved the player beyond square 25, in which case the game is over. To cope with this scenario, the code checks that <code class="code-voice">square</code> is less than the <code class="code-voice">board</code> array’s <code class="code-voice">count</code> property before adding the value stored in <code class="code-voice">board[square]</code> onto the current <code class="code-voice">square</code> value to move the player up or down any ladders or snakes.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Had this check not been performed, <code class="code-voice">board[square]</code> might try to access a value outside the bounds of the <code class="code-voice">board</code> array, which would trigger an error. If <code class="code-voice">square</code> were equal to <code class="code-voice">26</code>, the code would try to check the value of <code class="code-voice">board[26]</code>, which is larger than the size of the array.
+    	</p>
+    
+  </aside>
+</div><p class="para">The current <code class="code-voice">while</code> loop execution then ends, and the loop’s condition is checked to see if the loop should be executed again. If the player has moved on or beyond square number <code class="code-voice">25</code>, the loop’s condition evaluates to <code class="code-voice">false</code> and the game ends.</p><p class="para">A <code class="code-voice">while</code> loop is appropriate in this case, because the length of the game is not clear at the start of the <code class="code-voice">while</code> loop. Instead, the loop is executed until a particular condition is satisfied.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID126">&#x200c;</a>
+  <h3 class="section-name">Repeat-While</h3>
+  <p class="para">The other variation of the <code class="code-voice">while</code> loop, known as the <code class="code-voice">repeat</code>-<code class="code-voice">while</code> loop, performs a single pass through the loop block first, <em>before</em> considering the loop’s condition. It then continues to repeat the loop until the condition is <code class="code-voice">false</code>.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">repeat</code>-<code class="code-voice">while</code> loop in Swift is analogous to a <code class="code-voice">do</code>-<code class="code-voice">while</code> loop in other languages.
+    	</p>
+    
+  </aside>
+</div><p class="para">Here’s the general form of a <code class="code-voice">repeat</code>-<code class="code-voice">while</code> loop:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">repeat</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">} <code class="kt">while</code> <em class="variable-text">condition</em></pre></li>
+  </ul>
+</div><p class="para">Here’s the <em>Snakes and Ladders</em> example again, written as a <code class="code-voice">repeat</code>-<code class="code-voice">while</code> loop rather than a <code class="code-voice">while</code> loop. The values of <code class="code-voice">finalSquare</code>, <code class="code-voice">board</code>, <code class="code-voice">square</code>, and <code class="code-voice">diceRoll</code> are initialized in exactly the same way as with a <code class="code-voice">while</code> loop.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">finalSquare</code> = <code class="m">25</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">board</code> = [<code class="vc">Int</code>](<code class="vc">count</code>: <code class="vc">finalSquare</code> + <code class="m">1</code>, <code class="vc">repeatedValue</code>: <code class="m">0</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">board</code>[<code class="m">03</code>] = +<code class="m">08</code>; <code class="vc">board</code>[<code class="m">06</code>] = +<code class="m">11</code>; <code class="vc">board</code>[<code class="m">09</code>] = +<code class="m">09</code>; <code class="vc">board</code>[<code class="m">10</code>] = +<code class="m">02</code></code></li>
+            <li><code class="code-voice"><code class="vc">board</code>[<code class="m">14</code>] = -<code class="m">10</code>; <code class="vc">board</code>[<code class="m">19</code>] = -<code class="m">11</code>; <code class="vc">board</code>[<code class="m">22</code>] = -<code class="m">02</code>; <code class="vc">board</code>[<code class="m">24</code>] = -<code class="m">08</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">square</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">diceRoll</code> = <code class="m">0</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In this version of the game, the <em>first</em> action in the loop is to check for a ladder or a snake. No ladder on the board takes the player straight to square 25, and so it isn’t possible to win the game by moving up a ladder. Therefore, it’s safe to check for a snake or a ladder as the first action in the loop.</p><p class="para">At the start of the game, the player is on “square zero”. <code class="code-voice">board[0]</code> always equals <code class="code-voice">0</code> and has no effect.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">repeat</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// move up or down for a snake or ladder</code></code></li>
+            <li><code class="code-voice">    <code class="vc">square</code> += <code class="vc">board</code>[<code class="vc">square</code>]</code></li>
+            <li><code class="code-voice">    <code class="c">// roll the dice</code></code></li>
+            <li><code class="code-voice">    <code class="vc">diceRoll</code> += <code class="m">1</code></code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="vc">diceRoll</code> == <code class="m">7</code> { <code class="vc">diceRoll</code> = <code class="m">1</code> }</code></li>
+            <li><code class="code-voice">    <code class="c">// move by the rolled amount</code></code></li>
+            <li><code class="code-voice">    <code class="vc">square</code> += <code class="vc">diceRoll</code></code></li>
+            <li><code class="code-voice">} <code class="kt">while</code> <code class="vc">square</code> &lt; <code class="vc">finalSquare</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;Game over!&quot;</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">After the code checks for snakes and ladders, the dice is rolled and the player is moved forward by <code class="code-voice">diceRoll</code> squares. The current loop execution then ends.</p><p class="para">The loop’s condition (<code class="code-voice">while square &lt; finalSquare</code>) is the same as before, but this time it’s not evaluated until the <em>end</em> of the first run through the loop. The structure of the <code class="code-voice">repeat</code>-<code class="code-voice">while</code> loop is better suited to this game than the <code class="code-voice">while</code> loop in the previous example. In the <code class="code-voice">repeat</code>-<code class="code-voice">while</code> loop above, <code class="code-voice">square += board[square]</code> is always executed <em>immediately after</em> the loop’s <code class="code-voice">while</code> condition confirms that <code class="code-voice">square</code> is still on the board. This behavior removes the need for the array bounds check seen in the earlier version of the game.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID127">&#x200c;</a>
+  <h3 class="section-name">Conditional Statements</h3>
+  <p class="para">It is often useful to execute different pieces of code based on certain conditions. You might want to run an extra piece of code when an error occurs, or to display a message when a value becomes too high or too low. To do this, you make parts of your code <em>conditional</em>.</p><p class="para">Swift provides two ways to add conditional branches to your code: the <code class="code-voice">if</code> statement and the <code class="code-voice">switch</code> statement. Typically, you use the <code class="code-voice">if</code> statement to evaluate simple conditions with only a few possible outcomes. The <code class="code-voice">switch</code> statement is better suited to more complex conditions with multiple possible permutations and is useful in situations where pattern matching can help select an appropriate code branch to execute.</p>
+  <section class="section">
+	<a id="TP40016643-CH9-ID128">&#x200c;</a>
+  <h3 class="section-name">If</h3>
+  <p class="para">In its simplest form, the <code class="code-voice">if</code> statement has a single <code class="code-voice">if</code> condition. It executes a set of statements only if that condition is <code class="code-voice">true</code>.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">temperatureInFahrenheit</code> = <code class="m">30</code></code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">temperatureInFahrenheit</code> &lt;= <code class="m">32</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s very cold. Consider wearing a scarf.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;It&#39;s very cold. Consider wearing a scarf.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The example above checks whether the temperature is less than or equal to 32 degrees Fahrenheit (the freezing point of water). If it is, a message is printed. Otherwise, no message is printed, and code execution continues after the <code class="code-voice">if</code> statement’s closing brace.</p><p class="para">The <code class="code-voice">if</code> statement can provide an alternative set of statements, known as an <em>else clause</em>, for situations when the <code class="code-voice">if</code> condition is <code class="code-voice">false</code>. These statements are indicated by the <code class="code-voice">else</code> keyword.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">temperatureInFahrenheit</code> = <code class="m">40</code></code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">temperatureInFahrenheit</code> &lt;= <code class="m">32</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s very cold. Consider wearing a scarf.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s not that cold. Wear a t-shirt.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;It&#39;s not that cold. Wear a t-shirt.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">One of these two branches is always executed. Because the temperature has increased to <code class="code-voice">40</code> degrees Fahrenheit, it is no longer cold enough to advise wearing a scarf and so the <code class="code-voice">else</code> branch is triggered instead.</p><p class="para">You can chain multiple <code class="code-voice">if</code> statements together to consider additional clauses.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">temperatureInFahrenheit</code> = <code class="m">90</code></code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">temperatureInFahrenheit</code> &lt;= <code class="m">32</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s very cold. Consider wearing a scarf.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> <code class="kt">if</code> <code class="vc">temperatureInFahrenheit</code> &gt;= <code class="m">86</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s really warm. Don&#39;t forget to wear sunscreen.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s not that cold. Wear a t-shirt.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;It&#39;s really warm. Don&#39;t forget to wear sunscreen.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Here, an additional <code class="code-voice">if</code> statement was added to respond to particularly warm temperatures. The final <code class="code-voice">else</code> clause remains, and it prints a response for any temperatures that are neither too warm nor too cold.</p><p class="para">The final <code class="code-voice">else</code> clause is optional, however, and can be excluded if the set of conditions does not need to be complete.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">temperatureInFahrenheit</code> = <code class="m">72</code></code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">temperatureInFahrenheit</code> &lt;= <code class="m">32</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s very cold. Consider wearing a scarf.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> <code class="kt">if</code> <code class="vc">temperatureInFahrenheit</code> &gt;= <code class="m">86</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s really warm. Don&#39;t forget to wear sunscreen.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Because the temperature is neither too cold nor too warm to trigger the <code class="code-voice">if</code> or <code class="code-voice">else if</code> conditions, no message is printed.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID129">&#x200c;</a>
+  <h3 class="section-name">Switch</h3>
+  <p class="para">A <code class="code-voice">switch</code> statement considers a value and compares it against several possible matching patterns. It then executes an appropriate block of code, based on the first pattern that matches successfully. A <code class="code-voice">switch</code> statement provides an alternative to the <code class="code-voice">if</code> statement for responding to multiple potential states.</p><p class="para">In its simplest form, a <code class="code-voice">switch</code> statement compares a value against one or more values of the same type.</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">switch</code> <em class="variable-text">some value to consider</em> {</pre></li><li><pre class="code-voice"><code class="kt">case</code> <em class="variable-text">value 1</em>:</pre></li><li><pre class="code-voice">    <em class="variable-text">respond to value 1</em></pre></li><li><pre class="code-voice"><code class="kt">case</code> <em class="variable-text">value 2</em>,</pre></li><li><pre class="code-voice">     <em class="variable-text">value 3</em>:</pre></li><li><pre class="code-voice">    <em class="variable-text">respond to value 2 or 3</em></pre></li><li><pre class="code-voice"><code class="kt">default</code>:</pre></li><li><pre class="code-voice">    <em class="variable-text">otherwise, do something else</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">Every <code class="code-voice">switch</code> statement consists of multiple possible <em>cases</em>, each of which begins with the <code class="code-voice">case</code> keyword. In addition to comparing against specific values, Swift provides several ways for each case to specify more complex matching patterns. These options are described later in this chapter.</p><p class="para">Like the body of an <code class="code-voice">if</code> statement, each <code class="code-voice">case</code> is a separate branch of code execution. The <code class="code-voice">switch</code> statement determines which branch should be selected. This procedure is known as <em>switching</em> on the value that is being considered.</p><p class="para">Every <code class="code-voice">switch</code> statement must be <em>exhaustive</em>. That is, every possible value of the type being considered must be matched by one of the <code class="code-voice">switch</code> cases. If it’s not appropriate to provide a case for every possible value, you can define a default case to cover any values that are not addressed explicitly. This default case is indicated by the <code class="code-voice">default</code> keyword, and must always appear last.</p><p class="para">This example uses a <code class="code-voice">switch</code> statement to consider a single lowercase character called <code class="code-voice">someCharacter</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">someCharacter</code>: <code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code> = <code class="s">&quot;e&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">someCharacter</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;a&quot;</code>, <code class="s">&quot;e&quot;</code>, <code class="s">&quot;i&quot;</code>, <code class="s">&quot;o&quot;</code>, <code class="s">&quot;u&quot;</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">someCharacter</code>)<code class="s"> is a vowel&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;b&quot;</code>, <code class="s">&quot;c&quot;</code>, <code class="s">&quot;d&quot;</code>, <code class="s">&quot;f&quot;</code>, <code class="s">&quot;g&quot;</code>, <code class="s">&quot;h&quot;</code>, <code class="s">&quot;j&quot;</code>, <code class="s">&quot;k&quot;</code>, <code class="s">&quot;l&quot;</code>, <code class="s">&quot;m&quot;</code>,</code></li>
+            <li><code class="code-voice">     <code class="s">&quot;n&quot;</code>, <code class="s">&quot;p&quot;</code>, <code class="s">&quot;q&quot;</code>, <code class="s">&quot;r&quot;</code>, <code class="s">&quot;s&quot;</code>, <code class="s">&quot;t&quot;</code>, <code class="s">&quot;v&quot;</code>, <code class="s">&quot;w&quot;</code>, <code class="s">&quot;x&quot;</code>, <code class="s">&quot;y&quot;</code>, <code class="s">&quot;z&quot;</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">someCharacter</code>)<code class="s"> is a consonant&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">someCharacter</code>)<code class="s"> is not a vowel or a consonant&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;e is a vowel&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">switch</code> statement’s first case matches all five lowercase vowels in the English language. Similarly, its second case matches all lowercase English consonants.</p><p class="para">Because it’s not practical to write all other possible characters as part of a <code class="code-voice">switch</code> case, this <code class="code-voice">switch</code> statement provides a <code class="code-voice">default</code> case to match all other characters that are not vowels or consonants. This provision ensures that the <code class="code-voice">switch</code> statement is exhaustive.</p>
+  <section class="section">
+	<a id="TP40016643-CH9-ID130">&#x200c;</a>
+  <h3 class="section-name">No Implicit Fallthrough</h3>
+  <p class="para">In contrast with <code class="code-voice">switch</code> statements in C and Objective-C, <code class="code-voice">switch</code> statements in Swift do not fall through the bottom of each case and into the next one by default. Instead, the entire <code class="code-voice">switch</code> statement finishes its execution as soon as the first matching <code class="code-voice">switch</code> case is completed, without requiring an explicit <code class="code-voice">break</code> statement. This makes the <code class="code-voice">switch</code> statement safer and easier to use than the one in C and avoids executing more than one <code class="code-voice">switch</code> case by mistake.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Although <code class="code-voice">break</code> is not required in Swift, you can use a <code class="code-voice">break</code> statement to match and ignore a particular case or to break out of a matched case before that case has completed its execution. For details, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID139" href="ControlFlow.xhtml#TP40016643-CH9-ID139">Break in a Switch Statement</a>.
+    	</p>
+    
+  </aside>
+</div><p class="para">The body of each case <em>must</em> contain at least one executable statement. It is not valid to write the following code, because the first case is empty:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">anotherCharacter</code>: <code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code> = <code class="s">&quot;a&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">anotherCharacter</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;a&quot;</code>:</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;A&quot;</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The letter A&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Not the letter A&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// this will report a compile-time error</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Unlike a <code class="code-voice">switch</code> statement in C, this <code class="code-voice">switch</code> statement does not match both <code class="code-voice">&quot;a&quot;</code> and <code class="code-voice">&quot;A&quot;</code>. Rather, it reports a compile-time error that <code class="code-voice">case &quot;a&quot;:</code> does not contain any executable statements. This approach avoids accidental fallthrough from one case to another and makes for safer code that is clearer in its intent.</p><p class="para">Multiple matches for a single <code class="code-voice">switch</code> case can be separated by commas and can be written over multiple lines if the list is long.</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">switch</code> <em class="variable-text">some value to consider</em> {</pre></li><li><pre class="code-voice"><code class="kt">case</code> <em class="variable-text">value 1</em>,</pre></li><li><pre class="code-voice">     <em class="variable-text">value 2</em>:</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">To opt in to fallthrough behavior for a particular <code class="code-voice">switch</code> case, use the <code class="code-voice">fallthrough</code> keyword, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID140" href="ControlFlow.xhtml#TP40016643-CH9-ID140">Fallthrough</a>.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID131">&#x200c;</a>
+  <h3 class="section-name">Interval Matching</h3>
+  <p class="para">Values in <code class="code-voice">switch</code> cases can be checked for their inclusion in an interval. This example uses number intervals to provide a natural-language count for numbers of any size:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">approximateCount</code> = <code class="m">62</code></code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">countedThings</code> = <code class="s">&quot;moons orbiting Saturn&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">naturalCount</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code></code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">approximateCount</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="m">0</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">naturalCount</code> = <code class="s">&quot;no&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="m">1</code>..&lt;<code class="m">5</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">naturalCount</code> = <code class="s">&quot;a few&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="m">5</code>..&lt;<code class="m">12</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">naturalCount</code> = <code class="s">&quot;several&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="m">12</code>..&lt;<code class="m">100</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">naturalCount</code> = <code class="s">&quot;dozens of&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="m">100</code>..&lt;<code class="m">1000</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">naturalCount</code> = <code class="s">&quot;hundreds of&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">naturalCount</code> = <code class="s">&quot;many&quot;</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;There are </code>\(<code class="vc">naturalCount</code>)<code class="s"> </code>\(<code class="vc">countedThings</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;There are dozens of moons orbiting Saturn.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In the above example, <code class="code-voice">approximateCount</code> is evaluated in a <code class="code-voice">switch</code> statement. Each <code class="code-voice">case</code> compares that value to a number or interval. Because the value of <code class="code-voice">approximateCount</code> falls between 12 and 100, <code class="code-voice">naturalCount</code> is assigned the value <code class="code-voice">&quot;dozens of&quot;</code>, and execution is transferred out of the <code class="code-voice">switch</code> statement.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Both the closed range operator (<code class="code-voice">...</code>) and half-open range operator (<code class="code-voice">..&lt;</code>) functions are overloaded to return either an interval (<code class="code-voice">IntervalType</code>) or a range (<code class="code-voice">Range</code>). An interval can determine whether it contains a particular element, such as when matching a <code class="code-voice">switch</code> statement <code class="code-voice">case</code>. A range is a collection of consecutive values, which can be iterated on in a <code class="code-voice">for-in</code> statement.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID132">&#x200c;</a>
+  <h3 class="section-name">Tuples</h3>
+  <p class="para">You can use tuples to test multiple values in the same <code class="code-voice">switch</code> statement. Each element of the tuple can be tested against a different value or interval of values. Alternatively, use the underscore character (<code class="code-voice">_</code>), also known as the wildcard pattern, to match any possible value.</p><p class="para">The example below takes an (x, y) point, expressed as a simple tuple of type <code class="code-voice">(Int, Int)</code>, and categorizes it on the graph that follows the example.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">somePoint</code> = (<code class="m">1</code>, <code class="m">1</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">somePoint</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (<code class="m">0</code>, <code class="m">0</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(0, 0) is at the origin&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (<code class="kt">_</code>, <code class="m">0</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(</code>\(<code class="vc">somePoint</code>.<code class="m">0</code>)<code class="s">, 0) is on the x-axis&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (<code class="m">0</code>, <code class="kt">_</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(0, </code>\(<code class="vc">somePoint</code>.<code class="m">1</code>)<code class="s">) is on the y-axis&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (-<code class="m">2</code>...<code class="m">2</code>, -<code class="m">2</code>...<code class="m">2</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(</code>\(<code class="vc">somePoint</code>.<code class="m">0</code>)<code class="s">, </code>\(<code class="vc">somePoint</code>.<code class="m">1</code>)<code class="s">) is inside the box&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(</code>\(<code class="vc">somePoint</code>.<code class="m">0</code>)<code class="s">, </code>\(<code class="vc">somePoint</code>.<code class="m">1</code>)<code class="s">) is outside of the box&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;(1, 1) is inside the box&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/coordinateGraphSimple_2x.png" alt="image: ../Art/coordinateGraphSimple_2x.png" width="288" height="288" />
+</div><p class="para">The <code class="code-voice">switch</code> statement determines whether the point is at the origin (0, 0), on the red x-axis, on the orange y-axis, inside the blue 4-by-4 box centered on the origin, or outside of the box.</p><p class="para">Unlike C, Swift allows multiple <code class="code-voice">switch</code> cases to consider the same value or values. In fact, the point (0, 0) could match all <em>four</em> of the cases in this example. However, if multiple matches are possible, the first matching case is always used. The point (0, 0) would match <code class="code-voice">case (0, 0)</code> first, and so all other matching cases would be ignored.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID133">&#x200c;</a>
+  <h3 class="section-name">Value Bindings</h3>
+  <p class="para">A <code class="code-voice">switch</code> case can bind the value or values it matches to temporary constants or variables, for use in the body of the case. This behavior is known as <em>value binding</em>, because the values are “bound” to temporary constants or variables within the case’s body.</p><p class="para">The example below takes an (x, y) point, expressed as a tuple of type <code class="code-voice">(Int, Int)</code>, and categorizes it on the graph that follows:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">anotherPoint</code> = (<code class="m">2</code>, <code class="m">0</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">anotherPoint</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (<code class="kt">let</code> <code class="vc">x</code>, <code class="m">0</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;on the x-axis with an x value of </code>\(<code class="vc">x</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> (<code class="m">0</code>, <code class="kt">let</code> <code class="vc">y</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;on the y-axis with a y value of </code>\(<code class="vc">y</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> (<code class="vc">x</code>, <code class="vc">y</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;somewhere else at (</code>\(<code class="vc">x</code>)<code class="s">, </code>\(<code class="vc">y</code>)<code class="s">)&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;on the x-axis with an x value of 2&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/coordinateGraphMedium_2x.png" alt="image: ../Art/coordinateGraphMedium_2x.png" width="288" height="288" />
+</div><p class="para">The <code class="code-voice">switch</code> statement determines whether the point is on the red x-axis, on the orange y-axis, or elsewhere (on neither axis).</p><p class="para">The three <code class="code-voice">switch</code> cases declare placeholder constants <code class="code-voice">x</code> and <code class="code-voice">y</code>, which temporarily take on one or both tuple values from <code class="code-voice">anotherPoint</code>. The first case, <code class="code-voice">case (let x, 0)</code>, matches any point with a <code class="code-voice">y</code> value of <code class="code-voice">0</code> and assigns the point’s <code class="code-voice">x</code> value to the temporary constant <code class="code-voice">x</code>. Similarly, the second case, <code class="code-voice">case (0, let y)</code>, matches any point with an <code class="code-voice">x</code> value of <code class="code-voice">0</code> and assigns the point’s <code class="code-voice">y</code> value to the temporary constant <code class="code-voice">y</code>.</p><p class="para">After the temporary constants are declared, they can be used within the case’s code block. Here, they are used as shorthand for printing the values with the <code class="code-voice">print(_:separator:terminator:)</code> function.</p><p class="para">This <code class="code-voice">switch</code> statement does not have a <code class="code-voice">default</code> case. The final case, <code class="code-voice">case let (x, y)</code>, declares a tuple of two placeholder constants that can match any value. As a result, this case matches all possible remaining values, and a <code class="code-voice">default</code> case is not needed to make the <code class="code-voice">switch</code> statement exhaustive.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID134">&#x200c;</a>
+  <h3 class="section-name">Where</h3>
+  <p class="para">A <code class="code-voice">switch</code> case can use a <code class="code-voice">where</code> clause to check for additional conditions.</p><p class="para">The example below categorizes an (x, y) point on the following graph:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">yetAnotherPoint</code> = (<code class="m">1</code>, -<code class="m">1</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">yetAnotherPoint</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> (<code class="vc">x</code>, <code class="vc">y</code>) <code class="kt">where</code> <code class="vc">x</code> == <code class="vc">y</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(</code>\(<code class="vc">x</code>)<code class="s">, </code>\(<code class="vc">y</code>)<code class="s">) is on the line x == y&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> (<code class="vc">x</code>, <code class="vc">y</code>) <code class="kt">where</code> <code class="vc">x</code> == -<code class="vc">y</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(</code>\(<code class="vc">x</code>)<code class="s">, </code>\(<code class="vc">y</code>)<code class="s">) is on the line x == -y&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> (<code class="vc">x</code>, <code class="vc">y</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;(</code>\(<code class="vc">x</code>)<code class="s">, </code>\(<code class="vc">y</code>)<code class="s">) is just some arbitrary point&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;(1, -1) is on the line x == -y&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/coordinateGraphComplex_2x.png" alt="image: ../Art/coordinateGraphComplex_2x.png" width="289" height="290" />
+</div><p class="para">The <code class="code-voice">switch</code> statement determines whether the point is on the green diagonal line where <code class="code-voice">x == y</code>, on the purple diagonal line where <code class="code-voice">x == -y</code>, or neither.</p><p class="para">The three <code class="code-voice">switch</code> cases declare placeholder constants <code class="code-voice">x</code> and <code class="code-voice">y</code>, which temporarily take on the two tuple values from <code class="code-voice">yetAnotherPoint</code>. These constants are used as part of a <code class="code-voice">where</code> clause, to create a dynamic filter. The <code class="code-voice">switch</code> case matches the current value of <code class="code-voice">point</code> only if the <code class="code-voice">where</code> clause’s condition evaluates to <code class="code-voice">true</code> for that value.</p><p class="para">As in the previous example, the final case matches all possible remaining values, and so a <code class="code-voice">default</code> case is not needed to make the <code class="code-voice">switch</code> statement exhaustive.</p>
+  
+</section>
+
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID135">&#x200c;</a>
+  <h3 class="section-name">Control Transfer Statements</h3>
+  <p class="para"><em>Control transfer statements</em> change the order in which your code is executed, by transferring control from one piece of code to another. Swift has five control transfer statements:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">continue</code></p></li><li class="item"><p class="para"><code class="code-voice">break</code></p></li><li class="item"><p class="para"><code class="code-voice">fallthrough</code></p></li><li class="item"><p class="para"><code class="code-voice">return</code></p></li><li class="item"><p class="para"><code class="code-voice">throw</code></p></li>
+</ul><p class="para">The <code class="code-voice">continue</code>, <code class="code-voice">break</code>, and <code class="code-voice">fallthrough</code> statements are described below. The <code class="code-voice">return</code> statement is described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH10-ID158" href="Functions.xhtml">Functions</a>, and the <code class="code-voice">throw</code> statement is described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH42-ID510" href="ErrorHandling.xhtml#TP40016643-CH42-ID510">Propagating Errors Using Throwing Functions</a>.</p>
+  <section class="section">
+	<a id="TP40016643-CH9-ID136">&#x200c;</a>
+  <h3 class="section-name">Continue</h3>
+  <p class="para">The <code class="code-voice">continue</code> statement tells a loop to stop what it is doing and start again at the beginning of the next iteration through the loop. It says “I am done with the current loop iteration” without leaving the loop altogether.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">In a <code class="code-voice">for</code> loop with a condition and incrementer, the loop’s incrementer is still evaluated after calling the <code class="code-voice">continue</code> statement. The loop itself continues to work as usual; only the code within the loop’s body is skipped.
+    	</p>
+    
+  </aside>
+</div><p class="para">The following example removes all vowels and spaces from a lowercase string to create a cryptic puzzle phrase:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">puzzleInput</code> = <code class="s">&quot;great minds think alike&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">puzzleOutput</code> = <code class="s">&quot;&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">character</code> <code class="kt">in</code> <code class="vc">puzzleInput</code>.<code class="vc">characters</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">switch</code> <code class="vc">character</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="s">&quot;a&quot;</code>, <code class="s">&quot;e&quot;</code>, <code class="s">&quot;i&quot;</code>, <code class="s">&quot;o&quot;</code>, <code class="s">&quot;u&quot;</code>, <code class="s">&quot; &quot;</code>:</code></li>
+            <li><code class="code-voice">        <code class="kt">continue</code></code></li>
+            <li><code class="code-voice">    <code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">puzzleOutput</code>.<code class="vc">append</code>(<code class="vc">character</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">puzzleOutput</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;grtmndsthnklk&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The code above calls the <code class="code-voice">continue</code> keyword whenever it matches a vowel or a space, causing the current iteration of the loop to end immediately and to jump straight to the start of the next iteration. This behavior enables the switch block to match (and ignore) only the vowel and space characters, rather than requiring the block to match every character that should get printed.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID137">&#x200c;</a>
+  <h3 class="section-name">Break</h3>
+  <p class="para">The <code class="code-voice">break</code> statement ends execution of an entire control flow statement immediately. The <code class="code-voice">break</code> statement can be used inside a <code class="code-voice">switch</code> statement or loop statement when you want to terminate the execution of the <code class="code-voice">switch</code> or loop statement earlier than would otherwise be the case.</p>
+  <section class="section">
+	<a id="TP40016643-CH9-ID138">&#x200c;</a>
+  <h3 class="section-name">Break in a Loop Statement</h3>
+  <p class="para">When used inside a loop statement, <code class="code-voice">break</code> ends the loop’s execution immediately and transfers control to the first line of code after the loop’s closing brace (<code class="code-voice">}</code>). No further code from the current iteration of the loop is executed, and no further iterations of the loop are started.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID139">&#x200c;</a>
+  <h3 class="section-name">Break in a Switch Statement</h3>
+  <p class="para">When used inside a <code class="code-voice">switch</code> statement, <code class="code-voice">break</code> causes the <code class="code-voice">switch</code> statement to end its execution immediately and to transfer control to the first line of code after the <code class="code-voice">switch</code> statement’s closing brace (<code class="code-voice">}</code>).</p><p class="para">This behavior can be used to match and ignore one or more cases in a <code class="code-voice">switch</code> statement. Because Swift’s <code class="code-voice">switch</code> statement is exhaustive and does not allow empty cases, it is sometimes necessary to deliberately match and ignore a case in order to make your intentions explicit. You do this by writing the <code class="code-voice">break</code> statement as the entire body of the case you want to ignore. When that case is matched by the <code class="code-voice">switch</code> statement, the <code class="code-voice">break</code> statement inside the case ends the <code class="code-voice">switch</code> statement’s execution immediately.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">A <code class="code-voice">switch</code> case that contains only a comment is reported as a compile-time error. Comments are not statements and do not cause a <code class="code-voice">switch</code> case to be ignored. Always use a <code class="code-voice">break</code> statement to ignore a <code class="code-voice">switch</code> case.
+    	</p>
+    
+  </aside>
+</div><p class="para">The following example switches on a <code class="code-voice">Character</code> value and determines whether it represents a number symbol in one of four languages. For brevity, multiple values are covered in a single <code class="code-voice">switch</code> case.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">numberSymbol</code>: <code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code> = <code class="s">&quot;三&quot;</code>  <code class="c">// Simplified Chinese for the number 3</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">possibleIntegerValue</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>?</code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">numberSymbol</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;1&quot;</code>, <code class="s">&quot;١&quot;</code>, <code class="s">&quot;一&quot;</code>, <code class="s">&quot;๑&quot;</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">possibleIntegerValue</code> = <code class="m">1</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;2&quot;</code>, <code class="s">&quot;٢&quot;</code>, <code class="s">&quot;二&quot;</code>, <code class="s">&quot;๒&quot;</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">possibleIntegerValue</code> = <code class="m">2</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;3&quot;</code>, <code class="s">&quot;٣&quot;</code>, <code class="s">&quot;三&quot;</code>, <code class="s">&quot;๓&quot;</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">possibleIntegerValue</code> = <code class="m">3</code></code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="s">&quot;4&quot;</code>, <code class="s">&quot;٤&quot;</code>, <code class="s">&quot;四&quot;</code>, <code class="s">&quot;๔&quot;</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">possibleIntegerValue</code> = <code class="m">4</code></code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="kt">break</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">integerValue</code> = <code class="vc">possibleIntegerValue</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The integer value of </code>\(<code class="vc">numberSymbol</code>)<code class="s"> is </code>\(<code class="vc">integerValue</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;An integer value could not be found for </code>\(<code class="vc">numberSymbol</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The integer value of 三 is 3.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example checks <code class="code-voice">numberSymbol</code> to determine whether it is a Latin, Arabic, Chinese, or Thai symbol for the numbers <code class="code-voice">1</code> to <code class="code-voice">4</code>. If a match is found, one of the <code class="code-voice">switch</code> statement’s cases sets an optional <code class="code-voice">Int?</code> variable called <code class="code-voice">possibleIntegerValue</code> to an appropriate integer value.</p><p class="para">After the switch statement completes its execution, the example uses optional binding to determine whether a value was found. The <code class="code-voice">possibleIntegerValue</code> variable has an implicit initial value of <code class="code-voice">nil</code> by virtue of being an optional type, and so the optional binding will succeed only if <code class="code-voice">possibleIntegerValue</code> was set to an actual value by one of the <code class="code-voice">switch</code> statement’s first four cases.</p><p class="para">Because it’s not practical to list every possible <code class="code-voice">Character</code> value in the example above, a <code class="code-voice">default</code> case handles any characters that are not matched. This <code class="code-voice">default</code> case does not need to perform any action, and so it is written with a single <code class="code-voice">break</code> statement as its body. As soon as the <code class="code-voice">default</code> case is matched, the <code class="code-voice">break</code> statement ends the <code class="code-voice">switch</code> statement’s execution, and code execution continues from the <code class="code-voice">if let</code> statement.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID140">&#x200c;</a>
+  <h3 class="section-name">Fallthrough</h3>
+  <p class="para">Switch statements in Swift don’t fall through the bottom of each case and into the next one. Instead, the entire switch statement completes its execution as soon as the first matching case is completed. By contrast, C requires you to insert an explicit <code class="code-voice">break</code> statement at the end of every <code class="code-voice">switch</code> case to prevent fallthrough. Avoiding default fallthrough means that Swift <code class="code-voice">switch</code> statements are much more concise and predictable than their counterparts in C, and thus they avoid executing multiple <code class="code-voice">switch</code> cases by mistake.</p><p class="para">If you need C-style fallthrough behavior, you can opt in to this behavior on a case-by-case basis with the <code class="code-voice">fallthrough</code> keyword. The example below uses <code class="code-voice">fallthrough</code> to create a textual description of a number.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">integerToDescribe</code> = <code class="m">5</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">description</code> = <code class="s">&quot;The number </code>\(<code class="vc">integerToDescribe</code>)<code class="s"> is&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">integerToDescribe</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="m">2</code>, <code class="m">3</code>, <code class="m">5</code>, <code class="m">7</code>, <code class="m">11</code>, <code class="m">13</code>, <code class="m">17</code>, <code class="m">19</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">description</code> += <code class="s">&quot; a prime number, and also&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">fallthrough</code></code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">description</code> += <code class="s">&quot; an integer.&quot;</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">description</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The number 5 is a prime number, and also an integer.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example declares a new <code class="code-voice">String</code> variable called <code class="code-voice">description</code> and assigns it an initial value. The function then considers the value of <code class="code-voice">integerToDescribe</code> using a <code class="code-voice">switch</code> statement. If the value of <code class="code-voice">integerToDescribe</code> is one of the prime numbers in the list, the function appends text to the end of <code class="code-voice">description</code>, to note that the number is prime. It then uses the <code class="code-voice">fallthrough</code> keyword to “fall into” the <code class="code-voice">default</code> case as well. The <code class="code-voice">default</code> case adds some extra text to the end of the description, and the <code class="code-voice">switch</code> statement is complete.</p><p class="para">Unless the value of <code class="code-voice">integerToDescribe</code> is in the list of known prime numbers, it is not matched by the first <code class="code-voice">switch</code> case at all. Because there are no other specific cases, <code class="code-voice">integerToDescribe</code> is matched by the <code class="code-voice">default</code> case.</p><p class="para">After the <code class="code-voice">switch</code> statement has finished executing, the number’s description is printed using the <code class="code-voice">print(_:separator:terminator:)</code> function. In this example, the number <code class="code-voice">5</code> is correctly identified as a prime number.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">fallthrough</code> keyword does not check the case conditions for the <code class="code-voice">switch</code> case that it causes execution to fall into. The <code class="code-voice">fallthrough</code> keyword simply causes code execution to move directly to the statements inside the next case (or <code class="code-voice">default</code> case) block, as in C’s standard <code class="code-voice">switch</code> statement behavior.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID141">&#x200c;</a>
+  <h3 class="section-name">Labeled Statements</h3>
+  <p class="para">In Swift, you can nest loops and conditional statements inside other loops and conditional statements to create complex control flow structures. However, loops and conditional statements can both use the <code class="code-voice">break</code> statement to end their execution prematurely. Therefore, it is sometimes useful to be explicit about which loop or conditional statement you want a <code class="code-voice">break</code> statement to terminate. Similarly, if you have multiple nested loops, it can be useful to be explicit about which loop the <code class="code-voice">continue</code> statement should affect.</p><p class="para">To achieve these aims, you can mark a loop statement or conditional statement with a <em>statement label</em>. With a conditional statement, you can use a statement label with the <code class="code-voice">break</code> statement to end the execution of the labeled statement. With a loop statement, you can use a statement label with the <code class="code-voice">break</code> or <code class="code-voice">continue</code> statement to end or continue the execution of the labeled statement.</p><p class="para">A labeled statement is indicated by placing a label on the same line as the statement’s introducer keyword, followed by a colon. Here’s an example of this syntax for a <code class="code-voice">while</code> loop, although the principle is the same for all loops and <code class="code-voice">switch</code> statements:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><em class="variable-text">label name</em>: <code class="kt">while</code> <em class="variable-text">condition</em> {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div><p class="para">The following example uses the <code class="code-voice">break</code> and <code class="code-voice">continue</code> statements with a labeled <code class="code-voice">while</code> loop for an adapted version of the <em>Snakes and Ladders</em> game that you saw earlier in this chapter. This time around, the game has an extra rule:</p><ul class="list-bullet">
+  <li class="item"><p class="para">To win, you must land <em>exactly</em> on square 25.</p></li>
+</ul><p class="para">If a particular dice roll would take you beyond square 25, you must roll again until you roll the exact number needed to land on square 25.</p><p class="para">The game board is the same as before.</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/snakesAndLadders_2x.png" alt="image: ../Art/snakesAndLadders_2x.png" width="623" height="299" />
+</div><p class="para">The values of <code class="code-voice">finalSquare</code>, <code class="code-voice">board</code>, <code class="code-voice">square</code>, and <code class="code-voice">diceRoll</code> are initialized in the same way as before:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">finalSquare</code> = <code class="m">25</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">board</code> = [<code class="vc">Int</code>](<code class="vc">count</code>: <code class="vc">finalSquare</code> + <code class="m">1</code>, <code class="vc">repeatedValue</code>: <code class="m">0</code>)</code></li>
+            <li><code class="code-voice"><code class="vc">board</code>[<code class="m">03</code>] = +<code class="m">08</code>; <code class="vc">board</code>[<code class="m">06</code>] = +<code class="m">11</code>; <code class="vc">board</code>[<code class="m">09</code>] = +<code class="m">09</code>; <code class="vc">board</code>[<code class="m">10</code>] = +<code class="m">02</code></code></li>
+            <li><code class="code-voice"><code class="vc">board</code>[<code class="m">14</code>] = -<code class="m">10</code>; <code class="vc">board</code>[<code class="m">19</code>] = -<code class="m">11</code>; <code class="vc">board</code>[<code class="m">22</code>] = -<code class="m">02</code>; <code class="vc">board</code>[<code class="m">24</code>] = -<code class="m">08</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">square</code> = <code class="m">0</code></code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">diceRoll</code> = <code class="m">0</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This version of the game uses a <code class="code-voice">while</code> loop and a <code class="code-voice">switch</code> statement to implement the game’s logic. The <code class="code-voice">while</code> loop has a statement label called <code class="code-voice">gameLoop</code> to indicate that it is the main game loop for the Snakes and Ladders game.</p><p class="para">The <code class="code-voice">while</code> loop’s condition is <code class="code-voice">while square != finalSquare</code>, to reflect that you must land exactly on square 25.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">gameLoop</code>: <code class="kt">while</code> <code class="vc">square</code> != <code class="vc">finalSquare</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">diceRoll</code> += <code class="m">1</code></code></li>
+            <li><code class="code-voice">    <code class="kt">if</code> <code class="vc">diceRoll</code> == <code class="m">7</code> { <code class="vc">diceRoll</code> = <code class="m">1</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">switch</code> <code class="vc">square</code> + <code class="vc">diceRoll</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">finalSquare</code>:</code></li>
+            <li><code class="code-voice">        <code class="c">// diceRoll will move us to the final square, so the game is over</code></code></li>
+            <li><code class="code-voice">        <code class="kt">break</code> <code class="vc">gameLoop</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> <code class="vc">newSquare</code> <code class="kt">where</code> <code class="vc">newSquare</code> &gt; <code class="vc">finalSquare</code>:</code></li>
+            <li><code class="code-voice">        <code class="c">// diceRoll will move us beyond the final square, so roll again</code></code></li>
+            <li><code class="code-voice">        <code class="kt">continue</code> <code class="vc">gameLoop</code></code></li>
+            <li><code class="code-voice">    <code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">        <code class="c">// this is a valid move, so find out its effect</code></code></li>
+            <li><code class="code-voice">        <code class="vc">square</code> += <code class="vc">diceRoll</code></code></li>
+            <li><code class="code-voice">        <code class="vc">square</code> += <code class="vc">board</code>[<code class="vc">square</code>]</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;Game over!&quot;</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The dice is rolled at the start of each loop. Rather than moving the player immediately, the loop uses a <code class="code-voice">switch</code> statement to consider the result of the move and to determine whether the move is allowed:</p><ul class="list-bullet">
+  <li class="item"><p class="para">If the dice roll will move the player onto the final square, the game is over. The <code class="code-voice">break gameLoop</code> statement transfers control to the first line of code outside of the <code class="code-voice">while</code> loop, which ends the game.</p></li><li class="item"><p class="para">If the dice roll will move the player <em>beyond</em> the final square, the move is invalid and the player needs to roll again. The <code class="code-voice">continue gameLoop</code> statement ends the current <code class="code-voice">while</code> loop iteration and begins the next iteration of the loop.</p></li><li class="item"><p class="para">In all other cases, the dice roll is a valid move. The player moves forward by <code class="code-voice">diceRoll</code> squares, and the game logic checks for any snakes and ladders. The loop then ends, and control returns to the <code class="code-voice">while</code> condition to decide whether another turn is required.</p></li>
+</ul><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If the <code class="code-voice">break</code> statement above did not use the <code class="code-voice">gameLoop</code> label, it would break out of the <code class="code-voice">switch</code> statement, not the <code class="code-voice">while</code> statement. Using the <code class="code-voice">gameLoop</code> label makes it clear which control statement should be terminated.
+    	</p>
+    <p class="para">It is not strictly necessary to use the <code class="code-voice">gameLoop</code> label when calling <code class="code-voice">continue gameLoop</code> to jump to the next iteration of the loop. There is only one loop in the game, and therefore no ambiguity as to which loop the <code class="code-voice">continue</code> statement will affect. However, there is no harm in using the <code class="code-voice">gameLoop</code> label with the <code class="code-voice">continue</code> statement. Doing so is consistent with the label’s use alongside the <code class="code-voice">break</code> statement and helps make the game’s logic clearer to read and understand.</p>
+  </aside>
+</div>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID525">&#x200c;</a>
+  <h3 class="section-name">Early Exit</h3>
+  <p class="para">A <code class="code-voice">guard</code> statement, like an <code class="code-voice">if</code> statement, executes statements depending on the Boolean value of an expression. You use a <code class="code-voice">guard</code> statement to require that a condition must be true in order for the code after the <code class="code-voice">guard</code> statement to be executed. Unlike an <code class="code-voice">if</code> statement, a <code class="code-voice">guard</code> statement always has an <code class="code-voice">else</code> clause—the code inside the <code class="code-voice">else</code> clause is executed if the condition is not true.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">greet</code>(<code class="vc">person</code>: [<code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>]) {</code></li>
+            <li><code class="code-voice">    <code class="kt">guard</code> <code class="kt">let</code> <code class="vc">name</code> = <code class="vc">person</code>[<code class="s">&quot;name&quot;</code>] <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Hello </code>\(<code class="vc">name</code>)<code class="s">!&quot;</code>)</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="kt">guard</code> <code class="kt">let</code> <code class="vc">location</code> = <code class="vc">person</code>[<code class="s">&quot;location&quot;</code>] <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;I hope the weather is nice near you.&quot;</code>)</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    </code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;I hope the weather is nice in </code>\(<code class="vc">location</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">greet</code>([<code class="s">&quot;name&quot;</code>: <code class="s">&quot;John&quot;</code>])</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Hello John!&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;I hope the weather is nice near you.&quot;</code></code></li>
+            <li><code class="code-voice"><code class="vc">greet</code>([<code class="s">&quot;name&quot;</code>: <code class="s">&quot;Jane&quot;</code>, <code class="s">&quot;location&quot;</code>: <code class="s">&quot;Cupertino&quot;</code>])</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Hello Jane!&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;I hope the weather is nice in Cupertino.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If the <code class="code-voice">guard</code> statement’s condition is met, code execution continues after the <code class="code-voice">guard</code> statement’s closing brace. Any variables or constants that were assigned values using an optional binding as part of the condition are available for the rest of the code block that the <code class="code-voice">guard</code> statement appears in.</p><p class="para">If that condition is not met, the code inside the <code class="code-voice">else</code> branch is executed. That branch must transfer control to exit the code block in which the <code class="code-voice">guard</code> statement appears. It can do this with a control transfer statement such as <code class="code-voice">return</code>, <code class="code-voice">break</code>, <code class="code-voice">continue</code>, or <code class="code-voice">throw</code>, or it can call a function or method that doesn’t return, such as <code class="code-voice">fatalError()</code>.</p><p class="para">Using a <code class="code-voice">guard</code> statement for requirements improves the readability of your code, compared to doing the same check with an <code class="code-voice">if</code> statement. It lets you write the code that’s typically executed without wrapping it in an <code class="code-voice">else</code> block, and it lets you keep the code that handles a violated requirement next to the requirement.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH9-ID523">&#x200c;</a>
+  <h3 class="section-name">Checking API Availability</h3>
+  <p class="para">Swift has built-in support for checking API availability, which ensures that you don’t accidentally use APIs that are unavailable on a given deployment target.</p><p class="para">The compiler uses availability information in the SDK to verify that all of the APIs used in your code are available on the deployment target specified by your project. Swift reports an error at compile time if you try to use an API that isn’t available.</p><p class="para">You use an <em>availability condition</em> in an <code class="code-voice">if</code> or <code class="code-voice">guard</code> statement to conditionally execute a block of code, depending on whether the APIs you want to use are available at runtime. The compiler uses the information from the availability condition when it verifies that the APIs in that block of code are available.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">#available</code>(<code class="kt">iOS</code> <code class="m">9</code>, <code class="kt">OSX</code> <code class="m">10.10</code>, *) {</code></li>
+            <li><code class="code-voice">    <code class="c">// Use iOS 9 APIs on iOS, and use OS X v10.10 APIs on OS X</code></code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// Fall back to earlier iOS and OS X APIs</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The availability condition above specifies that on iOS, the body of the <code class="code-voice">if</code> executes only on iOS 9 and later; on OS X, only on OS X v10.10 and later. The last argument, <code class="code-voice">*</code>, is required and specifies that on any other platform, the body of the <code class="code-voice">if</code> executes on the minimum deployment target specified by your target.</p><p class="para">In its general form, the availability condition takes a list of platform names and versions. You use <code class="code-voice">iOS</code>, <code class="code-voice">OSX</code>, and <code class="code-voice">watchOS</code> for the platform names. In addition to specifying major version numbers like iOS 8, you can specify minor versions numbers like iOS 8.3 and OS X v10.10.3.</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice"><code class="kt">if</code> <code class="kt">#available</code>(<em class="variable-text">platform name</em> <em class="variable-text">version</em>, <em class="variable-text">...</em>, *) {</pre></li><li><pre class="code-voice">    <em class="variable-text">statements to execute if the APIs are available</em></pre></li><li><pre class="code-voice">} <code class="kt">else</code> {</pre></li><li><pre class="code-voice">    <em class="variable-text">fallback statements to execute if the APIs are unavailable</em></pre></li><li><pre class="code-voice">}</pre></li>
+  </ul>
+</div>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

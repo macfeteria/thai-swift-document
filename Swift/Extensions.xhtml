@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH24">&#x200c;</a><a id="TP40016643-CH24-ID151">&#x200c;</a>
+    <h2 class="chapter-name">Extensions</h2>
+      
+      	<section class="section">
+      		<p class="para"><em>Extensions</em> add new functionality to an existing class, structure, enumeration, or protocol type. This includes the ability to extend types for which you do not have access to the original source code (known as <em>retroactive modeling</em>). Extensions are similar to categories in Objective-C. (Unlike Objective-C categories, Swift extensions do not have names.)</p><p class="para">Extensions in Swift can:</p><ul class="list-bullet">
+  <li class="item"><p class="para">Add computed instance properties and computed type properties</p></li><li class="item"><p class="para">Define instance methods and type methods</p></li><li class="item"><p class="para">Provide new initializers</p></li><li class="item"><p class="para">Define subscripts</p></li><li class="item"><p class="para">Define and use new nested types</p></li><li class="item"><p class="para">Make an existing type conform to a protocol</p></li>
+</ul>
+<p class="para">In Swift, you can even extend a protocol to provide implementations of its requirements or add additional functionality that conforming types can take advantage of. For more details, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH25-ID521" href="Protocols.xhtml#TP40016643-CH25-ID521">Protocol Extensions</a>.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Extensions can add new functionality to a type, but they cannot override existing functionality.
+    	</p>
+    
+  </aside>
+</div>
+
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH24-ID470">&#x200c;</a>
+  <h3 class="section-name">Extension Syntax</h3>
+  <p class="para">Declare extensions with the <code class="code-voice">extension</code> keyword:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->SomeType<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// new functionality to add to SomeType goes here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">An extension can extend an existing type to make it adopt one or more protocols. Where this is the case, the protocol names are written in exactly the same way as for a class or structure:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->SomeType<!-- /a --></code>: <code class="n"><!-- a href="" logicalPath="" -->SomeProtocol<!-- /a --></code>, <code class="n"><!-- a href="" logicalPath="" -->AnotherProtocol<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// implementation of protocol requirements goes here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Adding protocol conformance in this way is described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH25-ID277" href="Protocols.xhtml#TP40016643-CH25-ID277">Adding Protocol Conformance with an Extension</a>.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you define an extension to add new functionality to an existing type, the new functionality will be available on all existing instances of that type, even if they were created before the extension was defined.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH24-ID152">&#x200c;</a>
+  <h3 class="section-name">Computed Properties</h3>
+  <p class="para">Extensions can add computed instance properties and computed type properties to existing types. This example adds five computed instance properties to Swift’s built-in <code class="code-voice">Double</code> type, to provide basic support for working with distance units:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">km</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> { <code class="kt">return</code> <code class="kt">self</code> * <code class="m">1_000.0</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">m</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> { <code class="kt">return</code> <code class="kt">self</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">cm</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> { <code class="kt">return</code> <code class="kt">self</code> / <code class="m">100.0</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">mm</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> { <code class="kt">return</code> <code class="kt">self</code> / <code class="m">1_000.0</code> }</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">ft</code>: <code class="n"><!-- a href="" logicalPath="" -->Double<!-- /a --></code> { <code class="kt">return</code> <code class="kt">self</code> / <code class="m">3.28084</code> }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">oneInch</code> = <code class="m">25.4</code>.<code class="vc">mm</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;One inch is </code>\(<code class="vc">oneInch</code>)<code class="s"> meters&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;One inch is 0.0254 meters&quot;</code></code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">threeFeet</code> = <code class="m">3</code>.<code class="vc">ft</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;Three feet is </code>\(<code class="vc">threeFeet</code>)<code class="s"> meters&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Three feet is 0.914399970739201 meters&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">These computed properties express that a <code class="code-voice">Double</code> value should be considered as a certain unit of length. Although they are implemented as computed properties, the names of these properties can be appended to a floating-point literal value with dot syntax, as a way to use that literal value to perform distance conversions.</p><p class="para">In this example, a <code class="code-voice">Double</code> value of <code class="code-voice">1.0</code> is considered to represent “one meter”. This is why the <code class="code-voice">m</code> computed property returns <code class="code-voice">self</code>—the expression <code class="code-voice">1.m</code> is considered to calculate a <code class="code-voice">Double</code> value of <code class="code-voice">1.0</code>.</p><p class="para">Other units require some conversion to be expressed as a value measured in meters. One kilometer is the same as 1,000 meters, so the <code class="code-voice">km</code> computed property multiplies the value by <code class="code-voice">1_000.00</code> to convert into a number expressed in meters. Similarly, there are 3.28084 feet in a meter, and so the <code class="code-voice">ft</code> computed property divides the underlying <code class="code-voice">Double</code> value by <code class="code-voice">3.28084</code>, to convert it from feet to meters.</p><p class="para">These properties are read-only computed properties, and so they are expressed without the <code class="code-voice">get</code> keyword, for brevity. Their return value is of type <code class="code-voice">Double</code>, and can be used within mathematical calculations wherever a <code class="code-voice">Double</code> is accepted:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">aMarathon</code> = <code class="m">42</code>.<code class="vc">km</code> + <code class="m">195</code>.<code class="vc">m</code></code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;A marathon is </code>\(<code class="vc">aMarathon</code>)<code class="s"> meters long&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;A marathon is 42195.0 meters long&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Extensions can add new computed properties, but they cannot add stored properties, or add property observers to existing properties.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH24-ID153">&#x200c;</a>
+  <h3 class="section-name">Initializers</h3>
+  <p class="para">Extensions can add new initializers to existing types. This enables you to extend other types to accept your own custom types as initializer parameters, or to provide additional initialization options that were not included as part of the type’s original implementation.</p><p class="para">Extensions can add new convenience initializers to a class, but they cannot add new designated initializers or deinitializers to a class. Designated initializers and deinitializers must always be provided by the original class implementation.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you use an extension to add an initializer to a value type that provides default values for all of its stored properties and does not define any custom initializers, you can call the default initializer and memberwise initializer for that value type from within your extension’s initializer.
+    	</p>
+    <p class="para">This would not be the case if you had written the initializer as part of the value type’s original implementation, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID215" href="Initialization.xhtml#TP40016643-CH18-ID215">Initializer Delegation for Value Types</a>.</p>
+  </aside>
+</div><p class="para">The example below defines a custom <code class="code-voice">Rect</code> structure to represent a geometric rectangle. The example also defines two supporting structures called <code class="code-voice">Size</code> and <code class="code-voice">Point</code>, both of which provide default values of <code class="code-voice">0.0</code> for all of their properties:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Size</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">width</code> = <code class="m">0.0</code>, <code class="vc">height</code> = <code class="m">0.0</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Point</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">x</code> = <code class="m">0.0</code>, <code class="vc">y</code> = <code class="m">0.0</code></code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">struct</code> <code class="vc">Rect</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">origin</code> = <code class="vc">Point</code>()</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">size</code> = <code class="vc">Size</code>()</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Because the <code class="code-voice">Rect</code> structure provides default values for all of its properties, it receives a default initializer and a memberwise initializer automatically, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID213" href="Initialization.xhtml#TP40016643-CH18-ID213">Default Initializers</a>. These initializers can be used to create new <code class="code-voice">Rect</code> instances:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">defaultRect</code> = <code class="vc">Rect</code>()</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">memberwiseRect</code> = <code class="vc">Rect</code>(<code class="vc">origin</code>: <code class="vc">Point</code>(<code class="vc">x</code>: <code class="m">2.0</code>, <code class="vc">y</code>: <code class="m">2.0</code>),</code></li>
+            <li><code class="code-voice">                          <code class="vc">size</code>: <code class="vc">Size</code>(<code class="vc">width</code>: <code class="m">5.0</code>, <code class="vc">height</code>: <code class="m">5.0</code>))</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can extend the <code class="code-voice">Rect</code> structure to provide an additional initializer that takes a specific center point and size:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Rect<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">init</code>(<code class="vc">center</code>: <code class="n"><!-- a href="" logicalPath="" -->Point<!-- /a --></code>, <code class="vc">size</code>: <code class="n"><!-- a href="" logicalPath="" -->Size<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">let</code> <code class="vc">originX</code> = <code class="vc">center</code>.<code class="vc">x</code> - (<code class="vc">size</code>.<code class="vc">width</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">        <code class="kt">let</code> <code class="vc">originY</code> = <code class="vc">center</code>.<code class="vc">y</code> - (<code class="vc">size</code>.<code class="vc">height</code> / <code class="m">2</code>)</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code>.<code class="kt">init</code>(<code class="vc">origin</code>: <code class="vc">Point</code>(<code class="vc">x</code>: <code class="vc">originX</code>, <code class="vc">y</code>: <code class="vc">originY</code>), <code class="vc">size</code>: <code class="vc">size</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This new initializer starts by calculating an appropriate origin point based on the provided <code class="code-voice">center</code> point and <code class="code-voice">size</code> value. The initializer then calls the structure’s automatic memberwise initializer <code class="code-voice">init(origin:size:)</code>, which stores the new origin and size values in the appropriate properties:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">centerRect</code> = <code class="vc">Rect</code>(<code class="vc">center</code>: <code class="vc">Point</code>(<code class="vc">x</code>: <code class="m">4.0</code>, <code class="vc">y</code>: <code class="m">4.0</code>),</code></li>
+            <li><code class="code-voice">                      <code class="vc">size</code>: <code class="vc">Size</code>(<code class="vc">width</code>: <code class="m">3.0</code>, <code class="vc">height</code>: <code class="m">3.0</code>))</code></li>
+            <li><code class="code-voice"><code class="c">// centerRect&#39;s origin is (2.5, 2.5) and its size is (3.0, 3.0)</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you provide a new initializer with an extension, you are still responsible for making sure that each instance is fully initialized once the initializer completes.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH24-ID154">&#x200c;</a>
+  <h3 class="section-name">Methods</h3>
+  <p class="para">Extensions can add new instance methods and type methods to existing types. The following example adds a new instance method called <code class="code-voice">repetitions</code> to the <code class="code-voice">Int</code> type:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">func</code> <code class="vc">repetitions</code>(<code class="vc">task</code>: () -&gt; <code class="n"><!-- a href="" logicalPath="" -->Void<!-- /a --></code>) {</code></li>
+            <li><code class="code-voice">        <code class="kt">for</code> <code class="kt">_</code> <code class="kt">in</code> <code class="m">0</code>..&lt;<code class="kt">self</code> {</code></li>
+            <li><code class="code-voice">            <code class="vc">task</code>()</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">repetitions(_:)</code> method takes a single argument of type <code class="code-voice">() -&gt; Void</code>, which indicates a function that has no parameters and does not return a value.</p><p class="para">After defining this extension, you can call the <code class="code-voice">repetitions(_:)</code> method on any integer number to perform a task that many number of times:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="m">3</code>.<code class="vc">repetitions</code>({</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Hello!&quot;</code>)</code></li>
+            <li><code class="code-voice">})</code></li>
+            <li><code class="code-voice"><code class="c">// Hello!</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hello!</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hello!</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Use trailing closure syntax to make the call more succinct:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="m">3</code>.<code class="vc">repetitions</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Goodbye!&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Goodbye!</code></code></li>
+            <li><code class="code-voice"><code class="c">// Goodbye!</code></code></li>
+            <li><code class="code-voice"><code class="c">// Goodbye!</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  <section class="section">
+	<a id="TP40016643-CH24-ID155">&#x200c;</a>
+  <h3 class="section-name">Mutating Instance Methods</h3>
+  <p class="para">Instance methods added with an extension can also modify (or <em>mutate</em>) the instance itself. Structure and enumeration methods that modify <code class="code-voice">self</code> or its properties must mark the instance method as <code class="code-voice">mutating</code>, just like mutating methods from an original implementation.</p><p class="para">The example below adds a new mutating method called <code class="code-voice">square</code> to Swift’s <code class="code-voice">Int</code> type, which squares the original value:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">mutating</code> <code class="kt">func</code> <code class="vc">square</code>() {</code></li>
+            <li><code class="code-voice">        <code class="kt">self</code> = <code class="kt">self</code> * <code class="kt">self</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">someInt</code> = <code class="m">3</code></code></li>
+            <li><code class="code-voice"><code class="vc">someInt</code>.<code class="vc">square</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// someInt is now 9</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH24-ID156">&#x200c;</a>
+  <h3 class="section-name">Subscripts</h3>
+  <p class="para">Extensions can add new subscripts to an existing type. This example adds an integer subscript to Swift’s built-in <code class="code-voice">Int</code> type. This subscript <code class="code-voice">[n]</code> returns the decimal digit <code class="code-voice">n</code> places in from the right of the number:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">123456789[0]</code> returns <code class="code-voice">9</code></p></li><li class="item"><p class="para"><code class="code-voice">123456789[1]</code> returns <code class="code-voice">8</code></p></li>
+</ul><p class="para">…and so on:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">subscript</code>(<code class="vc">digitIndex</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">var</code> <code class="vc">decimalBase</code> = <code class="m">1</code></code></li>
+            <li><code class="code-voice">        <code class="kt">for</code> <code class="kt">_</code> <code class="kt">in</code> <code class="m">0</code>..&lt;<code class="vc">digitIndex</code> {</code></li>
+            <li><code class="code-voice">            <code class="vc">decimalBase</code> *= <code class="m">10</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> (<code class="kt">self</code> / <code class="vc">decimalBase</code>) % <code class="m">10</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="m">746381295</code>[<code class="m">0</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// returns 5</code></code></li>
+            <li><code class="code-voice"><code class="m">746381295</code>[<code class="m">1</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// returns 9</code></code></li>
+            <li><code class="code-voice"><code class="m">746381295</code>[<code class="m">2</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// returns 2</code></code></li>
+            <li><code class="code-voice"><code class="m">746381295</code>[<code class="m">8</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// returns 7</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If the <code class="code-voice">Int</code> value does not have enough digits for the requested index, the subscript implementation returns <code class="code-voice">0</code>, as if the number had been padded with zeros to the left:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="m">746381295</code>[<code class="m">9</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// returns 0, as if you had requested:</code></code></li>
+            <li><code class="code-voice"><code class="m">0746381295</code>[<code class="m">9</code>]</code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH24-ID157">&#x200c;</a>
+  <h3 class="section-name">Nested Types</h3>
+  <p class="para">Extensions can add new nested types to existing classes, structures and enumerations:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">extension</code> <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">enum</code> <code class="vc">Kind</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> <code class="vc">Negative</code>, <code class="vc">Zero</code>, <code class="vc">Positive</code></code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="kt">var</code> <code class="vc">kind</code>: <code class="n"><!-- a href="" logicalPath="" -->Kind<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">switch</code> <code class="kt">self</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> <code class="m">0</code>:</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> .<code class="vc">Zero</code></code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> <code class="kt">let</code> <code class="vc">x</code> <code class="kt">where</code> <code class="vc">x</code> &gt; <code class="m">0</code>:</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> .<code class="vc">Positive</code></code></li>
+            <li><code class="code-voice">        <code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">            <code class="kt">return</code> .<code class="vc">Negative</code></code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example adds a new nested enumeration to <code class="code-voice">Int</code>. This enumeration, called <code class="code-voice">Kind</code>, expresses the kind of number that a particular integer represents. Specifically, it expresses whether the number is negative, zero, or positive.</p><p class="para">This example also adds a new computed instance property to <code class="code-voice">Int</code>, called <code class="code-voice">kind</code>, which returns the appropriate <code class="code-voice">Kind</code> enumeration case for that integer.</p><p class="para">The nested enumeration can now be used with any <code class="code-voice">Int</code> value:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">printIntegerKinds</code>(<code class="vc">numbers</code>: [<code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code>]) {</code></li>
+            <li><code class="code-voice">    <code class="kt">for</code> <code class="vc">number</code> <code class="kt">in</code> <code class="vc">numbers</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">switch</code> <code class="vc">number</code>.<code class="vc">kind</code> {</code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> .<code class="vc">Negative</code>:</code></li>
+            <li><code class="code-voice">            <code class="vc">print</code>(<code class="s">&quot;- &quot;</code>, <code class="vc">terminator</code>: <code class="s">&quot;&quot;</code>)</code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> .<code class="vc">Zero</code>:</code></li>
+            <li><code class="code-voice">            <code class="vc">print</code>(<code class="s">&quot;0 &quot;</code>, <code class="vc">terminator</code>: <code class="s">&quot;&quot;</code>)</code></li>
+            <li><code class="code-voice">        <code class="kt">case</code> .<code class="vc">Positive</code>:</code></li>
+            <li><code class="code-voice">            <code class="vc">print</code>(<code class="s">&quot;+ &quot;</code>, <code class="vc">terminator</code>: <code class="s">&quot;&quot;</code>)</code></li>
+            <li><code class="code-voice">        }</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="vc">printIntegerKinds</code>([<code class="m">3</code>, <code class="m">19</code>, -<code class="m">27</code>, <code class="m">0</code>, -<code class="m">6</code>, <code class="m">0</code>, <code class="m">7</code>])</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;+ + - 0 - 0 +&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This function, <code class="code-voice">printIntegerKinds</code>, takes an input array of <code class="code-voice">Int</code> values and iterates over those values in turn. For each integer in the array, the function considers the <code class="code-voice">kind</code> computed property for that integer, and prints an appropriate description.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para"><code class="code-voice">number.kind</code> is already known to be of type <code class="code-voice">Int.Kind</code>. Because of this, all of the <code class="code-voice">Int.Kind</code> case values can be written in shorthand form inside the <code class="code-voice">switch</code> statement, such as <code class="code-voice">.Negative</code> rather than <code class="code-voice">Int.Kind.Negative</code>.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

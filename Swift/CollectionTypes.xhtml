@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH8">&#x200c;</a><a id="TP40016643-CH8-ID105">&#x200c;</a>
+    <h2 class="chapter-name">Collection Types</h2>
+      
+      	<section class="section">
+      		<p class="para">Swift provides three primary <em>collection types</em>, known as arrays, sets, and dictionaries, for storing collections of values. Arrays are ordered collections of values. Sets are unordered collections of unique values. Dictionaries are unordered collections of key-value associations.</p>	  	<div class="figure">
+	<span class="caption"></span>
+	<img src="Art/CollectionTypes_intro_2x.png" alt="image: ../Art/CollectionTypes_intro_2x.png" width="670" height="237" />
+</div>
+<p class="para">Arrays, sets, and dictionaries in Swift are always clear about the types of values and keys that they can store. This means that you cannot insert a value of the wrong type into a collection by mistake. It also means you can be confident about the type of values you will retrieve from a collection.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Swift’s array, set, and dictionary types are implemented as <em>generic collections</em>. For more on generic types and collections, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH26-ID179" href="Generics.xhtml">Generics</a>.
+    	</p>
+    
+  </aside>
+</div>
+
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH8-ID106">&#x200c;</a>
+  <h3 class="section-name">Mutability of Collections</h3>
+  <p class="para">If you create an array, a set, or a dictionary, and assign it to a variable, the collection that is created will be <em>mutable</em>. This means that you can change (or <em>mutate</em>) the collection after it is created by adding, removing, or changing items in the collection. If you assign an array, a set, or a dictionary to a constant, that collection is <em>immutable</em>, and its size and contents cannot be changed.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">It is good practice to create immutable collections in all cases where the collection does not need to change. Doing so enables the Swift compiler to optimize the performance of the collections you create.
+    	</p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID107">&#x200c;</a>
+  <h3 class="section-name">Arrays</h3>
+  <p class="para">An <em>array</em> stores values of the same type in an ordered list. The same value can appear in an array multiple times at different positions.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Swift’s <code class="code-voice">Array</code> type is bridged to Foundation’s <code class="code-voice">NSArray</code> class.
+    	</p>
+    <p class="para">For more information about using <code class="code-voice">Array</code> with Foundation and Cocoa, see <em class="u-book"><!-- a href="" target="_self" logicalPath="//apple_ref/doc/uid/TP40014216" -->Using Swift with Cocoa and Objective-C (Swift 2.2)<!-- /a --></em>.</p>
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40016643-CH8-ID108">&#x200c;</a>
+  <h3 class="section-name">Array Type Shorthand Syntax</h3>
+  <p class="para">The type of a Swift array is written in full as <code class="code-voice">Array&lt;Element&gt;</code>, where <code class="code-voice">Element</code> is the type of values the array is allowed to store. You can also write the type of an array in shorthand form as <code class="code-voice">[Element]</code>. Although the two forms are functionally identical, the shorthand form is preferred and is used throughout this guide when referring to the type of an array.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID500">&#x200c;</a>
+  <h3 class="section-name">Creating an Empty Array</h3>
+  <p class="para">You can create an empty array of a certain type using initializer syntax:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">someInts</code> = [<code class="vc">Int</code>]()</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;someInts is of type [Int] with </code>\(<code class="vc">someInts</code>.<code class="vc">count</code>)<code class="s"> items.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;someInts is of type [Int] with 0 items.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Note that the type of the <code class="code-voice">someInts</code> variable is inferred to be <code class="code-voice">[Int]</code> from the type of the initializer.</p><p class="para">Alternatively, if the context already provides type information, such as a function argument or an already typed variable or constant, you can create an empty array with an empty array literal, which is written as <code class="code-voice">[]</code> (an empty pair of square brackets):</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">someInts</code>.<code class="vc">append</code>(<code class="m">3</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// someInts now contains 1 value of type Int</code></code></li>
+            <li><code class="code-voice"><code class="vc">someInts</code> = []</code></li>
+            <li><code class="code-voice"><code class="c">// someInts is now an empty array, but is still of type [Int]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID501">&#x200c;</a>
+  <h3 class="section-name">Creating an Array with a Default Value</h3>
+  <p class="para">Swift’s <code class="code-voice">Array</code> type also provides an initializer for creating an array of a certain size with all of its values set to the same default value. You pass this initializer the number of items to be added to the new array (called <code class="code-voice">count</code>) and a default value of the appropriate type (called <code class="code-voice">repeatedValue</code>):</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">threeDoubles</code> = [<code class="vc">Double</code>](<code class="vc">count</code>: <code class="m">3</code>, <code class="vc">repeatedValue</code>: <code class="m">0.0</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// threeDoubles is of type [Double], and equals [0.0, 0.0, 0.0]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID502">&#x200c;</a>
+  <h3 class="section-name">Creating an Array by Adding Two Arrays Together</h3>
+  <p class="para">You can create a new array by adding together two existing arrays with compatible types with the addition operator (<code class="code-voice">+</code>). The new array’s type is inferred from the type of the two arrays you add together:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">anotherThreeDoubles</code> = [<code class="vc">Double</code>](<code class="vc">count</code>: <code class="m">3</code>, <code class="vc">repeatedValue</code>: <code class="m">2.5</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// anotherThreeDoubles is of type [Double], and equals [2.5, 2.5, 2.5]</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">sixDoubles</code> = <code class="vc">threeDoubles</code> + <code class="vc">anotherThreeDoubles</code></code></li>
+            <li><code class="code-voice"><code class="c">// sixDoubles is inferred as [Double], and equals [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID109">&#x200c;</a>
+  <h3 class="section-name">Creating an Array with an Array Literal</h3>
+  <p class="para">You can also initialize an array with an <em>array literal</em>, which is a shorthand way to write one or more values as an array collection. An array literal is written as a list of values, separated by commas, surrounded by a pair of square brackets:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice">[<em class="variable-text">value 1</em>, <em class="variable-text">value 2</em>, <em class="variable-text">value 3</em>]</pre></li>
+  </ul>
+</div><p class="para">The example below creates an array called <code class="code-voice">shoppingList</code> to store <code class="code-voice">String</code> values:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">shoppingList</code>: [<code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>] = [<code class="s">&quot;Eggs&quot;</code>, <code class="s">&quot;Milk&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList has been initialized with two initial items</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">shoppingList</code> variable is declared as “an array of string values”, written as <code class="code-voice">[String]</code>. Because this particular array has specified a value type of <code class="code-voice">String</code>, it is allowed to store <code class="code-voice">String</code> values only. Here, the <code class="code-voice">shoppingList</code> array is initialized with two <code class="code-voice">String</code> values (<code class="code-voice">&quot;Eggs&quot;</code> and <code class="code-voice">&quot;Milk&quot;</code>), written within an array literal.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">shoppingList</code> array is declared as a variable (with the <code class="code-voice">var</code> introducer) and not a constant (with the <code class="code-voice">let</code> introducer) because more items are added to the shopping list in the examples below.
+    	</p>
+    
+  </aside>
+</div><p class="para">In this case, the array literal contains two <code class="code-voice">String</code> values and nothing else. This matches the type of the <code class="code-voice">shoppingList</code> variable’s declaration (an array that can only contain <code class="code-voice">String</code> values), and so the assignment of the array literal is permitted as a way to initialize <code class="code-voice">shoppingList</code> with two initial items.</p><p class="para">Thanks to Swift’s type inference, you don’t have to write the type of the array if you’re initializing it with an array literal containing values of the same type. The initialization of <code class="code-voice">shoppingList</code> could have been written in a shorter form instead:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">shoppingList</code> = [<code class="s">&quot;Eggs&quot;</code>, <code class="s">&quot;Milk&quot;</code>]</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Because all values in the array literal are of the same type, Swift can infer that <code class="code-voice">[String]</code> is the correct type to use for the <code class="code-voice">shoppingList</code> variable.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID110">&#x200c;</a>
+  <h3 class="section-name">Accessing and Modifying an Array</h3>
+  <p class="para">You access and modify an array through its methods and properties, or by using subscript syntax.</p><p class="para">To find out the number of items in an array, check its read-only <code class="code-voice">count</code> property:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;The shopping list contains </code>\(<code class="vc">shoppingList</code>.<code class="vc">count</code>)<code class="s"> items.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The shopping list contains 2 items.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Use the Boolean <code class="code-voice">isEmpty</code> property as a shortcut for checking whether the <code class="code-voice">count</code> property is equal to <code class="code-voice">0</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">shoppingList</code>.<code class="vc">isEmpty</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The shopping list is empty.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The shopping list is not empty.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The shopping list is not empty.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can add a new item to the end of an array by calling the array’s <code class="code-voice">append(_:)</code> method:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">shoppingList</code>.<code class="vc">append</code>(<code class="s">&quot;Flour&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList now contains 3 items, and someone is making pancakes</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Alternatively, append an array of one or more compatible items with the addition assignment operator (<code class="code-voice">+=</code>):</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">shoppingList</code> += [<code class="s">&quot;Baking Powder&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList now contains 4 items</code></code></li>
+            <li><code class="code-voice"><code class="vc">shoppingList</code> += [<code class="s">&quot;Chocolate Spread&quot;</code>, <code class="s">&quot;Cheese&quot;</code>, <code class="s">&quot;Butter&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList now contains 7 items</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Retrieve a value from the array by using <em>subscript syntax</em>, passing the index of the value you want to retrieve within square brackets immediately after the name of the array:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">firstItem</code> = <code class="vc">shoppingList</code>[<code class="m">0</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// firstItem is equal to &quot;Eggs&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The first item in the array has an index of <code class="code-voice">0</code>, not <code class="code-voice">1</code>. Arrays in Swift are always zero-indexed.
+    	</p>
+    
+  </aside>
+</div><p class="para">You can use subscript syntax to change an existing value at a given index:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">shoppingList</code>[<code class="m">0</code>] = <code class="s">&quot;Six eggs&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// the first item in the list is now equal to &quot;Six eggs&quot; rather than &quot;Eggs&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can also use subscript syntax to change a range of values at once, even if the replacement set of values has a different length than the range you are replacing. The following example replaces <code class="code-voice">&quot;Chocolate Spread&quot;</code>, <code class="code-voice">&quot;Cheese&quot;</code>, and <code class="code-voice">&quot;Butter&quot;</code> with <code class="code-voice">&quot;Bananas&quot;</code> and <code class="code-voice">&quot;Apples&quot;</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">shoppingList</code>[<code class="m">4</code>...<code class="m">6</code>] = [<code class="s">&quot;Bananas&quot;</code>, <code class="s">&quot;Apples&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList now contains 6 items</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">You can’t use subscript syntax to append a new item to the end of an array.
+    	</p>
+    
+  </aside>
+</div><p class="para">To insert an item into the array at a specified index, call the array’s <code class="code-voice">insert(_:atIndex:)</code> method:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">shoppingList</code>.<code class="vc">insert</code>(<code class="s">&quot;Maple Syrup&quot;</code>, <code class="vc">atIndex</code>: <code class="m">0</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList now contains 7 items</code></code></li>
+            <li><code class="code-voice"><code class="c">// &quot;Maple Syrup&quot; is now the first item in the list</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This call to the <code class="code-voice">insert(_:atIndex:)</code> method inserts a new item with a value of <code class="code-voice">&quot;Maple Syrup&quot;</code> at the very beginning of the shopping list, indicated by an index of <code class="code-voice">0</code>.</p><p class="para">Similarly, you remove an item from the array with the <code class="code-voice">removeAtIndex(_:)</code> method. This method removes the item at the specified index and returns the removed item (although you can ignore the returned value if you do not need it):</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">mapleSyrup</code> = <code class="vc">shoppingList</code>.<code class="vc">removeAtIndex</code>(<code class="m">0</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// the item that was at index 0 has just been removed</code></code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList now contains 6 items, and no Maple Syrup</code></code></li>
+            <li><code class="code-voice"><code class="c">// the mapleSyrup constant is now equal to the removed &quot;Maple Syrup&quot; string</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">If you try to access or modify a value for an index that is outside of an array’s existing bounds, you will trigger a runtime error. You can check that an index is valid before using it by comparing it to the array’s <code class="code-voice">count</code> property. Except when <code class="code-voice">count</code> is <code class="code-voice">0</code> (meaning the array is empty), the largest valid index in an array will always be <code class="code-voice">count - 1</code>, because arrays are indexed from zero.
+    	</p>
+    
+  </aside>
+</div><p class="para">Any gaps in an array are closed when an item is removed, and so the value at index <code class="code-voice">0</code> is once again equal to <code class="code-voice">&quot;Six eggs&quot;</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">firstItem</code> = <code class="vc">shoppingList</code>[<code class="m">0</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// firstItem is now equal to &quot;Six eggs&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If you want to remove the final item from an array, use the <code class="code-voice">removeLast()</code> method rather than the <code class="code-voice">removeAtIndex(_:)</code> method to avoid the need to query the array’s <code class="code-voice">count</code> property. Like the <code class="code-voice">removeAtIndex(_:)</code> method, <code class="code-voice">removeLast()</code> returns the removed item:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">apples</code> = <code class="vc">shoppingList</code>.<code class="vc">removeLast</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// the last item in the array has just been removed</code></code></li>
+            <li><code class="code-voice"><code class="c">// shoppingList now contains 5 items, and no apples</code></code></li>
+            <li><code class="code-voice"><code class="c">// the apples constant is now equal to the removed &quot;Apples&quot; string</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID111">&#x200c;</a>
+  <h3 class="section-name">Iterating Over an Array</h3>
+  <p class="para">You can iterate over the entire set of values in an array with the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">item</code> <code class="kt">in</code> <code class="vc">shoppingList</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="vc">item</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Six eggs</code></code></li>
+            <li><code class="code-voice"><code class="c">// Milk</code></code></li>
+            <li><code class="code-voice"><code class="c">// Flour</code></code></li>
+            <li><code class="code-voice"><code class="c">// Baking Powder</code></code></li>
+            <li><code class="code-voice"><code class="c">// Bananas</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If you need the integer index of each item as well as its value, use the <code class="code-voice">enumerate()</code> method to iterate over the array instead. For each item in the array, the <code class="code-voice">enumerate()</code> method returns a tuple composed of the index and the value for that item. You can decompose the tuple into temporary constants or variables as part of the iteration:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> (<code class="vc">index</code>, <code class="vc">value</code>) <code class="kt">in</code> <code class="vc">shoppingList</code>.<code class="vc">enumerate</code>() {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Item </code>\(<code class="vc">index</code> + <code class="m">1</code>)<code class="s">: </code>\(<code class="vc">value</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Item 1: Six eggs</code></code></li>
+            <li><code class="code-voice"><code class="c">// Item 2: Milk</code></code></li>
+            <li><code class="code-voice"><code class="c">// Item 3: Flour</code></code></li>
+            <li><code class="code-voice"><code class="c">// Item 4: Baking Powder</code></code></li>
+            <li><code class="code-voice"><code class="c">// Item 5: Bananas</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">For more about the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID121" href="ControlFlow.xhtml#TP40016643-CH9-ID121">For-In Loops</a>.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID484">&#x200c;</a>
+  <h3 class="section-name">Sets</h3>
+  <p class="para">A <em>set</em> stores distinct values of the same type in a collection with no defined ordering. You can use a set instead of an array when the order of items is not important, or when you need to ensure that an item only appears once.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Swift’s <code class="code-voice">Set</code> type is bridged to Foundation’s <code class="code-voice">NSSet</code> class.
+    	</p>
+    <p class="para">For more information about using <code class="code-voice">Set</code> with Foundation and Cocoa, see <em class="u-book"><!-- a href="" target="_self" logicalPath="//apple_ref/doc/uid/TP40014216" -->Using Swift with Cocoa and Objective-C (Swift 2.2)<!-- /a --></em>.</p>
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40016643-CH8-ID493">&#x200c;</a>
+  <h3 class="section-name">Hash Values for Set Types</h3>
+  <p class="para">A type must be <em>hashable</em> in order to be stored in a set—that is, the type must provide a way to compute a <em>hash value</em> for itself. A hash value is an <code class="code-voice">Int</code> value that is the same for all objects that compare equally, such that if <code class="code-voice">a == b</code>, it follows that <code class="code-voice">a.hashValue == b.hashValue</code>.</p><p class="para">All of Swift’s basic types (such as <code class="code-voice">String</code>, <code class="code-voice">Int</code>, <code class="code-voice">Double</code>, and <code class="code-voice">Bool</code>) are hashable by default, and can be used as set value types or dictionary key types. Enumeration case values without associated values (as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH12-ID145" href="Enumerations.xhtml">Enumerations</a>) are also hashable by default.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">You can use your own custom types as set value types or dictionary key types by making them conform to the <code class="code-voice">Hashable</code> protocol from Swift’s standard library. Types that conform to the <code class="code-voice">Hashable</code> protocol must provide a gettable <code class="code-voice">Int</code> property called <code class="code-voice">hashValue</code>. The value returned by a type’s <code class="code-voice">hashValue</code> property is not required to be the same across different executions of the same program, or in different programs.
+    	</p>
+    <p class="para">Because the <code class="code-voice">Hashable</code> protocol conforms to <code class="code-voice">Equatable</code>, conforming types must also provide an implementation of the “is equal” operator (<code class="code-voice">==</code>). The <code class="code-voice">Equatable</code> protocol requires any conforming implementation of <code class="code-voice">==</code> to be an equivalence relation. That is, an implementation of <code class="code-voice">==</code> must satisfy the following three conditions, for all values <code class="code-voice">a</code>, <code class="code-voice">b</code>, and <code class="code-voice">c</code>:</p><ul class="list-bullet">
+  <li class="item"><p class="para"><code class="code-voice">a == a</code> (Reflexivity)</p></li><li class="item"><p class="para"><code class="code-voice">a == b</code> implies <code class="code-voice">b == a</code> (Symmetry)</p></li><li class="item"><p class="para"><code class="code-voice">a == b &amp;&amp; b == c</code> implies <code class="code-voice">a == c</code> (Transitivity)</p></li>
+</ul>
+<p class="para">For more information about conforming to protocols, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH25-ID267" href="Protocols.xhtml">Protocols</a>.</p>
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID485">&#x200c;</a>
+  <h3 class="section-name">Set Type Syntax</h3>
+  <p class="para">The type of a Swift set is written as <code class="code-voice">Set&lt;Element&gt;</code>, where <code class="code-voice">Element</code> is the type that the set is allowed to store. Unlike arrays, sets do not have an equivalent shorthand form.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID503">&#x200c;</a>
+  <h3 class="section-name">Creating and Initializing an Empty Set</h3>
+  <p class="para">You can create an empty set of a certain type using initializer syntax:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">letters</code> = <code class="vc">Set</code>&lt;<code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code>&gt;()</code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;letters is of type Set&lt;Character&gt; with </code>\(<code class="vc">letters</code>.<code class="vc">count</code>)<code class="s"> items.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;letters is of type Set&lt;Character&gt; with 0 items.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The type of the <code class="code-voice">letters</code> variable is inferred to be <code class="code-voice">Set&lt;Character&gt;</code>, from the type of the initializer.
+    	</p>
+    
+  </aside>
+</div><p class="para">Alternatively, if the context already provides type information, such as a function argument or an already typed variable or constant, you can create an empty set with an empty array literal:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">letters</code>.<code class="vc">insert</code>(<code class="s">&quot;a&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// letters now contains 1 value of type Character</code></code></li>
+            <li><code class="code-voice"><code class="vc">letters</code> = []</code></li>
+            <li><code class="code-voice"><code class="c">// letters is now an empty set, but is still of type Set&lt;Character&gt;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID504">&#x200c;</a>
+  <h3 class="section-name">Creating a Set with an Array Literal</h3>
+  <p class="para">You can also initialize a set with an array literal, as a shorthand way to write one or more values as a set collection.</p><p class="para">The example below creates a set called <code class="code-voice">favoriteGenres</code> to store <code class="code-voice">String</code> values:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">favoriteGenres</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code>&lt;<code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>&gt; = [<code class="s">&quot;Rock&quot;</code>, <code class="s">&quot;Classical&quot;</code>, <code class="s">&quot;Hip hop&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="c">// favoriteGenres has been initialized with three initial items</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">favoriteGenres</code> variable is declared as “a set of <code class="code-voice">String</code> values”, written as <code class="code-voice">Set&lt;String&gt;</code>. Because this particular set has specified a value type of <code class="code-voice">String</code>, it is <em>only</em> allowed to store <code class="code-voice">String</code> values. Here, the <code class="code-voice">favoriteGenres</code> set is initialized with three <code class="code-voice">String</code> values (<code class="code-voice">&quot;Rock&quot;</code>, <code class="code-voice">&quot;Classical&quot;</code>, and <code class="code-voice">&quot;Hip hop&quot;</code>), written within an array literal.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">favoriteGenres</code> set is declared as a variable (with the <code class="code-voice">var</code> introducer) and not a constant (with the <code class="code-voice">let</code> introducer) because items are added and removed in the examples below.
+    	</p>
+    
+  </aside>
+</div><p class="para">A set type cannot be inferred from an array literal alone, so the type <code class="code-voice">Set</code> must be explicitly declared. However, because of Swift’s type inference, you don’t have to write the type of the set if you’re initializing it with an array literal containing values of the same type. The initialization of <code class="code-voice">favoriteGenres</code> could have been written in a shorter form instead:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">favoriteGenres</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code> = [<code class="s">&quot;Rock&quot;</code>, <code class="s">&quot;Classical&quot;</code>, <code class="s">&quot;Hip hop&quot;</code>]</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Because all values in the array literal are of the same type, Swift can infer that <code class="code-voice">Set&lt;String&gt;</code> is the correct type to use for the <code class="code-voice">favoriteGenres</code> variable.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID488">&#x200c;</a>
+  <h3 class="section-name">Accessing and Modifying a Set</h3>
+  <p class="para">You access and modify a set through its methods and properties.</p><p class="para">To find out the number of items in a set, check its read-only <code class="code-voice">count</code> property:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;I have </code>\(<code class="vc">favoriteGenres</code>.<code class="vc">count</code>)<code class="s"> favorite music genres.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;I have 3 favorite music genres.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Use the Boolean <code class="code-voice">isEmpty</code> property as a shortcut for checking whether the <code class="code-voice">count</code> property is equal to <code class="code-voice">0</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">favoriteGenres</code>.<code class="vc">isEmpty</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;As far as music goes, I&#39;m not picky.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;I have particular music preferences.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;I have particular music preferences.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can add a new item into a set by calling the set’s <code class="code-voice">insert(_:)</code> method:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">favoriteGenres</code>.<code class="vc">insert</code>(<code class="s">&quot;Jazz&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// favoriteGenres now contains 4 items</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can remove an item from a set by calling the set’s <code class="code-voice">remove(_:)</code> method, which removes the item if it’s a member of the set, and returns the removed value, or returns <code class="code-voice">nil</code> if the set did not contain it. Alternatively, all items in a set can be removed with its <code class="code-voice">removeAll()</code> method.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">removedGenre</code> = <code class="vc">favoriteGenres</code>.<code class="vc">remove</code>(<code class="s">&quot;Rock&quot;</code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">removedGenre</code>)<code class="s">? I&#39;m over it.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;I never much cared for that.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Rock? I&#39;m over it.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">To check whether a set contains a particular item, use the <code class="code-voice">contains(_:)</code> method.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">favoriteGenres</code>.<code class="vc">contains</code>(<code class="s">&quot;Funk&quot;</code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;I get up on the good foot.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;It&#39;s too funky in here.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;It&#39;s too funky in here.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID489">&#x200c;</a>
+  <h3 class="section-name">Iterating Over a Set</h3>
+  <p class="para">You can iterate over the values in a set with a <code class="code-voice">for</code>-<code class="code-voice">in</code> loop.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">genre</code> <code class="kt">in</code> <code class="vc">favoriteGenres</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">genre</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Classical</code></code></li>
+            <li><code class="code-voice"><code class="c">// Jazz</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hip hop</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">For more about the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID121" href="ControlFlow.xhtml#TP40016643-CH9-ID121">For-In Loops</a>.</p><p class="para">Swift’s <code class="code-voice">Set</code> type does not have a defined ordering. To iterate over the values of a set in a specific order, use the <code class="code-voice">sort()</code> method, which returns the set’s elements as an array sorted using the <code class="code-voice">&lt;</code> operator.</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">genre</code> <code class="kt">in</code> <code class="vc">favoriteGenres</code>.<code class="vc">sort</code>() {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">genre</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Classical</code></code></li>
+            <li><code class="code-voice"><code class="c">// Hip hop</code></code></li>
+            <li><code class="code-voice"><code class="c">// Jazz</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID490">&#x200c;</a>
+  <h3 class="section-name">Performing Set Operations</h3>
+  <p class="para">You can efficiently perform fundamental set operations, such as combining two sets together, determining which values two sets have in common, or determining whether two sets contain all, some, or none of the same values.</p>
+  <section class="section">
+	<a id="TP40016643-CH8-ID505">&#x200c;</a>
+  <h3 class="section-name">Fundamental Set Operations</h3>
+  <p class="para">The illustration below depicts two sets—<code class="code-voice">a</code> and <code class="code-voice">b</code>—with the results of various set operations represented by the shaded regions.</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/setVennDiagram_2x.png" alt="image: ../Art/setVennDiagram_2x.png" width="561" height="425" />
+</div><ul class="list-bullet">
+  <li class="item"><p class="para">Use the <code class="code-voice">intersect(_:)</code> method to create a new set with only the values common to both sets.</p></li><li class="item"><p class="para">Use the <code class="code-voice">exclusiveOr(_:)</code> method to create a new set with values in either set, but not both.</p></li><li class="item"><p class="para">Use the <code class="code-voice">union(_:)</code> method to create a new set with all of the values in both sets.</p></li><li class="item"><p class="para">Use the <code class="code-voice">subtract(_:)</code> method to create a new set with values not in the specified set.</p></li>
+</ul><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">oddDigits</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code> = [<code class="m">1</code>, <code class="m">3</code>, <code class="m">5</code>, <code class="m">7</code>, <code class="m">9</code>]</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">evenDigits</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code> = [<code class="m">0</code>, <code class="m">2</code>, <code class="m">4</code>, <code class="m">6</code>, <code class="m">8</code>]</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">singleDigitPrimeNumbers</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code> = [<code class="m">2</code>, <code class="m">3</code>, <code class="m">5</code>, <code class="m">7</code>]</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">oddDigits</code>.<code class="vc">union</code>(<code class="vc">evenDigits</code>).<code class="vc">sort</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code></code></li>
+            <li><code class="code-voice"><code class="vc">oddDigits</code>.<code class="vc">intersect</code>(<code class="vc">evenDigits</code>).<code class="vc">sort</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// []</code></code></li>
+            <li><code class="code-voice"><code class="vc">oddDigits</code>.<code class="vc">subtract</code>(<code class="vc">singleDigitPrimeNumbers</code>).<code class="vc">sort</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// [1, 9]</code></code></li>
+            <li><code class="code-voice"><code class="vc">oddDigits</code>.<code class="vc">exclusiveOr</code>(<code class="vc">singleDigitPrimeNumbers</code>).<code class="vc">sort</code>()</code></li>
+            <li><code class="code-voice"><code class="c">// [1, 2, 9]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID506">&#x200c;</a>
+  <h3 class="section-name">Set Membership and Equality</h3>
+  <p class="para">The illustration below depicts three sets—<code class="code-voice">a</code>, <code class="code-voice">b</code> and <code class="code-voice">c</code>—with overlapping regions representing elements shared among sets. Set <code class="code-voice">a</code> is a <em>superset</em> of set <code class="code-voice">b</code>, because <code class="code-voice">a</code> contains all elements in <code class="code-voice">b</code>. Conversely, set <code class="code-voice">b</code> is a <em>subset</em> of set <code class="code-voice">a</code>, because all elements in <code class="code-voice">b</code> are also contained by <code class="code-voice">a</code>. Set <code class="code-voice">b</code> and set <code class="code-voice">c</code> are <em>disjoint</em> with one another, because they share no elements in common.</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/setEulerDiagram_2x.png" alt="image: ../Art/setEulerDiagram_2x.png" width="551" height="323" />
+</div><ul class="list-bullet">
+  <li class="item"><p class="para">Use the “is equal” operator (<code class="code-voice">==</code>) to determine whether two sets contain all of the same values.</p></li><li class="item"><p class="para">Use the <code class="code-voice">isSubsetOf(_:)</code> method to determine whether all of the values of a set are contained in the specified set.</p></li><li class="item"><p class="para">Use the <code class="code-voice">isSupersetOf(_:)</code> method to determine whether a set contains all of the values in a specified set.</p></li><li class="item"><p class="para">Use the <code class="code-voice">isStrictSubsetOf(_:)</code> or <code class="code-voice">isStrictSupersetOf(_:)</code> methods to determine whether a set is a subset or superset, but not equal to, a specified set.</p></li><li class="item"><p class="para">Use the <code class="code-voice">isDisjointWith(_:)</code> method to determine whether two sets have any values in common.</p></li>
+</ul><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">houseAnimals</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code> = [<code class="s">&quot;🐶&quot;</code>, <code class="s">&quot;🐱&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">farmAnimals</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code> = [<code class="s">&quot;🐮&quot;</code>, <code class="s">&quot;🐔&quot;</code>, <code class="s">&quot;🐑&quot;</code>, <code class="s">&quot;🐶&quot;</code>, <code class="s">&quot;🐱&quot;</code>]</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">cityAnimals</code>: <code class="n"><!-- a href="" logicalPath="" -->Set<!-- /a --></code> = [<code class="s">&quot;🐦&quot;</code>, <code class="s">&quot;🐭&quot;</code>]</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">houseAnimals</code>.<code class="vc">isSubsetOf</code>(<code class="vc">farmAnimals</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// true</code></code></li>
+            <li><code class="code-voice"><code class="vc">farmAnimals</code>.<code class="vc">isSupersetOf</code>(<code class="vc">houseAnimals</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// true</code></code></li>
+            <li><code class="code-voice"><code class="vc">farmAnimals</code>.<code class="vc">isDisjointWith</code>(<code class="vc">cityAnimals</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// true</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID113">&#x200c;</a>
+  <h3 class="section-name">Dictionaries</h3>
+  <p class="para">A <em>dictionary</em> stores associations between keys of the same type and values of the same type in a collection with no defined ordering. Each value is associated with a unique <em>key</em>, which acts as an identifier for that value within the dictionary. Unlike items in an array, items in a dictionary do not have a specified order. You use a dictionary when you need to look up values based on their identifier, in much the same way that a real-world dictionary is used to look up the definition for a particular word.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Swift’s <code class="code-voice">Dictionary</code> type is bridged to Foundation’s <code class="code-voice">NSDictionary</code> class.
+    	</p>
+    <p class="para">For more information about using <code class="code-voice">Dictionary</code> with Foundation and Cocoa, see <em class="u-book"><!-- a href="" target="_self" logicalPath="//apple_ref/doc/uid/TP40014216" -->Using Swift with Cocoa and Objective-C (Swift 2.2)<!-- /a --></em>.</p>
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40016643-CH8-ID114">&#x200c;</a>
+  <h3 class="section-name">Dictionary Type Shorthand Syntax</h3>
+  <p class="para">The type of a Swift dictionary is written in full as <code class="code-voice">Dictionary&lt;Key, Value&gt;</code>, where <code class="code-voice">Key</code> is the type of value that can be used as a dictionary key, and <code class="code-voice">Value</code> is the type of value that the dictionary stores for those keys.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">A dictionary <code class="code-voice">Key</code> type must conform to the <code class="code-voice">Hashable</code> protocol, like a set’s value type.
+    	</p>
+    
+  </aside>
+</div><p class="para">You can also write the type of a dictionary in shorthand form as <code class="code-voice">[Key: Value]</code>. Although the two forms are functionally identical, the shorthand form is preferred and is used throughout this guide when referring to the type of a dictionary.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID118">&#x200c;</a>
+  <h3 class="section-name">Creating an Empty Dictionary</h3>
+  <p class="para">As with arrays, you can create an empty <code class="code-voice">Dictionary</code> of a certain type by using initializer syntax:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">namesOfIntegers</code> = [<code class="vc">Int</code>: <code class="vc">String</code>]()</code></li>
+            <li><code class="code-voice"><code class="c">// namesOfIntegers is an empty [Int: String] dictionary</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example creates an empty dictionary of type <code class="code-voice">[Int: String]</code> to store human-readable names of integer values. Its keys are of type <code class="code-voice">Int</code>, and its values are of type <code class="code-voice">String</code>.</p><p class="para">If the context already provides type information, you can create an empty dictionary with an empty dictionary literal, which is written as <code class="code-voice">[:]</code> (a colon inside a pair of square brackets):</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">namesOfIntegers</code>[<code class="m">16</code>] = <code class="s">&quot;sixteen&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// namesOfIntegers now contains 1 key-value pair</code></code></li>
+            <li><code class="code-voice"><code class="vc">namesOfIntegers</code> = [:]</code></li>
+            <li><code class="code-voice"><code class="c">// namesOfIntegers is once again an empty dictionary of type [Int: String]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID507">&#x200c;</a>
+  <h3 class="section-name">Creating a Dictionary with a Dictionary Literal</h3>
+  <p class="para">You can also initialize a dictionary with a <em>dictionary literal</em>, which has a similar syntax to the array literal seen earlier. A dictionary literal is a shorthand way to write one or more key-value pairs as a <code class="code-voice">Dictionary</code> collection.</p><p class="para">A <em>key-value pair</em> is a combination of a key and a value. In a dictionary literal, the key and value in each key-value pair are separated by a colon. The key-value pairs are written as a list, separated by commas, surrounded by a pair of square brackets:</p><span class="caption"></span>
+<div class="code-outline">
+  <ul class="code-outline-lines code-voice">
+    <li><pre class="code-voice">[<em class="variable-text">key 1</em>: <em class="variable-text">value 1</em>, <em class="variable-text">key 2</em>: <em class="variable-text">value 2</em>, <em class="variable-text">key 3</em>: <em class="variable-text">value 3</em>]</pre></li>
+  </ul>
+</div><p class="para">The example below creates a dictionary to store the names of international airports. In this dictionary, the keys are three-letter International Air Transport Association codes, and the values are airport names:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">airports</code>: [<code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code>] = [<code class="s">&quot;YYZ&quot;</code>: <code class="s">&quot;Toronto Pearson&quot;</code>, <code class="s">&quot;DUB&quot;</code>: <code class="s">&quot;Dublin&quot;</code>]</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The <code class="code-voice">airports</code> dictionary is declared as having a type of <code class="code-voice">[String: String]</code>, which means “a <code class="code-voice">Dictionary</code> whose keys are of type <code class="code-voice">String</code>, and whose values are also of type <code class="code-voice">String</code>”.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The <code class="code-voice">airports</code> dictionary is declared as a variable (with the <code class="code-voice">var</code> introducer), and not a constant (with the <code class="code-voice">let</code> introducer), because more airports are added to the dictionary in the examples below.
+    	</p>
+    
+  </aside>
+</div><p class="para">The <code class="code-voice">airports</code> dictionary is initialized with a dictionary literal containing two key-value pairs. The first pair has a key of <code class="code-voice">&quot;YYZ&quot;</code> and a value of <code class="code-voice">&quot;Toronto Pearson&quot;</code>. The second pair has a key of <code class="code-voice">&quot;DUB&quot;</code> and a value of <code class="code-voice">&quot;Dublin&quot;</code>.</p><p class="para">This dictionary literal contains two <code class="code-voice">String: String</code> pairs. This key-value type matches the type of the <code class="code-voice">airports</code> variable declaration (a dictionary with only <code class="code-voice">String</code> keys, and only <code class="code-voice">String</code> values), and so the assignment of the dictionary literal is permitted as a way to initialize the <code class="code-voice">airports</code> dictionary with two initial items.</p><p class="para">As with arrays, you don’t have to write the type of the dictionary if you’re initializing it with a dictionary literal whose keys and values have consistent types. The initialization of <code class="code-voice">airports</code> could have been written in a shorter form instead:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">airports</code> = [<code class="s">&quot;YYZ&quot;</code>: <code class="s">&quot;Toronto Pearson&quot;</code>, <code class="s">&quot;DUB&quot;</code>: <code class="s">&quot;Dublin&quot;</code>]</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Because all keys in the literal are of the same type as each other, and likewise all values are of the same type as each other, Swift can infer that <code class="code-voice">[String: String]</code> is the correct type to use for the <code class="code-voice">airports</code> dictionary.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID116">&#x200c;</a>
+  <h3 class="section-name">Accessing and Modifying a Dictionary</h3>
+  <p class="para">You access and modify a dictionary through its methods and properties, or by using subscript syntax.</p><p class="para">As with an array, you find out the number of items in a <code class="code-voice">Dictionary</code> by checking its read-only <code class="code-voice">count</code> property:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="s">&quot;The airports dictionary contains </code>\(<code class="vc">airports</code>.<code class="vc">count</code>)<code class="s"> items.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The airports dictionary contains 2 items.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Use the Boolean <code class="code-voice">isEmpty</code> property as a shortcut for checking whether the <code class="code-voice">count</code> property is equal to <code class="code-voice">0</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="vc">airports</code>.<code class="vc">isEmpty</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The airports dictionary is empty.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The airports dictionary is not empty.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The airports dictionary is not empty.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can add a new item to a dictionary with subscript syntax. Use a new key of the appropriate type as the subscript index, and assign a new value of the appropriate type:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">airports</code>[<code class="s">&quot;LHR&quot;</code>] = <code class="s">&quot;London&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// the airports dictionary now contains 3 items</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can also use subscript syntax to change the value associated with a particular key:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">airports</code>[<code class="s">&quot;LHR&quot;</code>] = <code class="s">&quot;London Heathrow&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// the value for &quot;LHR&quot; has been changed to &quot;London Heathrow&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">As an alternative to subscripting, use a dictionary’s <code class="code-voice">updateValue(_:forKey:)</code> method to set or update the value for a particular key. Like the subscript examples above, the <code class="code-voice">updateValue(_:forKey:)</code> method sets a value for a key if none exists, or updates the value if that key already exists. Unlike a subscript, however, the <code class="code-voice">updateValue(_:forKey:)</code> method returns the <em>old</em> value after performing an update. This enables you to check whether or not an update took place.</p><p class="para">The <code class="code-voice">updateValue(_:forKey:)</code> method returns an optional value of the dictionary’s value type. For a dictionary that stores <code class="code-voice">String</code> values, for example, the method returns a value of type <code class="code-voice">String?</code>, or “optional <code class="code-voice">String</code>”. This optional value contains the old value for that key if one existed before the update, or <code class="code-voice">nil</code> if no value existed:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">oldValue</code> = <code class="vc">airports</code>.<code class="vc">updateValue</code>(<code class="s">&quot;Dublin Airport&quot;</code>, <code class="vc">forKey</code>: <code class="s">&quot;DUB&quot;</code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The old value for DUB was </code>\(<code class="vc">oldValue</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The old value for DUB was Dublin.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can also use subscript syntax to retrieve a value from the dictionary for a particular key. Because it is possible to request a key for which no value exists, a dictionary’s subscript returns an optional value of the dictionary’s value type. If the dictionary contains a value for the requested key, the subscript returns an optional value containing the existing value for that key. Otherwise, the subscript returns <code class="code-voice">nil</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">airportName</code> = <code class="vc">airports</code>[<code class="s">&quot;DUB&quot;</code>] {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The name of the airport is </code>\(<code class="vc">airportName</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;That airport is not in the airports dictionary.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The name of the airport is Dublin Airport.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can use subscript syntax to remove a key-value pair from a dictionary by assigning a value of <code class="code-voice">nil</code> for that key:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">airports</code>[<code class="s">&quot;APL&quot;</code>] = <code class="s">&quot;Apple International&quot;</code></code></li>
+            <li><code class="code-voice"><code class="c">// &quot;Apple International&quot; is not the real airport for APL, so delete it</code></code></li>
+            <li><code class="code-voice"><code class="vc">airports</code>[<code class="s">&quot;APL&quot;</code>] = <code class="kt">nil</code></code></li>
+            <li><code class="code-voice"><code class="c">// APL has now been removed from the dictionary</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Alternatively, remove a key-value pair from a dictionary with the <code class="code-voice">removeValueForKey(_:)</code> method. This method removes the key-value pair if it exists and returns the removed value, or returns <code class="code-voice">nil</code> if no value existed:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">removedValue</code> = <code class="vc">airports</code>.<code class="vc">removeValueForKey</code>(<code class="s">&quot;DUB&quot;</code>) {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The removed airport&#39;s name is </code>\(<code class="vc">removedValue</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;The airports dictionary does not contain a value for DUB.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;The removed airport&#39;s name is Dublin Airport.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH8-ID117">&#x200c;</a>
+  <h3 class="section-name">Iterating Over a Dictionary</h3>
+  <p class="para">You can iterate over the key-value pairs in a dictionary with a <code class="code-voice">for</code>-<code class="code-voice">in</code> loop. Each item in the dictionary is returned as a <code class="code-voice">(key, value)</code> tuple, and you can decompose the tuple’s members into temporary constants or variables as part of the iteration:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> (<code class="vc">airportCode</code>, <code class="vc">airportName</code>) <code class="kt">in</code> <code class="vc">airports</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;</code>\(<code class="vc">airportCode</code>)<code class="s">: </code>\(<code class="vc">airportName</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// YYZ: Toronto Pearson</code></code></li>
+            <li><code class="code-voice"><code class="c">// LHR: London Heathrow</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">For more about the <code class="code-voice">for</code>-<code class="code-voice">in</code> loop, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID121" href="ControlFlow.xhtml#TP40016643-CH9-ID121">For-In Loops</a>.</p><p class="para">You can also retrieve an iterable collection of a dictionary’s keys or values by accessing its <code class="code-voice">keys</code> and <code class="code-voice">values</code> properties:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">airportCode</code> <code class="kt">in</code> <code class="vc">airports</code>.<code class="vc">keys</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Airport code: </code>\(<code class="vc">airportCode</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Airport code: YYZ</code></code></li>
+            <li><code class="code-voice"><code class="c">// Airport code: LHR</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">for</code> <code class="vc">airportName</code> <code class="kt">in</code> <code class="vc">airports</code>.<code class="vc">values</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Airport name: </code>\(<code class="vc">airportName</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Airport name: Toronto Pearson</code></code></li>
+            <li><code class="code-voice"><code class="c">// Airport name: London Heathrow</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If you need to use a dictionary’s keys or values with an API that takes an <code class="code-voice">Array</code> instance, initialize a new array with the <code class="code-voice">keys</code> or <code class="code-voice">values</code> property:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">airportCodes</code> = [<code class="vc">String</code>](<code class="vc">airports</code>.<code class="vc">keys</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// airportCodes is [&quot;YYZ&quot;, &quot;LHR&quot;]</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">airportNames</code> = [<code class="vc">String</code>](<code class="vc">airports</code>.<code class="vc">values</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// airportNames is [&quot;Toronto Pearson&quot;, &quot;London Heathrow&quot;]</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Swift’s <code class="code-voice">Dictionary</code> type does not have a defined ordering. To iterate over the keys or values of a dictionary in a specific order, use the <code class="code-voice">sort()</code> method on its <code class="code-voice">keys</code> or <code class="code-voice">values</code> property.</p>
+  
+</section>
+
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>

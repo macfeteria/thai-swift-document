@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+  	<link href="epub.css" media="all" rel="stylesheet" type="text/css" />
+  	<script type="text/javascript" src="svg.js"></script>
+  </head>
+  <body id="conceptual_flow_with_tasks">
+    <div class="content-wrapper">
+      <div id="chapter_container" class='conceptualwithtasks'>
+  <article class="chapter">
+    <a id="TP40016643-CH12">&#x200c;</a><a id="TP40016643-CH12-ID145">&#x200c;</a>
+    <h2 class="chapter-name">Enumerations</h2>
+      
+      	<section class="section">
+      		<p class="para">An <em>enumeration</em> defines a common type for a group of related values and enables you to work with those values in a type-safe way within your code.</p><p class="para">If you are familiar with C, you will know that C enumerations assign related names to a set of integer values. Enumerations in Swift are much more flexible, and do not have to provide a value for each case of the enumeration. If a value (known as a “raw” value) <em>is</em> provided for each enumeration case, the value can be a string, a character, or a value of any integer or floating-point type.</p><p class="para">Alternatively, enumeration cases can specify associated values of <em>any</em> type to be stored along with each different case value, much as unions or variants do in other languages. You can define a common set of related cases as part of one enumeration, each of which has a different set of values of appropriate types associated with it.</p><p class="para">Enumerations in Swift are first-class types in their own right. They adopt many features traditionally supported only by classes, such as computed properties to provide additional information about the enumeration’s current value, and instance methods to provide functionality related to the values the enumeration represents. Enumerations can also define initializers to provide an initial case value; can be extended to expand their functionality beyond their original implementation; and can conform to protocols to provide standard functionality.</p><p class="para">For more on these capabilities, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH14-ID254" href="Properties.xhtml">Properties</a>, <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH15-ID234" href="Methods.xhtml">Methods</a>, <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH18-ID203" href="Initialization.xhtml">Initialization</a>, <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH24-ID151" href="Extensions.xhtml">Extensions</a>, and <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH25-ID267" href="Protocols.xhtml">Protocols</a>.</p>
+    		</section> 
+
+
+      <section class="section">
+	<a id="TP40016643-CH12-ID146">&#x200c;</a>
+  <h3 class="section-name">Enumeration Syntax</h3>
+  <p class="para">You introduce enumerations with the <code class="code-voice">enum</code> keyword and place their entire definition within a pair of braces:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">SomeEnumeration</code> {</code></li>
+            <li><code class="code-voice">    <code class="c">// enumeration definition goes here</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Here’s an example for the four main points of a compass:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">CompassPoint</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">North</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">South</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">East</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">West</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The values defined in an enumeration (such as <code class="code-voice">North</code>, <code class="code-voice">South</code>, <code class="code-voice">East</code>, and <code class="code-voice">West</code>) are its <em>enumeration cases</em>. You use the <code class="code-voice">case</code> keyword to introduce new enumeration cases.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Unlike C and Objective-C, Swift enumeration cases are not assigned a default integer value when they are created. In the <code class="code-voice">CompassPoint</code> example above, <code class="code-voice">North</code>, <code class="code-voice">South</code>, <code class="code-voice">East</code> and <code class="code-voice">West</code> do not implicitly equal <code class="code-voice">0</code>, <code class="code-voice">1</code>, <code class="code-voice">2</code> and <code class="code-voice">3</code>. Instead, the different enumeration cases are fully-fledged values in their own right, with an explicitly-defined type of <code class="code-voice">CompassPoint</code>.
+    	</p>
+    
+  </aside>
+</div><p class="para">Multiple cases can appear on a single line, separated by commas:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">Planet</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">Mercury</code>, <code class="vc">Venus</code>, <code class="vc">Earth</code>, <code class="vc">Mars</code>, <code class="vc">Jupiter</code>, <code class="vc">Saturn</code>, <code class="vc">Uranus</code>, <code class="vc">Neptune</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Each enumeration definition defines a brand new type. Like other types in Swift, their names (such as <code class="code-voice">CompassPoint</code> and <code class="code-voice">Planet</code>) should start with a capital letter. Give enumeration types singular rather than plural names, so that they read as self-evident:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">directionToHead</code> = <code class="vc">CompassPoint</code>.<code class="vc">West</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The type of <code class="code-voice">directionToHead</code> is inferred when it is initialized with one of the possible values of <code class="code-voice">CompassPoint</code>. Once <code class="code-voice">directionToHead</code> is declared as a <code class="code-voice">CompassPoint</code>, you can set it to a different <code class="code-voice">CompassPoint</code> value using a shorter dot syntax:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">directionToHead</code> = .<code class="vc">East</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">The type of <code class="code-voice">directionToHead</code> is already known, and so you can drop the type when setting its value. This makes for highly readable code when working with explicitly-typed enumeration values.</p>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH12-ID147">&#x200c;</a>
+  <h3 class="section-name">Matching Enumeration Values with a Switch Statement</h3>
+  <p class="para">You can match individual enumeration values with a <code class="code-voice">switch</code> statement:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">directionToHead</code> = .<code class="vc">South</code></code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">directionToHead</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> .<code class="vc">North</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Lots of planets have a north&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> .<code class="vc">South</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Watch out for penguins&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> .<code class="vc">East</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Where the sun rises&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> .<code class="vc">West</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Where the skies are blue&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Watch out for penguins&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can read this code as:</p><p class="para">“Consider the value of <code class="code-voice">directionToHead</code>. In the case where it equals <code class="code-voice">.North</code>, print <code class="code-voice">&quot;Lots of planets have a north&quot;</code>. In the case where it equals <code class="code-voice">.South</code>, print <code class="code-voice">&quot;Watch out for penguins&quot;</code>.”</p><p class="para">…and so on.</p><p class="para">As described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>, a <code class="code-voice">switch</code> statement must be exhaustive when considering an enumeration’s cases. If the <code class="code-voice">case</code> for <code class="code-voice">.West</code> is omitted, this code does not compile, because it does not consider the complete list of <code class="code-voice">CompassPoint</code> cases. Requiring exhaustiveness ensures that enumeration cases are not accidentally omitted.</p><p class="para">When it is not appropriate to provide a <code class="code-voice">case</code> for every enumeration case, you can provide a <code class="code-voice">default</code> case to cover any cases that are not addressed explicitly:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">somePlanet</code> = <code class="vc">Planet</code>.<code class="vc">Earth</code></code></li>
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">somePlanet</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> .<code class="vc">Earth</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Mostly harmless&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;Not a safe place for humans&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;Mostly harmless&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH12-ID148">&#x200c;</a>
+  <h3 class="section-name">Associated Values</h3>
+  <p class="para">The examples in the previous section show how the cases of an enumeration are a defined (and typed) value in their own right. You can set a constant or variable to <code class="code-voice">Planet.Earth</code>, and check for this value later. However, it is sometimes useful to be able to store <em>associated values</em> of other types alongside these case values. This enables you to store additional custom information along with the case value, and permits this information to vary each time you use that case in your code.</p><p class="para">You can define Swift enumerations to store associated values of any given type, and the value types can be different for each case of the enumeration if needed. Enumerations similar to these are known as <em>discriminated unions</em>, <em>tagged unions</em>, or <em>variants</em> in other programming languages.</p><p class="para">For example, suppose an inventory tracking system needs to track products by two different types of barcode. Some products are labeled with 1D barcodes in UPC-A format, which uses the numbers <code class="code-voice">0</code> to <code class="code-voice">9</code>. Each barcode has a “number system” digit, followed by five “manufacturer code” digits and five “product code” digits. These are followed by a “check” digit to verify that the code has been scanned correctly:</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/barcode_UPC_2x.png" alt="image: ../Art/barcode_UPC_2x.png" width="252" height="120" />
+</div><p class="para">Other products are labeled with 2D barcodes in QR code format, which can use any ISO 8859-1 character and can encode a string up to 2,953 characters long:</p><div class="figure">
+	<span class="caption"></span>
+	<img src="Art/barcode_QR_2x.png" alt="image: ../Art/barcode_QR_2x.png" width="169" height="169" />
+</div><p class="para">It would be convenient for an inventory tracking system to be able to store UPC-A barcodes as a tuple of four integers, and QR code barcodes as a string of any length.</p><p class="para">In Swift, an enumeration to define product barcodes of either type might look like this:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">Barcode</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">UPCA</code>(<code class="vc">Int</code>, <code class="vc">Int</code>, <code class="vc">Int</code>, <code class="vc">Int</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">QRCode</code>(<code class="vc">String</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This can be read as:</p><p class="para">“Define an enumeration type called <code class="code-voice">Barcode</code>, which can take either a value of <code class="code-voice">UPCA</code> with an associated value of type (<code class="code-voice">Int</code>, <code class="code-voice">Int</code>, <code class="code-voice">Int</code>, <code class="code-voice">Int</code>), or a value of <code class="code-voice">QRCode</code> with an associated value of type <code class="code-voice">String</code>.”</p><p class="para">This definition does not provide any actual <code class="code-voice">Int</code> or <code class="code-voice">String</code> values—it just defines the <em>type</em> of associated values that <code class="code-voice">Barcode</code> constants and variables can store when they are equal to <code class="code-voice">Barcode.UPCA</code> or <code class="code-voice">Barcode.QRCode</code>.</p><p class="para">New barcodes can then be created using either type:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">var</code> <code class="vc">productBarcode</code> = <code class="vc">Barcode</code>.<code class="vc">UPCA</code>(<code class="m">8</code>, <code class="m">85909</code>, <code class="m">51226</code>, <code class="m">3</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example creates a new variable called <code class="code-voice">productBarcode</code> and assigns it a value of <code class="code-voice">Barcode.UPCA</code> with an associated tuple value of <code class="code-voice">(8, 85909, 51226, 3)</code>.</p><p class="para">The same product can be assigned a different type of barcode:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="vc">productBarcode</code> = .<code class="vc">QRCode</code>(<code class="s">&quot;ABCDEFGHIJKLMNOP&quot;</code>)</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">At this point, the original <code class="code-voice">Barcode.UPCA</code> and its integer values are replaced by the new <code class="code-voice">Barcode.QRCode</code> and its string value. Constants and variables of type <code class="code-voice">Barcode</code> can store either a <code class="code-voice">.UPCA</code> or a <code class="code-voice">.QRCode</code> (together with their associated values), but they can only store one of them at any given time.</p><p class="para">The different barcode types can be checked using a switch statement, as before. This time, however, the associated values can be extracted as part of the switch statement. You extract each associated value as a constant (with the <code class="code-voice">let</code> prefix) or a variable (with the <code class="code-voice">var</code> prefix) for use within the <code class="code-voice">switch</code> case’s body:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">productBarcode</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> .<code class="vc">UPCA</code>(<code class="kt">let</code> <code class="vc">numberSystem</code>, <code class="kt">let</code> <code class="vc">manufacturer</code>, <code class="kt">let</code> <code class="vc">product</code>, <code class="kt">let</code> <code class="vc">check</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;UPC-A: </code>\(<code class="vc">numberSystem</code>)<code class="s">, </code>\(<code class="vc">manufacturer</code>)<code class="s">, </code>\(<code class="vc">product</code>)<code class="s">, </code>\(<code class="vc">check</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> .<code class="vc">QRCode</code>(<code class="kt">let</code> <code class="vc">productCode</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;QR code: </code>\(<code class="vc">productCode</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;QR code: ABCDEFGHIJKLMNOP.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">If all of the associated values for an enumeration case are extracted as constants, or if all are extracted as variables, you can place a single <code class="code-voice">var</code> or <code class="code-voice">let</code> annotation before the case name, for brevity:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">switch</code> <code class="vc">productBarcode</code> {</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> .<code class="vc">UPCA</code>(<code class="vc">numberSystem</code>, <code class="vc">manufacturer</code>, <code class="vc">product</code>, <code class="vc">check</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;UPC-A: </code>\(<code class="vc">numberSystem</code>)<code class="s">, </code>\(<code class="vc">manufacturer</code>)<code class="s">, </code>\(<code class="vc">product</code>)<code class="s">, </code>\(<code class="vc">check</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">case</code> <code class="kt">let</code> .<code class="vc">QRCode</code>(<code class="vc">productCode</code>):</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;QR code: </code>\(<code class="vc">productCode</code>)<code class="s">.&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;QR code: ABCDEFGHIJKLMNOP.&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH12-ID149">&#x200c;</a>
+  <h3 class="section-name">Raw Values</h3>
+  <p class="para">The barcode example in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH12-ID148" href="Enumerations.xhtml#TP40016643-CH12-ID148">Associated Values</a> shows how cases of an enumeration can declare that they store associated values of different types. As an alternative to associated values, enumeration cases can come prepopulated with default values (called <em>raw values</em>), which are all of the same type.</p><p class="para">Here’s an example that stores raw ASCII values alongside named enumeration cases:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">ASCIIControlCharacter</code>: <code class="n"><!-- a href="" logicalPath="" -->Character<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">Tab</code> = <code class="s">&quot;\t&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">LineFeed</code> = <code class="s">&quot;\n&quot;</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">CarriageReturn</code> = <code class="s">&quot;\r&quot;</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Here, the raw values for an enumeration called <code class="code-voice">ASCIIControlCharacter</code> are defined to be of type <code class="code-voice">Character</code>, and are set to some of the more common ASCII control characters. <code class="code-voice">Character</code> values are described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH7-ID285" href="StringsAndCharacters.xhtml">Strings and Characters</a>.</p><p class="para">Raw values can be strings, characters, or any of the integer or floating-point number types. Each raw value must be unique within its enumeration declaration.</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">Raw values are <em>not</em> the same as associated values. Raw values are set to prepopulated values when you first define the enumeration in your code, like the three ASCII codes above. The raw value for a particular enumeration case is always the same. Associated values are set when you create a new constant or variable based on one of the enumeration’s cases, and can be different each time you do so.
+    	</p>
+    
+  </aside>
+</div>
+  <section class="section">
+	<a id="TP40016643-CH12-ID535">&#x200c;</a>
+  <h3 class="section-name">Implicitly Assigned Raw Values</h3>
+  <p class="para">When you’re working with enumerations that store integer or string raw values, you don’t have to explicitly assign a raw value for each case. When you don’t, Swift will automatically assign the values for you.</p><p class="para">For instance, when integers are used for raw values, the implicit value for each case is one more than the previous case. If the first case doesn’t have a value set, its value is <code class="code-voice">0</code>.</p><p class="para">The enumeration below is a refinement of the earlier <code class="code-voice">Planet</code> enumeration, with integer raw values to represent each planet’s order from the sun:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">Planet</code>: <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">Mercury</code> = <code class="m">1</code>, <code class="vc">Venus</code>, <code class="vc">Earth</code>, <code class="vc">Mars</code>, <code class="vc">Jupiter</code>, <code class="vc">Saturn</code>, <code class="vc">Uranus</code>, <code class="vc">Neptune</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In the example above, <code class="code-voice">Planet.Mercury</code> has an explicit raw value of <code class="code-voice">1</code>, <code class="code-voice">Planet.Venus</code> has an implicit raw value of <code class="code-voice">2</code>, and so on.</p><p class="para">When strings are used for raw values, the implicit value for each case is the text of that case’s name.</p><p class="para">The enumeration below is a refinement of the earlier <code class="code-voice">CompassPoint</code> enumeration, with string raw values to represent each direction’s name:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">CompassPoint</code>: <code class="n"><!-- a href="" logicalPath="" -->String<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">North</code>, <code class="vc">South</code>, <code class="vc">East</code>, <code class="vc">West</code></code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">In the example above, <code class="code-voice">CompassPoint.South</code> has an implicit raw value of <code class="code-voice">&quot;South&quot;</code>, and so on.</p><p class="para">You access the raw value of an enumeration case with its <code class="code-voice">rawValue</code> property:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">earthsOrder</code> = <code class="vc">Planet</code>.<code class="vc">Earth</code>.<code class="vc">rawValue</code></code></li>
+            <li><code class="code-voice"><code class="c">// earthsOrder is 3</code></code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">sunsetDirection</code> = <code class="vc">CompassPoint</code>.<code class="vc">West</code>.<code class="vc">rawValue</code></code></li>
+            <li><code class="code-voice"><code class="c">// sunsetDirection is &quot;West&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section>
+  
+</section>
+<section class="section">
+	<a id="TP40016643-CH12-ID150">&#x200c;</a>
+  <h3 class="section-name">Initializing from a Raw Value</h3>
+  <p class="para">If you define an enumeration with a raw-value type, the enumeration automatically receives an initializer that takes a value of the raw value’s type (as a parameter called <code class="code-voice">rawValue</code>) and returns either an enumeration case or <code class="code-voice">nil</code>. You can use this initializer to try to create a new instance of the enumeration.</p><p class="para">This example identifies Uranus from its raw value of <code class="code-voice">7</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">possiblePlanet</code> = <code class="vc">Planet</code>(<code class="vc">rawValue</code>: <code class="m">7</code>)</code></li>
+            <li><code class="code-voice"><code class="c">// possiblePlanet is of type Planet? and equals Planet.Uranus</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">Not all possible <code class="code-voice">Int</code> values will find a matching planet, however. Because of this, the raw value initializer always returns an <em>optional</em> enumeration case. In the example above, <code class="code-voice">possiblePlanet</code> is of type <code class="code-voice">Planet?</code>, or “optional <code class="code-voice">Planet</code>.”</p><div class="note">
+  <aside class="aside">
+    	<p class="aside-title uppercase">Note</p>
+    	<p class="para">The raw value initializer is a failable initializer, because not every raw value will return an enumeration case. For more information, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH34-ID376" href="Declarations.xhtml#TP40016643-CH34-ID376">Failable Initializers</a>.
+    	</p>
+    
+  </aside>
+</div><p class="para">If you try to find a planet with a position of <code class="code-voice">11</code>, the optional <code class="code-voice">Planet</code> value returned by the raw value initializer will be <code class="code-voice">nil</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">positionToFind</code> = <code class="m">11</code></code></li>
+            <li><code class="code-voice"><code class="kt">if</code> <code class="kt">let</code> <code class="vc">somePlanet</code> = <code class="vc">Planet</code>(<code class="vc">rawValue</code>: <code class="vc">positionToFind</code>) {</code></li>
+            <li><code class="code-voice">    <code class="kt">switch</code> <code class="vc">somePlanet</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> .<code class="vc">Earth</code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;Mostly harmless&quot;</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">default</code>:</code></li>
+            <li><code class="code-voice">        <code class="vc">print</code>(<code class="s">&quot;Not a safe place for humans&quot;</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">} <code class="kt">else</code> {</code></li>
+            <li><code class="code-voice">    <code class="vc">print</code>(<code class="s">&quot;There isn&#39;t a planet at position </code>\(<code class="vc">positionToFind</code>)<code class="s">&quot;</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;There isn&#39;t a planet at position 11&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This example uses optional binding to try to access a planet with a raw value of <code class="code-voice">11</code>. The statement <code class="code-voice">if let somePlanet = Planet(rawValue: 11)</code> creates an optional <code class="code-voice">Planet</code>, and sets <code class="code-voice">somePlanet</code> to the value of that optional <code class="code-voice">Planet</code> if it can be retrieved. In this case, it is not possible to retrieve a planet with a position of <code class="code-voice">11</code>, and so the <code class="code-voice">else</code> branch is executed instead.</p>
+  
+</section>
+
+</section>
+<section class="section">
+	<a id="TP40016643-CH12-ID536">&#x200c;</a>
+  <h3 class="section-name">Recursive Enumerations</h3>
+  <p class="para">A <em>recursive enumeration</em> is an enumeration that has another instance of the enumeration as the associated value for one or more of the enumeration cases. You indicate that an enumeration case is recursive by writing <code class="code-voice">indirect</code> before it, which tells the compiler to insert the necessary layer of indirection.</p><p class="para">For example, here is an enumeration that stores simple arithmetic expressions:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">enum</code> <code class="vc">ArithmeticExpression</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">Number</code>(<code class="vc">Int</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">indirect</code> <code class="kt">case</code> <code class="vc">Addition</code>(<code class="vc">ArithmeticExpression</code>, <code class="vc">ArithmeticExpression</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">indirect</code> <code class="kt">case</code> <code class="vc">Multiplication</code>(<code class="vc">ArithmeticExpression</code>, <code class="vc">ArithmeticExpression</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">You can also write <code class="code-voice">indirect</code> before the beginning of the enumeration, to enable indirection for all of the enumeration’s cases that need it:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">indirect</code> <code class="kt">enum</code> <code class="vc">ArithmeticExpression</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">Number</code>(<code class="vc">Int</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">Addition</code>(<code class="vc">ArithmeticExpression</code>, <code class="vc">ArithmeticExpression</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="vc">Multiplication</code>(<code class="vc">ArithmeticExpression</code>, <code class="vc">ArithmeticExpression</code>)</code></li>
+            <li><code class="code-voice">}</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This enumeration can store three kinds of arithmetic expressions: a plain number, the addition of two expressions, and the multiplication of two expressions. The <code class="code-voice">Addition</code> and <code class="code-voice">Multiplication</code> cases have associated values that are also arithmetic expressions—these associated values make it possible to nest expressions. For example, the expression <code class="code-voice">(5 + 4) * 2</code> has a number on the right hand side of the multiplication and another expression on the left hand side of the multiplication. Because the data is nested, the enumeration used to store the data also needs to support nesting—this means the enumeration needs to be recursive. The code below shows the <code class="code-voice">ArithmeticExpression</code> recursive enumeration being created for <code class="code-voice">(5 + 4) * 2</code>:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">five</code> = <code class="vc">ArithmeticExpression</code>.<code class="vc">Number</code>(<code class="m">5</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">four</code> = <code class="vc">ArithmeticExpression</code>.<code class="vc">Number</code>(<code class="m">4</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">sum</code> = <code class="vc">ArithmeticExpression</code>.<code class="vc">Addition</code>(<code class="vc">five</code>, <code class="vc">four</code>)</code></li>
+            <li><code class="code-voice"><code class="kt">let</code> <code class="vc">product</code> = <code class="vc">ArithmeticExpression</code>.<code class="vc">Multiplication</code>(<code class="vc">sum</code>, <code class="vc">ArithmeticExpression</code>.<code class="vc">Number</code>(<code class="m">2</code>))</code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">A recursive function is a straightforward way to work with data that has a recursive structure. For example, here’s a function that evaluates an arithmetic expression:</p><section class="code-listing">
+  
+  <div class="code-sample">
+      <div class="Swift">
+        <ol class="code-lines">
+            <li><code class="code-voice"><code class="kt">func</code> <code class="vc">evaluate</code>(<code class="vc">expression</code>: <code class="n"><!-- a href="" logicalPath="" -->ArithmeticExpression<!-- /a --></code>) -&gt; <code class="n"><!-- a href="" logicalPath="" -->Int<!-- /a --></code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">switch</code> <code class="vc">expression</code> {</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> .<code class="vc">Number</code>(<code class="vc">value</code>):</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">value</code></code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> .<code class="vc">Addition</code>(<code class="vc">left</code>, <code class="vc">right</code>):</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">evaluate</code>(<code class="vc">left</code>) + <code class="vc">evaluate</code>(<code class="vc">right</code>)</code></li>
+            <li><code class="code-voice">    <code class="kt">case</code> <code class="kt">let</code> .<code class="vc">Multiplication</code>(<code class="vc">left</code>, <code class="vc">right</code>):</code></li>
+            <li><code class="code-voice">        <code class="kt">return</code> <code class="vc">evaluate</code>(<code class="vc">left</code>) * <code class="vc">evaluate</code>(<code class="vc">right</code>)</code></li>
+            <li><code class="code-voice">    }</code></li>
+            <li><code class="code-voice">}</code></li>
+            <li><code class="code-voice"> </code></li>
+            <li><code class="code-voice"><code class="vc">print</code>(<code class="vc">evaluate</code>(<code class="vc">product</code>))</code></li>
+            <li><code class="code-voice"><code class="c">// Prints &quot;18&quot;</code></code></li>
+        </ol>
+      </div>
+  </div>
+</section><p class="para">This function evaluates a plain number by simply returning the associated value. It evaluates an addition or multiplication by evaluating the expression on the left hand side, evaluating the expression on the right hand side, and then adding them or multiplying them.</p>
+  
+</section>
+
+  </article>
+</div>
+
+    </div>
+  </body>
+</html>
