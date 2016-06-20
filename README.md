@@ -1,33 +1,38 @@
-# Thai Swift Document
-The Swift Programming Language (Thai translation)
+# The Swift Programming Language (Thai translation)
+---
+โครงการแปลหนังสือ The Swift Programming Language เป็นของ [Swift Thailand User Group](https://www.facebook.com/groups/swift.th) ชุมชนนักพัฒนาแอปพลิเคชั่นด้วยภาษา Swift ในไทย
 
 # Swift 3.0
-เอกสารแปลงจากไฟล์ epub เป็น xhtml ดังนั้นแล้วสามารถใช้ html editor แก้ไขได้ทันที
 หนังสือเล่มนี้แปลจาก The Swift Programming Language , Swift 3 Edition (Beta)
+ไฟล์ต่างๆในโปรเจคแปลงมาจากไฟล์ epub ให้เป็น xhtml
+ดังนั้นแล้วสามารถใช้ html editor แก้ไขได้ทันที
 
 # How to contribute
-โปรเจคนี้เป็นของชุมชนนักพัฒนาภาษา Swift ในไทย, Swift Thailand User Group :)
-คุณสามารถมีส่วนร่วมแปลภาษาได้ด้วยการ
+หากคุณยังไม่เคยร่วมกับ opensource project ใดๆ นี่เป็นโอกาสที่ดี
+ที่คุณจะได้มีส่วนช่วยพัฒนาชุมชนผู้ใช้งาน Swift ในไทย
+
+คุณสามารถมีส่วนร่วมในโครงการนี้ด้วยการ
 
 - แปลบทความ
-- ร่วมตรวจสอบคำและไวยกรณ์ต่างๆ
-- เรียบเรียงภาษา
-
+- ตรวจสอบคำและไวยากรณ์ต่างๆ
+- เรียบเรียงภาษาให้อ่านง่ายขึ้น
+- แจ้งข้อผิดพลาดหรือช่วยประชาสัมพันธ์
 
 ## Start translation
 
-เนื่องจากว่ามีคนหลายคนทำงานบนโปรเจคนี้ ซึ่งแน่นอนว่าอาจจะมีคนแปลบทความเดียวกันกับคุณ
-ฉะนั้นแล้ว ก่อนที่จะลงมือแปล ให้ตรวจสอบ issue ในหน้า
+โครงการเปิดให้ทุกคนมีส่วนร่วมได้ ดังนั้นก่อนที่จะลงมือแปล ให้ตรวจสอบ issue ในหน้า
 https://github.com/macfeteria/thai-swift-document/issues
-เสียก่อนว่ามีใครเริ่มลงมือแปลส่วนใดบ้าง  หากไม่พบว่ามีคนแปลบทความที่คุณกำลังจะเริ่มแปล ก็ให้สร้าง issue ใหม่ พร้อมกับบอกรายละเอียดด้วยว่าคุณกำลังเริ่มต้นแปล บทใด , ส่วนใด
-แต่ถ้าหาก พบว่ามีคนกำลังแปล บทความเดียวกัน ให้สอบถามที่ issue นั้นว่าส่วนใดยังไม่ได้เริ่มแปล เพื่อที่จะได้ไม่เป็นการเสียเวลาทำงานซ้ำซ้อนกัน
+เสียก่อนว่ามีใครเริ่มลงมือแปลส่วนใดบ้าง
+
+ถ้าหาก พบว่ามีคนกำลังแปล บทความเดียวกัน ให้โพสสอบถามที่ issue นั้นว่าส่วนใดยังไม่ได้เริ่มแปล เพื่อที่จะได้ไม่เป็นการเสียเวลาทำงานซ้ำซ้อนกัน
+
+หากพบว่ายังไม่มีคนเริ่มแปล ก็ให้สร้าง issue ใหม่ พร้อมกับบอกรายละเอียดด้วยว่าคุณกำลังเริ่มต้นแปล บทใด , ส่วนใด
+
 
 ## Basic Git
 
-หากคุณยังไม่เคยร่วมกับ opensource project ใดๆ นี่เป็นโอกาสที่ดี
-ที่คุณจะได้มีส่วนช่วยพัฒนาชุมชน Swift ในไทย
-
 ถ้าหากไม่เคยใช้งาน git มาก่อน ขอแนะนำวิธีการเบี้องต้นในการเริ่มต้นแปลบทความ
+
 #### Folk & Clone
 1. กดปุ่ม fork ที่อยู่ทางด้านขวามือหน้าเวป github
 2. หลังจากนั้นคุณก็จะมีก๊อปปี้ของโปรเจคนี้อยู่ที่ git account ของตัวเอง เช่น
@@ -44,10 +49,10 @@ git checkout develop
 git remote add upstream https://github.com/macfeteria/thai-swift-document
 8. ตรวจสอบว่า remote นั้นถูกต้องด้วยคำสั่ง git remote -v ซึ่งจะเห็นรายละเอียดดังนี้
 
-- origin	https://github.com/you-git-account/thai-swift-document (fetch)
-- origin	https://github.com/you-git-account/thai-swift-document (push)
-- upstream	https://github.com/macfeteria/thai-swift-document.git (fetch)
-- upstream	https://github.com/macfeteria/thai-swift-document.git (push)
+- origin https://github.com/you-git-account/thai-swift-document (fetch)
+- origin https://github.com/you-git-account/thai-swift-document (push)
+- upstream https://github.com/macfeteria/thai-swift-document.git (fetch)
+- upstream https://github.com/macfeteria/thai-swift-document.git (push)
 
 8. พิมพ์คำสั่ง git remote update เพื่ออัพเดทข้อมูล
 9. พิมพ์คำสั่ง git pull upstream master ดึงข้อมูลล่าสุดมาไว้เครื่องตัวเอง
@@ -74,4 +79,4 @@ git push origin develop
 1. กดสร้าง pull request จากหน้าเวป เพื่อขอนำเอาสิ่งที่คุณได้ทำไป ไปรวมเข้ากับโปรเจค พร้อมกับบอกรายละเอียดต่างๆที่ได้แก้ไขไป
 2. หากทุกอย่างโอเค สิ่งที่คุณได้แก้ไขไปก็จะถูกรวมเข้าไปยังโปรเจค :)
 
-ปล. แน่นอนว่า ทุกๆอย่างในนี้แก้ไขและปรับปรุงให้ดีขึ้นได้ แม้กระทั่ง readme.md ไฟล์นี้
+ปล. แน่นอนว่า ทุกๆอย่างในโปรเจคนี้แก้ไขและปรับปรุงให้ดีขึ้นได้ แม้กระทั่ง readme.md ไฟล์นี้ ถ้าคุณคิดว่ายังขาดส่วนใดไป ก็สามารถเพิ่มเติมและแก้ไขได้เช่นกัน
