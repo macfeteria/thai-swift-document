@@ -10,11 +10,11 @@
       <div id="chapter_container" class='conceptualwithtasks'>
   <article class="chapter">
     <a id="TP40016643-CH6">&#x200c;</a><a id="TP40016643-CH6-ID60">&#x200c;</a>
-    <h2 class="chapter-name">Basic Operators</h2>
-      
+    <h2 class="chapter-name">ตัวดำเนินการพื้นฐาน</h2>
+
       	<section class="section">
-      		<p class="para">An <em>operator</em> is a special symbol or phrase that you use to check, change, or combine values. For example, the addition operator (<code class="code-voice">+</code>) adds two numbers, as in <code class="code-voice">let i = 1 + 2</code>, and the logical AND operator (<code class="code-voice">&amp;&amp;</code>) combines two Boolean values, as in <code class="code-voice">if enteredDoorCode &amp;&amp; passedRetinaScan</code>.</p><p class="para">Swift supports most standard C operators and improves several capabilities to eliminate common coding errors. The assignment operator (<code class="code-voice">=</code>) does not return a value, to prevent it from being mistakenly used when the equal to operator (<code class="code-voice">==</code>) is intended. Arithmetic operators (<code class="code-voice">+</code>, <code class="code-voice">-</code>, <code class="code-voice">*</code>, <code class="code-voice">/</code>, <code class="code-voice">%</code> and so forth) detect and disallow value overflow, to avoid unexpected results when working with numbers that become larger or smaller than the allowed value range of the type that stores them. You can opt in to value overflow behavior by using Swift’s overflow operators, as described in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH27-ID37" href="AdvancedOperators.xhtml#TP40016643-CH27-ID37">Overflow Operators</a>.</p><p class="para">Unlike C, Swift lets you perform remainder (<code class="code-voice">%</code>) calculations on floating-point numbers. Swift also provides two range operators (<code class="code-voice">a..&lt;b</code> and <code class="code-voice">a...b</code>) not found in C, as a shortcut for expressing a range of values.</p><p class="para">This chapter describes the common operators in Swift. <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH27-ID28" href="AdvancedOperators.xhtml">Advanced Operators</a> covers Swift’s advanced operators, and describes how to define your own custom operators and implement the standard operators for your own custom types.</p>
-    		</section> 
+      		<p class="para"><em>ตัวดำเนินการ</em> คือสัญลักษณ์หรือวลีพิเศษที่คุณใช้เพื่อตรวจสอบ, เปลี่ยน หรือรวบรวมค่า ตัวอย่างเช่น ตัวดำเนินการบวก (<code class="code-voice">+</code>) เป็นการบวกเลขสองตัว ดังเช่น <code class="code-voice">let i = 1 + 2</code> และตัวดำเนินการทางตรรกศาสตร์ AND (<code class="code-voice">&amp;&amp;</code>) จะรวมค่า Boolean สองค่าดังเช่น <code class="code-voice">if enteredDoorCode &amp;&amp; passedRetinaScan</code>.</p><p class="para"> ภาษา Swift รองรับตัวดำเนินการส่วนใหญ่ของภาษา C และปรับปรุงความสามารถหลายอย่างเพื่อกำจัดข้อผิดพลาดโค้ดที่เกิดขึ้นประจำ ตัวดำเนินการเท่ากับ (<code class="code-voice">=</code>) ไม่คืนค่า เพื่อการป้องกันมันจากการใช้งานที่ผิดพลาดจากการใช้งานเป็นตัวดำเนินการเปรียบเทียบว่าเท่ากัน (<code class="code-voice">==</code>) ตัวดำเนินการทางคณิตศาสตร์ (<code class="code-voice">+</code>, <code class="code-voice">-</code>, <code class="code-voice">*</code>, <code class="code-voice">/</code>, <code class="code-voice">%</code> และอื่น ๆ) ตรวจสอบและไม่อนุญาตให้ค่าเกิดการ overflow เพื่อป้องกันผลลัพธ์ที่ไม่คาดคิดขณะกำลังทำงานกับตัวเลขที่มีขนาดใหญ่กว่าหรือเล็กกว่าค่าที่อนุญาตให้ประเภทตัวแปรเก็บได้ คุณสามารถทำให้ค่าเกิดการ overflow ได้โดยการใช้ตัวดำเนินการ overflow ของ Swift ตามที่กล่าวไว้ใน <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH27-ID37" href="AdvancedOperators.xhtml#TP40016643-CH27-ID37">Overflow Operators</a>.</p><p class="para">ต่างกับ C ภาษา Swift ให้คุณคำนวณหาเศษเหลือ (<code class="code-voice">%</code>) จากเลขทศนิยมได้ Swift ยังให้ตัวดำเนินการแบบขอบเขตของสองตัวด้วย (<code class="code-voice">a..&lt;b</code> และ <code class="code-voice">a...b</code>) ที่ไม่พบใน C เป็นทางลัดในการบอกช่วงของค่า</p><p class="para">บทนี้อธิบายเฉพาะตัวดำเนินการทั่วไปใน Swift ส่วน <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH27-ID28" href="AdvancedOperators.xhtml">Advanced Operators</a> ครอบคลุมตัวดำเนินการขั้นสูงของ Swift และอธิบายวิธีการกำหนดตัวดำเนินการที่คุณกำหนดเอง และการเขียนตัวดำเนินการทั่วไปสำหรับข้อมูลที่คุณกำหนดเอง</p>
+    		</section>
 
 
       <section class="section">
@@ -23,13 +23,13 @@
   <p class="para">Operators are unary, binary, or ternary:</p><ul class="list-bullet">
   <li class="item"><p class="para"><em>Unary</em> operators operate on a single target (such as <code class="code-voice">-a</code>). Unary <em>prefix</em> operators appear immediately before their target (such as <code class="code-voice">!b</code>), and unary <em>postfix</em> operators appear immediately after their target (such as <code class="code-voice">c!</code>).</p></li><li class="item"><p class="para"><em>Binary</em> operators operate on two targets (such as <code class="code-voice">2 + 3</code>) and are <em>infix</em> because they appear in between their two targets.</p></li><li class="item"><p class="para"><em>Ternary</em> operators operate on three targets. Like C, Swift has only one ternary operator, the ternary conditional operator (<code class="code-voice">a ? b : c</code>).</p></li>
 </ul><p class="para">The values that operators affect are <em>operands</em>. In the expression <code class="code-voice">1 + 2</code>, the <code class="code-voice">+</code> symbol is a binary operator and its two operands are the values <code class="code-voice">1</code> and <code class="code-voice">2</code>.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID62">&#x200c;</a>
   <h3 class="section-name">Assignment Operator</h3>
   <p class="para">The <em>assignment operator</em> (<code class="code-voice">a = b</code>) initializes or updates the value of <code class="code-voice">a</code> with the value of <code class="code-voice">b</code>:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -41,7 +41,7 @@
       </div>
   </div>
 </section><p class="para">If the right side of the assignment is a tuple with multiple values, its elements can be decomposed into multiple constants or variables at once:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -51,7 +51,7 @@
       </div>
   </div>
 </section><p class="para">Unlike the assignment operator in C and Objective-C, the assignment operator in Swift does not itself return a value. The following statement is not valid:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -62,7 +62,7 @@
       </div>
   </div>
 </section><p class="para">This feature prevents the assignment operator (<code class="code-voice">=</code>) from being used by accident when the equal to operator (<code class="code-voice">==</code>) is actually intended. By making <code class="code-voice">if x = y</code> invalid, Swift helps you to avoid these kinds of errors in your code.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID63">&#x200c;</a>
@@ -70,7 +70,7 @@
   <p class="para">Swift supports the four standard <em>arithmetic operators</em> for all number types:</p><ul class="list-bullet">
   <li class="item"><p class="para">Addition (<code class="code-voice">+</code>)</p></li><li class="item"><p class="para">Subtraction (<code class="code-voice">-</code>)</p></li><li class="item"><p class="para">Multiplication (<code class="code-voice">*</code>)</p></li><li class="item"><p class="para">Division (<code class="code-voice">/</code>)</p></li>
 </ul><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -82,7 +82,7 @@
       </div>
   </div>
 </section><p class="para">Unlike the arithmetic operators in C and Objective-C, the Swift arithmetic operators do not allow values to overflow by default. You can opt in to value overflow behavior by using Swift’s overflow operators (such as <code class="code-voice">a &amp;+ b</code>). See <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH27-ID37" href="AdvancedOperators.xhtml#TP40016643-CH27-ID37">Overflow Operators</a>.</p><p class="para">The addition operator is also supported for <code class="code-voice">String</code> concatenation:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -99,13 +99,13 @@
     	<p class="aside-title uppercase">Note</p>
     	<p class="para">The remainder operator (<code class="code-voice">%</code>) is also known as a <em>modulo operator</em> in other languages. However, its behavior in Swift for negative numbers means that it is, strictly speaking, a remainder rather than a modulo operation.
     	</p>
-    
+
   </aside>
 </div><p class="para">Here’s how the remainder operator works. To calculate <code class="code-voice">9 % 4</code>, you first work out how many <code class="code-voice">4</code>s will fit inside <code class="code-voice">9</code>:</p><div class="figure">
 	<span class="caption"></span>
 	<img src="Art/remainderInteger_2x.png" alt="image: ../Art/remainderInteger_2x.png" width="337" height="66" />
 </div><p class="para">You can fit two <code class="code-voice">4</code>s inside <code class="code-voice">9</code>, and the remainder is <code class="code-voice">1</code> (shown in orange).</p><p class="para">In Swift, this would be written as:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -114,7 +114,7 @@
       </div>
   </div>
 </section><p class="para">To determine the answer for <code class="code-voice">a % b</code>, the <code class="code-voice">%</code> operator calculates the following equation and returns <code class="code-voice">remainder</code> as its output:</p><p class="para"><code class="code-voice">a</code> = (<code class="code-voice">b</code> x <code class="code-voice">some multiplier</code>) + <code class="code-voice">remainder</code></p><p class="para">where <code class="code-voice">some multiplier</code> is the largest number of multiples of <code class="code-voice">b</code> that will fit inside <code class="code-voice">a</code>.</p><p class="para">Inserting <code class="code-voice">9</code> and <code class="code-voice">4</code> into this equation yields:</p><p class="para"><code class="code-voice">9</code> = (<code class="code-voice">4</code> x <code class="code-voice">2</code>) + <code class="code-voice">1</code></p><p class="para">The same method is applied when calculating the remainder for a negative value of <code class="code-voice">a</code>:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -123,13 +123,13 @@
       </div>
   </div>
 </section><p class="para">Inserting <code class="code-voice">-9</code> and <code class="code-voice">4</code> into the equation yields:</p><p class="para"><code class="code-voice">-9</code> = (<code class="code-voice">4</code> x <code class="code-voice">-2</code>) + <code class="code-voice">-1</code></p><p class="para">giving a remainder value of <code class="code-voice">-1</code>.</p><p class="para">The sign of <code class="code-voice">b</code> is ignored for negative values of <code class="code-voice">b</code>. This means that <code class="code-voice">a % b</code> and <code class="code-voice">a % -b</code> always give the same answer.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID65">&#x200c;</a>
   <h3 class="section-name">Floating-Point Remainder Calculations</h3>
   <p class="para">Unlike the remainder operator in C and Objective-C, Swift’s remainder operator can also operate on floating-point numbers:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -141,13 +141,13 @@
 	<span class="caption"></span>
 	<img src="Art/remainderFloat_2x.png" alt="image: ../Art/remainderFloat_2x.png" width="301" height="66" />
 </div>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID67">&#x200c;</a>
   <h3 class="section-name">Unary Minus Operator</h3>
   <p class="para">The sign of a numeric value can be toggled using a prefixed <code class="code-voice">-</code>, known as the <em>unary minus operator</em>:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -158,13 +158,13 @@
       </div>
   </div>
 </section><p class="para">The unary minus operator (<code class="code-voice">-</code>) is prepended directly before the value it operates on, without any white space.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID68">&#x200c;</a>
   <h3 class="section-name">Unary Plus Operator</h3>
   <p class="para">The <em>unary plus operator</em> (<code class="code-voice">+</code>) simply returns the value it operates on, without any change:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -174,7 +174,7 @@
       </div>
   </div>
 </section><p class="para">Although the unary plus operator doesn’t actually do anything, you can use it to provide symmetry in your code for positive numbers when also using the unary minus operator for negative numbers.</p>
-  
+
 </section>
 
 </section>
@@ -182,7 +182,7 @@
 	<a id="TP40016643-CH6-ID69">&#x200c;</a>
   <h3 class="section-name">Compound Assignment Operators</h3>
   <p class="para">Like C, Swift provides <em>compound assignment operators</em> that combine assignment (<code class="code-voice">=</code>) with another operation. One example is the <em>addition assignment operator</em> (<code class="code-voice">+=</code>):</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -197,10 +197,10 @@
     	<p class="aside-title uppercase">Note</p>
     	<p class="para">The compound assignment operators do not return a value. For example, you cannot write <code class="code-voice">let b = a += 2</code>.
     	</p>
-    
+
   </aside>
 </div><p class="para">A complete list of compound assignment operators can be found in <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH32-ID383" href="Expressions.xhtml">Expressions</a>.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID70">&#x200c;</a>
@@ -212,10 +212,10 @@
     	<p class="aside-title uppercase">Note</p>
     	<p class="para">Swift also provides two <em>identity operators</em> (<code class="code-voice">===</code> and <code class="code-voice">!==</code>), which you use to test whether two object references both refer to the same object instance. For more information, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH13-ID82" href="ClassesAndStructures.xhtml">Classes and Structures</a>.
     	</p>
-    
+
   </aside>
 </div><p class="para">Each of the comparison operators returns a <code class="code-voice">Bool</code> value to indicate whether or not the statement is true:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -229,7 +229,7 @@
       </div>
   </div>
 </section><p class="para">Comparison operators are often used in conditional statements, such as the <code class="code-voice">if</code> statement:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -244,7 +244,7 @@
       </div>
   </div>
 </section><p class="para">For more on the <code class="code-voice">if</code> statement, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>.</p><p class="para">You can also compare tuples that have the same number of values, as long as each of the values in the tuple can be compared. For example, both <code class="code-voice">Int</code> and <code class="code-voice">String</code> can be compared, which means tuples of the type <code class="code-voice">(Int, String)</code> can be compared. In contrast, <code class="code-voice">Bool</code> can’t be compared, which means tuples that contain a Boolean value can’t be compared.</p><p class="para">Tuples are compared from left to right, one value at a time, until the comparison finds two values that aren’t equal. If all the elements are equal, then the tuples themselves are equal. For example:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -259,16 +259,16 @@
     	<p class="aside-title uppercase">Note</p>
     	<p class="para">The Swift standard library includes tuple comparison operators for tuples with less than seven elements. To compare tuples with seven or more elements, you must implement the comparison operators yourself.
     	</p>
-    
+
   </aside>
 </div>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID71">&#x200c;</a>
   <h3 class="section-name">Ternary Conditional Operator</h3>
   <p class="para">The <em>ternary conditional operator</em> is a special operator with three parts, which takes the form <code class="code-voice">question ? answer1 : answer2</code>. It is a shortcut for evaluating one of two expressions based on whether <code class="code-voice">question</code> is true or false. If <code class="code-voice">question</code> is true, it evaluates <code class="code-voice">answer1</code> and returns its value; otherwise, it evaluates <code class="code-voice">answer2</code> and returns its value.</p><p class="para">The ternary conditional operator is shorthand for the code below:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -281,7 +281,7 @@
       </div>
   </div>
 </section><p class="para">Here’s an example, which calculates the height for a table row. The row height should be 50 points taller than the content height if the row has a header, and 20 points taller if the row doesn’t have a header:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -293,7 +293,7 @@
       </div>
   </div>
 </section><p class="para">The preceding example is shorthand for the code below:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -310,13 +310,13 @@
       </div>
   </div>
 </section><p class="para">The first example’s use of the ternary conditional operator means that <code class="code-voice">rowHeight</code> can be set to the correct value on a single line of code. This is more concise than the second example, and removes the need for <code class="code-voice">rowHeight</code> to be a variable, because its value does not need to be modified within an <code class="code-voice">if</code> statement.</p><p class="para">The ternary conditional operator provides an efficient shorthand for deciding which of two expressions to consider. Use the ternary conditional operator with care, however. Its conciseness can lead to hard-to-read code if overused. Avoid combining multiple instances of the ternary conditional operator into one compound statement.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID72">&#x200c;</a>
   <h3 class="section-name">Nil Coalescing Operator</h3>
   <p class="para">The <em>nil coalescing operator</em> (<code class="code-voice">a ?? b</code>) unwraps an optional <code class="code-voice">a</code> if it contains a value, or returns a default value <code class="code-voice">b</code> if <code class="code-voice">a</code> is <code class="code-voice">nil</code>. The expression <code class="code-voice">a</code> is always of an optional type. The expression <code class="code-voice">b</code> must match the type that is stored inside <code class="code-voice">a</code>.</p><p class="para">The nil coalescing operator is shorthand for the code below:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -329,10 +329,10 @@
     	<p class="aside-title uppercase">Note</p>
     	<p class="para">If the value of <code class="code-voice">a</code> is non-<code class="code-voice">nil</code>, the value of <code class="code-voice">b</code> is not evaluated. This is known as <em>short-circuit evaluation</em>.
     	</p>
-    
+
   </aside>
 </div><p class="para">The example below uses the nil coalescing operator to choose between a default color name and an optional user-defined color name:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -345,7 +345,7 @@
       </div>
   </div>
 </section><p class="para">The <code class="code-voice">userDefinedColorName</code> variable is defined as an optional <code class="code-voice">String</code>, with a default value of <code class="code-voice">nil</code>. Because <code class="code-voice">userDefinedColorName</code> is of an optional type, you can use the nil coalescing operator to consider its value. In the example above, the operator is used to determine an initial value for a <code class="code-voice">String</code> variable called <code class="code-voice">colorNameToUse</code>. Because <code class="code-voice">userDefinedColorName</code> is <code class="code-voice">nil</code>, the expression <code class="code-voice">userDefinedColorName ?? defaultColorName</code> returns the value of <code class="code-voice">defaultColorName</code>, or <code class="code-voice">&quot;red&quot;</code>.</p><p class="para">If you assign a non-<code class="code-voice">nil</code> value to <code class="code-voice">userDefinedColorName</code> and perform the nil coalescing operator check again, the value wrapped inside <code class="code-voice">userDefinedColorName</code> is used instead of the default:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -356,7 +356,7 @@
       </div>
   </div>
 </section>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID73">&#x200c;</a>
@@ -366,7 +366,7 @@
 	<a id="TP40016643-CH6-ID74">&#x200c;</a>
   <h3 class="section-name">Closed Range Operator</h3>
   <p class="para">The <em>closed range operator</em> (<code class="code-voice">a...b</code>) defines a range that runs from <code class="code-voice">a</code> to <code class="code-voice">b</code>, and includes the values <code class="code-voice">a</code> and <code class="code-voice">b</code>. The value of <code class="code-voice">a</code> must not be greater than <code class="code-voice">b</code>.</p><p class="para">The closed range operator is useful when iterating over a range in which you want all of the values to be used, such as with a <code class="code-voice">for</code>-<code class="code-voice">in</code> loop:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -382,13 +382,13 @@
       </div>
   </div>
 </section><p class="para">For more on <code class="code-voice">for</code>-<code class="code-voice">in</code> loops, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH9-ID120" href="ControlFlow.xhtml">Control Flow</a>.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID75">&#x200c;</a>
   <h3 class="section-name">Half-Open Range Operator</h3>
   <p class="para">The <em>half-open range operator</em> (<code class="code-voice">a..&lt;b</code>) defines a range that runs from <code class="code-voice">a</code> to <code class="code-voice">b</code>, but does not include <code class="code-voice">b</code>. It is said to be <em>half-open</em> because it contains its first value, but not its final value. As with the closed range operator, the value of <code class="code-voice">a</code> must not be greater than <code class="code-voice">b</code>. If the value of <code class="code-voice">a</code> is equal to <code class="code-voice">b</code>, then the resulting range will be empty.</p><p class="para">Half-open ranges are particularly useful when you work with zero-based lists such as arrays, where it is useful to count up to (but not including) the length of the list:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -405,7 +405,7 @@
       </div>
   </div>
 </section><p class="para">Note that the array contains four items, but <code class="code-voice">0..&lt;count</code> only counts as far as <code class="code-voice">3</code> (the index of the last item in the array), because it is a half-open range. For more on arrays, see <a rel="me" data-id="//apple_ref/doc/uid/TP40016643-CH8-ID107" href="CollectionTypes.xhtml#TP40016643-CH8-ID107">Arrays</a>.</p>
-  
+
 </section>
 
 </section>
@@ -419,7 +419,7 @@
 	<a id="TP40016643-CH6-ID77">&#x200c;</a>
   <h3 class="section-name">Logical NOT Operator</h3>
   <p class="para">The <em>logical NOT operator</em> (<code class="code-voice">!a</code>) inverts a Boolean value so that <code class="code-voice">true</code> becomes <code class="code-voice">false</code>, and <code class="code-voice">false</code> becomes <code class="code-voice">true</code>.</p><p class="para">The logical NOT operator is a prefix operator, and appears immediately before the value it operates on, without any white space. It can be read as “not <code class="code-voice">a</code>”, as seen in the following example:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -432,13 +432,13 @@
       </div>
   </div>
 </section><p class="para">The phrase <code class="code-voice">if !allowedEntry</code> can be read as “if not allowed entry.” The subsequent line is only executed if “not allowed entry” is true; that is, if <code class="code-voice">allowedEntry</code> is <code class="code-voice">false</code>.</p><p class="para">As in this example, careful choice of Boolean constant and variable names can help to keep code readable and concise, while avoiding double negatives or confusing logic statements.</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID78">&#x200c;</a>
   <h3 class="section-name">Logical AND Operator</h3>
   <p class="para">The <em>logical AND operator</em> (<code class="code-voice">a &amp;&amp; b</code>) creates logical expressions where both values must be <code class="code-voice">true</code> for the overall expression to also be <code class="code-voice">true</code>.</p><p class="para">If either value is <code class="code-voice">false</code>, the overall expression will also be <code class="code-voice">false</code>. In fact, if the <em>first</em> value is <code class="code-voice">false</code>, the second value won’t even be evaluated, because it can’t possibly make the overall expression equate to <code class="code-voice">true</code>. This is known as <em>short-circuit evaluation</em>.</p><p class="para">This example considers two <code class="code-voice">Bool</code> values and only allows access if both values are <code class="code-voice">true</code>:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -454,13 +454,13 @@
       </div>
   </div>
 </section>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID79">&#x200c;</a>
   <h3 class="section-name">Logical OR Operator</h3>
   <p class="para">The <em>logical OR operator</em> (<code class="code-voice">a || b</code>) is an infix operator made from two adjacent pipe characters. You use it to create logical expressions in which only <em>one</em> of the two values has to be <code class="code-voice">true</code> for the overall expression to be <code class="code-voice">true</code>.</p><p class="para">Like the Logical AND operator above, the Logical OR operator uses short-circuit evaluation to consider its expressions. If the left side of a Logical OR expression is <code class="code-voice">true</code>, the right side is not evaluated, because it cannot change the outcome of the overall expression.</p><p class="para">In the example below, the first <code class="code-voice">Bool</code> value (<code class="code-voice">hasDoorKey</code>) is <code class="code-voice">false</code>, but the second value (<code class="code-voice">knowsOverridePassword</code>) is <code class="code-voice">true</code>. Because one value is <code class="code-voice">true</code>, the overall expression also evaluates to <code class="code-voice">true</code>, and access is allowed:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -476,13 +476,13 @@
       </div>
   </div>
 </section>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID80">&#x200c;</a>
   <h3 class="section-name">Combining Logical Operators</h3>
   <p class="para">You can combine multiple logical operators to create longer compound expressions:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -500,16 +500,16 @@
     	<p class="aside-title uppercase">Note</p>
     	<p class="para">The Swift logical operators <code class="code-voice">&amp;&amp;</code> and <code class="code-voice">||</code> are left-associative, meaning that compound expressions with multiple logical operators evaluate the leftmost subexpression first.
     	</p>
-    
+
   </aside>
 </div>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH6-ID81">&#x200c;</a>
   <h3 class="section-name">Explicit Parentheses</h3>
   <p class="para">It is sometimes useful to include parentheses when they are not strictly needed, to make the intention of a complex expression easier to read. In the door access example above, it is useful to add parentheses around the first part of the compound expression to make its intent explicit:</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -523,7 +523,7 @@
       </div>
   </div>
 </section><p class="para">The parentheses make it clear that the first two values are considered as part of a separate possible state in the overall logic. The output of the compound expression doesn’t change, but the overall intention is clearer to the reader. Readability is always preferred over brevity; use parentheses where they help to make your intentions clear.</p>
-  
+
 </section>
 
 </section>
