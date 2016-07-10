@@ -5,7 +5,7 @@
 # Swift 3.0
 หนังสือเล่มนี้แปลจาก The Swift Programming Language , Swift 3 Edition (Beta)
 ไฟล์ต่างๆในโปรเจคแปลงมาจากไฟล์ epub ให้เป็น xhtml
-ดังนั้นแล้วสามารถใช้ html editor แก้ไขได้ทันที
+ดังนั้นแล้วสามารถใช้ html editor แก้ไขได้ทันที หากต้องการจะโหลดไฟล์ ebook ไปอ่านก็โหลดได้ [ที่นี่](https://github.com/macfeteria/thai-swift-document/raw/master/ebook/TheSwiftProgrammingLanguage(Swift3).epub)
 
 # How to contribute
 หากคุณยังไม่เคยร่วมกับ opensource project ใดๆ นี่เป็นโอกาสที่ดี
