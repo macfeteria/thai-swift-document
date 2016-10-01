@@ -11,10 +11,10 @@
   <article class="chapter">
     <a id="TP40016643-CH2">&#x200c;</a><a id="TP40016643-CH2-ID1">&#x200c;</a>
     <h2 class="chapter-name">A Swift Tour</h2>
-      
+
       	<section class="section">
       		<p class="para">เมื่อเริ่มต้นเรียนรู้ภาษาใหม่ โดยทั่วๆไปแล้วมักจะแนะนำให้เขียนโปรแกรมแรก ด้วยการให้แสดงคำว่า “Hello, world!” ที่หน้าจอคอมพิวเตอร์ ในภาษา Swift โปรแกรมนี้สามารถเขียนได้ด้วยโค้ดเพียงแค่หนึ่งบรรทัด </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -23,10 +23,10 @@
       </div>
   </div>
 </section>
-<p class="para">โปรแกรมเมอร์ภาษา C หรือ Objective-C อาจจะคุ้ยเคยกับโค้ดของภาษาสวิฟต์ ซึ่งมีไวยากรณ์ลักษณะคล้ายคลึงกัน โค้ดหนึ่งบรรทัดที่เห็นคือโปรแกรมที่ทำงานได้เสร็จสมบูรณ์ ไม่ต้องใช้ไลบรารีเพิ่มเติมสำหรับ แสดงค่า รับค่า หรือจัดการสตริง โค้ดที่อยู่ในส่วนนอกสุดหรือ global scope จะใช้เป็นจุดเริ่มต้นการทำงานของโปรแกรม ไม่ต้องเขียนฟังก์ชัน 
+<p class="para">โปรแกรมเมอร์ภาษา C หรือ Objective-C อาจจะคุ้ยเคยกับโค้ดของภาษาสวิฟต์ ซึ่งมีไวยากรณ์ลักษณะคล้ายคลึงกัน โค้ดหนึ่งบรรทัดที่เห็นคือโปรแกรมที่ทำงานได้เสร็จสมบูรณ์ ไม่ต้องใช้ไลบรารีเพิ่มเติมสำหรับ แสดงค่า รับค่า หรือจัดการสตริง โค้ดที่อยู่ในส่วนนอกสุดหรือ global scope จะใช้เป็นจุดเริ่มต้นการทำงานของโปรแกรม ไม่ต้องเขียนฟังก์ชัน
 <code class="code-voice">main()</code> และไม่ต้องเขียนเครื่องหมายเซมิโคลอนเมื่อจบคำสั่ง</p><p class="para">
             เนื้อหาในบทนี้จะให้ความรู้พื้นฐานสำหรับ การเริ่มต้นเขียนโปรแกรมด้วยภาษา Swift เราจะสาธิตให้เห็นถึงวิธีการเขียนโปรแกรม ด้วยการแก้ปัญหาจากหลายๆตัวอย่าง และยังไม่ต้องกังวล ถ้าหากคุณจะไม่เข้าใจเนื้อหาต่างๆในบทนี้ เพราะในบทอื่นๆของหนังสือจะอธิบายถึงวิธีการใช้งานโดยละเอียดอีกครั้งหนึ่ง</p>
-    		</section> 
+    		</section>
 
         <section class="section">
           <div class="note playground">
@@ -43,7 +43,7 @@
 	<a id="TP40016643-CH2-ID461">&#x200c;</a>
   <h3 class="section-name">Simple Values</h3>
   <p class="para">ใช้ <code class="code-voice">var</code> เพื่อประกาศตัวแปร และใช้ <code class="code-voice">let</code> เพื่อประกาศค่าคงที่ การประกาศค่าคงที่ไม่จำเป็นต้องกำหนดค่าในช่วงคอมไพล์ไทม์ นั่นหมายความว่าคุณสามารถประกาศค่าคงที่แล้วค่อยกำหนดค่าหลังก็ได้ แต่จะกำหนดค่าได้เพียงแค่ครั้งเดียวเท่านั้น และจะต้องใช้ค่านั้นไปตลอด</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -53,8 +53,8 @@
         </ol>
       </div>
   </div>
-</section><p class="para">เมื่อประกาศค่าคงที่หรือตัวแปรต้องกำหนดประเภทของข้อมูล และค่าที่จะใช้กำหนดให้กับตัวแปรหรือค่าคงที่ ต้องเป็นข้อมูลประเภทเดียวกันกับตอนประกาศ อย่างไรก็ตามคุณไม่จำเป็นต้องระบุชนิดของข้อมูลก็ได้ เพียงแค่กำหนดค่าเริ่มต้นของข้อมูลเมื่อตอนประกาศ แล้วให้คอมไพเลอร์เป็นคนจัดการประเภทของข้อมูลด้วยการ infer หรืออนุมานจากค่ากำหนดให้  จากตัวอย่างด้านบน คอมไพเลอร์อนุมานว่า <code class="code-voice">myVariable</code> เป็นตัวแปรจำนวนเต็ม เพราะว่าค่าที่กำหนดให้ตอนเริ่มต้นนั้น เป็นค่าจำนวนเต็มนั่นเอง</p><p class="para">ถ้าไม่สามารถอนุมานจากค่าเริ่มต้นได้ (อาจจะไม่มีค่าเริ่มต้น) ก็ต้องกำหนดชนิดของข้อมูลด้วยการเขียนเซมิโคลอน และตามด้วยชนิดของข้อมูลที่ต้องการ</p><section class="code-listing">
-  
+</section><p class="para">เมื่อประกาศค่าคงที่หรือตัวแปรต้องกำหนดประเภทของข้อมูล และค่าที่จะใช้กำหนดให้กับตัวแปรหรือค่าคงที่ ต้องเป็นข้อมูลประเภทเดียวกันกับตอนประกาศ อย่างไรก็ตามคุณไม่จำเป็นต้องระบุชนิดของข้อมูลก็ได้ เพียงแค่กำหนดค่าเริ่มต้นของข้อมูลเมื่อตอนประกาศ แล้วให้คอมไพเลอร์เป็นคนจัดการประเภทของข้อมูลด้วยการ infer หรืออนุมานจากค่ากำหนดให้  จากตัวอย่างด้านบน คอมไพเลอร์อนุมานว่า <code class="code-voice">myVariable</code> เป็นตัวแปรจำนวนเต็ม เพราะว่าค่าที่กำหนดให้ตอนเริ่มต้นนั้น เป็นค่าจำนวนเต็มนั่นเอง</p><p class="para">ถ้าไม่สามารถอนุมานจากค่าเริ่มต้นได้ (อาจจะไม่มีค่าเริ่มต้น) ก็ต้องกำหนดชนิดของข้อมูลด้วยการเขียนโคลอน และตามด้วยชนิดของข้อมูลที่ต้องการ</p><section class="code-listing">
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -69,10 +69,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">สร้างค่าคงที่แบบ <code class="code-voice">Float</code> และกำหนดค่าเป็น <code class="code-voice">4</code>
     	</p>
-    
+
   </aside>
 </div><p class="para">หลังจากการประกาศค่าคงที่หรือตัวแปรไปแล้วเราไม่สามารถเปลี่ยนประเภทข้อมูลได้ หากต้องการจะเปลี่ยน ก็ต้องสร้างข้อมูลขึ้นมาใหม่จากค่าเดิมที่มีอยู่แล้ว </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -87,10 +87,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">ถ้าหากลบโค้ด <code class="code-voice">String</code> ที่ทำการเปลี่ยนชนิดของข้อมูลในบรรทัดสุดท้ายจะเกิดอะไรขึ้น คุณได้รับแจ้งข้อผิดพลาดว่าอะไร ?
     	</p>
-    
+
   </aside>
 </div><p class="para">สำหรับการนำค่าของ ค่าคงที่ หรือตัวแปร เข้ามารวมไว้ในสตริง มีวิธีการง่ายๆคือเขียนชื่อตัวแปรที่ต้องการไว้ในวงเล็บ และเขียนเครื่องหมายแบ็กแสลช (<code class="code-voice">\</code>) ก่อนวงเล็บ เช่นตัวอย่าง</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -106,10 +106,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">ใช้ <code class="code-voice">\()</code> เพื่อนำเลขทศนิยมรวมไว้ในสตริง และลองสร้างตัวแปรที่เก็บชื่อของคุณไว้ และนำมาแสดงร่วมกับข้อความทักทาย
     	</p>
-    
+
   </aside>
 </div><p class="para">สร้างอาเรย์และดิกชันนารีโดยใช้เครื่องหมายวงเล็บก้ามปู (<code class="code-voice">[]</code>) และเข้าถึงสมาชิก ด้วยการเขียนลำดับหรือคีย์ในวงเล็บก้ามปู ส่วนเครื่องหมายจุลภาค (comma) ที่ใช้แบ่งสมาชิกอาเรย์ อนุญาตให้เขียนได้แม้อยู่หลังสมาชิกตัวสุดท้ายก็ตาม</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -125,7 +125,7 @@
       </div>
   </div>
 </section><p class="para">สร้างอาเรย์หรือดิกชันนารีว่างเปล่าโดยใช้ initializer หรือการกำหนดค่าเริ่มต้น </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -135,7 +135,7 @@
       </div>
   </div>
 </section><p class="para">ถ้าหากข้อมูลสามารถใช้การอนุมานได้ คุณสามารถสร้างอาเรย์ว่างเปล่าด้วย <code class="code-voice">[]</code> และสร้างดิกชันนารีว่างๆด้วย <code class="code-voice">[:]</code> เช่น เมื่อกำหนดค่าให้กับตัวแปร หรือส่งอากิวเมนต์ให้กับฟังก์ชัน</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -145,13 +145,13 @@
       </div>
   </div>
 </section>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH2-ID462">&#x200c;</a>
   <h3 class="section-name">Control Flow</h3>
   <p class="para">ใช้ <code class="code-voice">if</code> และ <code class="code-voice">switch</code> เพื่อสร้างเงื่อนไข และใช้ <code class="code-voice">for</code>-<code class="code-voice">in</code>, <code class="code-voice">while</code> และ <code class="code-voice">repeat</code>-<code class="code-voice">while</code> เพื่อสร้างลูป เงื่อนไขของลูปไม่จำเป็นต้องเขียนภายในเครื่องหมายวงเล็บ แต่จำเป็นต้องเขียนเครื่องหมายปีกกาครอบคลุมในส่วนที่เป็นคำสั่งการทำงาน</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -169,8 +169,8 @@
       </div>
   </div>
 </section><p class="para">ในการใช้ <code class="code-voice">if</code> นั้น เงื่อนไขต้องเขียนเป็นนิพจน์บูลีน (Boolean expression) นั่นหมายถึงว่า โค้ดอย่าง <code class="code-voice">if score { ... }</code> จะทำให้เกิดข้อผิดพลาด เนื่องจากโค้ดดังกล่าวไม่ได้หมายถึงการเปรียบเทียบกับค่าศูนย์ </p><p class="para">คุณสามารถใช้ <code class="code-voice">if</code> และ <code class="code-voice">let</code> เพื่อทำงานกับค่าที่อาจจะไม่มีอยู่ ค่าเหล่านี้จะอยู่ในรูปของออปชั่นนัล (optional) ออปชั่นนัลคืออาจจะมีค่า หรือไม่มีค่า หรือพูดอีกอย่างว่ามีค่าเป็น <code class="code-voice">nil</code> เขียนเครื่องหมายคำถาม (<code class="code-voice">?</code>) ต่อท้ายชนิดของข้อมูลเพื่อบอกว่าค่านี้เป็นออปชั่นนัล</p><section class="code-listing">
-        
-  
+
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -190,10 +190,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">เปลี่ยน <code class="code-voice">optionalName</code> ให้เป็นค่า <code class="code-voice">nil</code> แล้วดูว่าเกิดอะไรขึ้น ? ลองเพิ่มเงื่อนไข <code class="code-voice">else</code> พร้อมกับแสดงคำทักทาย เพื่อรองรับกรณีที่ค่า <code class="code-voice">optionalName</code> เป็น <code class="code-voice">nil</code>.
     	</p>
-    
+
   </aside>
 </div><p class="para">ถ้าออปชั่นนัลเป็น <code class="code-voice">nil</code> เงื่อนไขจะเป็น <code class="code-voice">false</code> และโค้ดที่อยู่ภายในปีกกาจะไม่ทำงาน ในทางตรงกันข้ามถ้าหากออปชั่นนัลมีค่าอยู่ ค่านั้นจะ unwrapped หรือถูกนำออกมาใช้ จากนั้นค่านี้จะเอามาใช้กับการประกาศค่าคงด้วย <code class="code-voice">let</code> ซึ่งค่าคงที่ ที่ได้มาจากออปชันนัลนี้ จะสามารถนำมาใช้กับโค้ดที่อยู่ภายใต้เงื่อนไขได้ </p><p class="para">อีกวิธีการหนึ่งในการจัดการกับออปชั่นนัลคือกำหนดค่าเริ่มต้นให้กับมันด้วยการใช้ <code class="code-voice">??</code> ถ้าหากออปชั่นนอลไม่มีค่าอยู่ ค่าเริ่มต้นที่กำหนดให้จะถูกนำออกมาใช้แทน</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -204,7 +204,7 @@
       </div>
   </div>
 </section><p class="para">Switch รองรับข้อมูลหลายประเภท และมีการเปรียบเทียบหลายแบบ ไม่ได้จำกัดเพียงแค่จำนวนเต็ม และเปรียบเทียบว่ามีค่าเท่ากัน</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -227,12 +227,12 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">ลองลบเคส default แล้วดูว่าเกิดอะไรขึ้น
     	</p>
-    
+
   </aside>
 </div><p class="para">สังเกตว่า <code class="code-voice">let</code> นั้นสามารถใช้การเปรียบเทียบรูปแบบหรือ pattern matching เพื่อกำหนดค่าคงที่ให้ตรงตามรูปแบบที่ต้องการได้ </p><p class="para">เมื่อเคสใดทำงานเสร็จ โปรแกรมจะหลุดออกจากสวิชทันที ไม่ทำงานในเคสต่อไป ดังนั้นไม่จำเป็นต้องเขียนโค้ดเพื่อบอกให้หยุดการทำงานเมื่อเคสนั้นสิ้นสุดลง </p>
-    
+
     <p class="para">ใช้ <code class="code-voice">for</code>-<code class="code-voice">in</code> สำหรับการเข้าถึงสมาชิกทุกตัวของดิกชันนารีด้วยการวนรอบ หรือ iterate โดยกำหนดคู่ของคีย์และค่าของข้อมูล ดิกชันนารีเป็นข้อมูลคอลเลกชันที่ไม่มีลำดับ ดังนั้นคีย์และค่าจะ iterate โดยไม่เรียงลำดับ</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -258,10 +258,10 @@
     	<p class="aside-title uppercase">ทดลอง</p>
     	<p class="para">เพิ่มตัวแปรเพื่อใช้เก็บตัวเลขที่มีค่ามากที่สุด และตัวแปรที่เก็บค่ามากที่สุดของแต่ละชนิด
     	</p>
-    
+
   </aside>
 </div><p class="para">ใช้ <code class="code-voice">while</code> เพื่อให้โค้ดโปรแกรมที่ต้องการทำงานซ้ำ จนกระทั่งเงื่อนไขที่กำหนดไว้เปลี่ยนแปลง เงื่อนไขของลูปถ้าเขียนไว้ตอนท้าย ลูปจะต้องทำงานอย่างน้อยหนึ่งครั้งเสมอ </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -280,7 +280,7 @@
       </div>
   </div>
 </section><p class="para">คุณสามารถตั้งระยะจำนวนรอบของลูปด้วยการใช้ <code class="code-voice">..&lt;</code> </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -293,13 +293,13 @@
       </div>
   </div>
 </section><p class="para">ใช้ <code class="code-voice">..&lt;</code> เพื่อตั้งระยะที่ไม่รวมกับค่าสุดท้าย และใช้ <code class="code-voice">...</code> เพื่อสร้างระยะที่มีค่าตั้งแต่ต้นรวมไปจนถึงค่าสุดท้าย</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH2-ID463">&#x200c;</a>
   <h3 class="section-name">Functions and Closures</h3>
   <p class="para">ใช้ <code class="code-voice">func</code> เพื่อประกาศฟังก์ชัน เรียกใช้ฟังก์ชันด้วยชื่อและส่งอาเมนต์ต่างๆภายในเครื่องหมายวงเล็บ ใช้ <code class="code-voice">-&gt;</code> เพื่อแยกชื่อและชนิดข้อมูลของพารามิเตอร์ ออกจากค่าส่งกลับของฟังก์ชัน</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -315,10 +315,10 @@
     	<p class="aside-title uppercase">แบบทดสอบ</p>
     	<p class="para">ลบพารามิเตอร์ <code class="code-voice">day</code> ออก แล้วเพิ่มพารามิเตอร์ที่ไว้สำหรับบอกชื่ออาหารพิเศษของมื้อเที่ยง และรวมมันไว้ในข้อความต้อนรับ
     	</p>
-    
+
   </aside>
 </div><p class="para">ใช้ทูเพิล (tuple) เพื่อสร้างกลุ่มของข้อมูล เช่น เพื่อส่งค่าหลายๆค่ากลับจากฟังก์ชัน สมาชิกของทูเพิลสามารถเข้าถึงได้ด้วยชื่อหรือตัวเลข</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -345,7 +345,7 @@
       </div>
   </div>
 </section><p class="para">ฟังก์ชันสามารถรับอากิวเมนต์ได้หลายๆค่า ซึ่งจะถูกรวมไว้ในอาเรย์</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -366,10 +366,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">เขียนฟังก์ชันเพื่อคำนวนค่าเฉลี่ยของอากิวเมนต์ที่รับเข้ามา
     	</p>
-    
+
   </aside>
 </div><p class="para">ฟังก์ชันสามารถเขียนซ้อนกันได้ ฟังก์ชันที่ซ้อนอยู่ด้านใน สามารถเข้าถึงตัวแปรที่ประกาศในฟังก์ชันด้านนอก คุณสามารถใช้ฟังก์ชันซ้อนเพื่อจัดการโค้ดที่ยาวและซับซ้อนได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -386,7 +386,7 @@
       </div>
   </div>
 </section><p class="para">ฟังก์ชันเป็นชนิดข้อมูลชั้นหนึ่งหรือ first-class type นั่นหมายถึงว่าฟังก์ชันสามารถส่งค่ากลับที่เป็นฟังก์ชัน ได้เหมือนกับการส่งค่าอื่นๆ</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -402,7 +402,7 @@
       </div>
   </div>
 </section><p class="para">ฟังก์ชันสามารถรับพารามิเตอร์ที่เป็นฟังก์ชันได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -423,7 +423,7 @@
       </div>
   </div>
 </section><p class="para">ฟังก์ชันจริงๆ แล้วเป็นโคลเชอร์พิเศษ (closure) รูปแบบหนึ่ง โคลเชอร์เป็นโค้ดที่สามารถเรียกใช้งานภายหลังได้ โค้ดที่เขียนอยู่ในโคลเชอร์จะสามารถเข้าถึงสิ่งต่างๆได้เช่น ตัวแปร และฟังก์ชัน ถ้าสิ่งเหล่านี้อยู่ในขอบเขตเดียวกันกับตอนที่สร้างโคลเชอร์ มันก็จะสามารถใช้งานได้ ไม้เว้นแม้กระทั่งตอนที่โคลเชอร์ทำงานอยู่ในขอบเขตอื่น เราได้เห็นตัวอย่างของโคลเชอร์มาแล้วจากการใช้ฟังก์ชันซ้อน คุณสามารถเขียนโคลเชอร์โดยไม่ต้องตั้งชื่อ ด้วยการเขียนโค้ดภายในปีกกา (<code class="code-voice">{}</code>). ใช้ <code class="code-voice">in</code> เพื่อแยกระหว่างอากิวเมนต์ ค่าส่งกลับของโคลเชอร์ ออกจากส่วนการทำงาน</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -440,10 +440,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">ลองเปลี่ยนให้โคลเชอร์ส่งค่า 0 กลับมา ถ้าหากจำนวนมีค่าเป็นเลขคี่
     	</p>
-    
+
   </aside>
 </div><p class="para">มีหลายวิธีเพื่อทำให้การเขียนโค้ดให้กระชับมากขึ้น เมื่อรู้รูปแบบของโคลเชอร์ อย่างเช่น โคลเชอร์ที่มี callback สำหรับ delgate คุณไม่จำเป็นต้องเขียนชนิดของพารามิเตอร์ ค่าส่งกลับ หรือไม่เขียนทั้งสองอย่างก็ได้ และโคลเชอร์ที่เขียนเพียงหนึ่งบรรทัดจะถือเป็นการส่งค่ากลับของโค้ดบรรทัดนั้น</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -453,7 +453,7 @@
       </div>
   </div>
 </section><p class="para">คุณสามารถใช้ตัวเลขแทนชื่อของพารามิเตอร์ วิธีการนี้จะมีประโยชน์มากในการเขียนโคลเชอร์ให้สั้นลง ถ้าฟังก์ชันมีพารามิเตอร์ตัวสุดท้ายเป็นโคลเชอร์ สามารถเขียนโคลเชอร์ต่อจากวงเล็บได้ทันที หากโคลเชอร์เป็นเพียงอากิวเมนต์เดียวของฟังก์ชัน จะไม่เขียนวงเล็บเลยก็ได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -463,13 +463,13 @@
       </div>
   </div>
 </section>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH2-ID464">&#x200c;</a>
   <h3 class="section-name">Objects and Classes</h3>
   <p class="para">ใช้ <code class="code-voice">class</code> ตามด้วยชื่อของคลาสเพื่อประกาศคลาส การประกาศพร๊อพเพอร์ตี้สามารถใช้วิธีการเดียวกันกับการประกาศค่าคงที่หรือตัวแปร เพียงแต่ว่าต้องเขียนภายอยู่ภายในส่วนของคลาส การประกาศเมธอดและฟังก์ชันก็เช่นเดียวกัน </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -487,10 +487,10 @@
     	<p class="aside-title uppercase">แบบทดสอบ</p>
     	<p class="para">เพิ่มพร๊อพเพอร์ตี้ค่าคงที่ด้วย <code class="code-voice">let</code> และเขียนเมธอดที่รับอากิวเมนต์
     	</p>
-    
+
   </aside>
 </div><p class="para">สร้างอินสแตนซ์ (instance) ของคลาสด้วยการเขียนวงเล็บต่อจากชื่อของคลาส เข้าใช้พร๊อพเพอร์ตี้และเมธอดของอินสแตนซ์ด้วยเครื่องหมายจุด </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -501,7 +501,7 @@
       </div>
   </div>
 </section><p class="para">คลาส <code class="code-voice">Shape</code> ที่เห็น ยังขาดสิ่งที่สำคัญไป นั่นคือส่วนของการกำหนดค่าเริ่มต้นเมื่อตอนที่มันถูกสร้างขึ้นมา ใช้ <code class="code-voice">init</code> สำหรับการกำหนดค่าเริ่มต้น</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -521,9 +521,9 @@
       </div>
   </div>
 </section><p class="para">ในการกำหนดค่าเริ่มต้น ให้สังเกตว่า <code class="code-voice">self</code> ถูกใช้แยกแยะระหว่างอากิวเมนต์ <code class="code-voice">name</code> กับพร๊อพเพอร์ตี้ <code class="code-voice">name</code> ออกจากกันเพื่อป้องกันความสับสน สำหรับอากิวเมนต์ที่ใช้กำหนดค่าเริ่มต้น จะถูกส่งเข้ามาเหมือนกับการเรียกใช้ฟังก์ชัน เมื่อคุณทำการสร้างอินสแตนซ์ของคลาส พร๊อพเพอร์ตี้ทุกตัวต้องการ การกำหนดค่าไม่ว่าจะเป็นตอนการประกาศพร๊อพเพอร์ตี้ (ดังที่เห็นในตัวแปร <code class="code-voice">numberOfSides</code>) หรือตอนการกำหนดค่าเริ่มต้นของอินสแตนซ์ (ดังที่เห็นใน <code class="code-voice">name</code>)</p><p class="para">ใช้ <code class="code-voice">deinit</code> เพื่อเขียนส่วนตอนจบการทำงานหรือ deinitializer ถ้าหากคุณต้องการจะจัดการอ๊อบเจ็คก่อนที่มันจะถูกทำลายหรือ deallocated </p>
-    
+
     <p class="para">Subclasses ทำได้ด้วยการเขียนโคลอนระหว่าง ชื่อของซูเปอร์คลาสและซับคลาส คลาสไม่จำเป็นต้องซับคลาส จากคลาสพื้นฐานใดๆ </p><p class="para">ใช้ <code class="code-voice">override</code> เพื่อเขียนทับหรือเปลี่ยนการทำงานของเมธอดในซับคลาสให้ต่างไปจากซูเปอร์คลาส ถ้าหากไม่มี <code class="code-voice">override</code> เขียนไว้ เมื่อเกิดการเขียนทับเมธอด คอมไพล์เลอร์จะแจ้งข้อผิดพลาด เพื่อป้องกันการเขียนทับโดยไม่ตั้งใจ และคอมไพลเลอร์จะทำการตรวจสอบเมธอดที่ประกาศ  <code class="code-voice">override</code> แต่ไม่ได้ทำการเขียนทับเมธอดใดๆของซูเปอร์คลาส</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -555,10 +555,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">สร้างซับคลาสของ <code class="code-voice">NamedShape</code> และตั้งชื่อว่า <code class="code-voice">Circle</code> ซึ่งคลาสนี้จะมีการกำหนดค่าเริ่มต้น ที่รับเส้นผ่านศูนย์กลางและชื่อ  เขียนเมธอด <code class="code-voice">area()</code> และ <code class="code-voice">simpleDescription()</code> สำหรับคลาส <code class="code-voice">Circle</code>
     	</p>
-    
+
   </aside>
 </div><p class="para">พร๊อพเพอร์ตี้นอกจากจะเก็บข้อมูลง่ายๆแล้ว มันยังสามารถมี getter และ setter ได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -592,11 +592,11 @@
       </div>
   </div>
 </section><p class="para">ใน setter ของ <code class="code-voice">perimeter</code> ค่าที่จะกำหนดให้ใหม่จะมีชื่อเป็น <code class="code-voice">newValue</code> ถ้าไม่ต้องการชื่อนี้ คุณสามารถใช้ชื่ออื่นได้โดยเขียนชื่อไว้ในวงเล็บต่อจาก <code class="code-voice">set</code>.</p>
-    
+
     <p class="para">สังเกตว่าการกำหนดค่าของคลาส <code class="code-voice">EquilateralTriangle</code> มีอยู่ด้วยกันทั้งหมดสามขั้นตอนคือ</p><ol class="list-number">
   <li class="item"><p class="para">กำหนดค่าให้กับพร๊อพเพอร์ตี้ของซับคลาสที่ได้ประกาศไว้</p></li><li class="item"><p class="para">เรียกการกำหนดค่าของของซูเปอร์คลาส</p></li><li class="item"><p class="para">เปลี่ยนค่าพร๊อพเพอร์ตี้ที่ถูกกำหนดโดยซูเปอร์คลาส ส่วนการกำหนดค่าเพิ่มเติมอื่นๆที่ต้องเรียกใช้เมธอด getter หรือ setter ก็จะทำตรงจุดนี้</p></li>
 </ol><p class="para">ถ้าคุณไม่ได้ต้องการจะทำอะไรพิเศษกับค่าของพร๊อพเพอร์ตี้ แต่ต้องการที่จะให้โค้ดบางอย่างทำงานก่อนหรือหลังที่ค่าพร๊อพเพอร์ตี้จะเปลี่ยนแปลง ใช้ <code class="code-voice">willSet</code> และ <code class="code-voice">didSet</code> โค้ดที่เขียนไว้จะทำงานทุกครั้งที่ค่าเปลี่ยนแปลง เช่น คลาสตัวอย่างด้านล่าง ค่าความยาวของสี่เหลี่ยมและสามเหลี่ยมจะค่าเท่ากันเมื่อเปลี่ยนแปลงค่า </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -625,7 +625,7 @@
       </div>
   </div>
 </section><p class="para">เมื่อทำงานกับออปชันนัล คุณสามารถเขียน <code class="code-voice">?</code> ก่อนการกระทำอื่นๆ เช่น เรียกเมธอด พร๊อพเพอร์ตี้ หรือซับสคริปติ้ง ถ้าค่าก่อนเครื่องหมาย <code class="code-voice">?</code> เป็น <code class="code-voice">nil</code> ทุกๆอย่างหลังจาก <code class="code-voice">?</code> โปรแกรมจะไม่สนใจ และค่าของนิพจน์ทั้งหมดจะเป็น <code class="code-voice">nil</code> ในทางตรงกันข้ามค่าของออปชันนอลจะถูกนำออกมาใช้ และทุกอย่างหลังจาก <code class="code-voice">?</code> ก็จะนำมาใช้กับค่านี้ได้ ในกรณีนี้ค่าของนิพจน์ทั้งหมดจะถือเป็นค่าออปชันนัล</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -635,13 +635,13 @@
       </div>
   </div>
 </section>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH2-ID465">&#x200c;</a>
   <h3 class="section-name">Enumerations and Structures</h3>
   <p class="para">ใช้ <code class="code-voice">enum</code> เพื่อสร้าง enumeration ซึ่งเป็นข้อมูลที่ถูกจำกัดไว้ให้มีค่าเป็นไปได้เพียงไม่กี่ค่า และเช่นเดียวกันกับคลาสและข้อมูลชนิดอื่นๆ อีนูเมอเรชั่นสามารถมีเมธอดเพื่อใช้ทำงานได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -674,10 +674,10 @@
     	<p class="aside-title uppercase">แบบฝีกหัด</p>
     	<p class="para">เขียนฟังก์ชันเพื่อเปรียบเทียบ <code class="code-voice">Rank</code> สองค่า โดยให้เปรียบเทียบกับค่า raw value
     	</p>
-    
+
   </aside>
 </div><p class="para">โดยปกติแล้ว Swift จะให้ค่าเริ่มต้นของ raw value เป็นศูนย์และเพิ่มค่าขึ้นทีละหนึ่ง อย่างไรก็ตามคุณสามารถที่จะเปลี่ยนการทำงานนี้ได้ ด้วยการกำหนดค่าที่ต้องการ เช่นตัวอย่างด้านบน <code class="code-voice">Ace</code> ถูกกำหนดให้มีค่า raw value เป็น <code class="code-voice">1</code> หลังจากนั้นค่าที่เหลือก็จะเพิ่มขึ้นทีละหนึ่งตามลำดับ คุณสามารถที่ใช้สตริงหรือทศนิยม เพื่อเป็น raw value สำหรับ enumertation ได้เช่นเดียวกัน ใช้พร๊อพเพอร์ตี้ <code class="code-voice">rawValue</code> เพื่อเข้าถึงค่า raw value ของอีนูเมอเรชัน </p><p class="para">ใช้ <code class="code-voice">init?(rawValue:)</code> เพื่อกำหนดค่าเริ่มต้นในการสร้างอินสแตนซ์ของอีนูเมอเรชันจาก raw value</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -688,7 +688,7 @@
       </div>
   </div>
 </section><p class="para">ค่าของ enumeration ในแต่ละรายการคือค่าที่ใช้ได้จริง ไม่ได้เป็นเพียงแค่วิธีการเขียนค่า raw value อีกรูปแบบเท่านั้น อันที่จริงแล้วถ้า raw value ไม่มีประโยชน์ คุณก็ไม่จำเป็นต้องกำหนดให้มัน</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -717,10 +717,10 @@
     	<p class="aside-title uppercase">แบบฝีดทัด</p>
     	<p class="para">เพิ่มเมธอด <code class="code-voice">color()</code> ให้กับ <code class="code-voice">Suit</code> ซึ่งเมธอดจะส่งค่า black กลับมาในกรณีที่เป็น spades และ clubs และจะส่งค่า red กลับมาถ้าหากเป็น hearts และ diamonds
     	</p>
-    
+
   </aside>
 </div><p class="para">สังเกตว่าสองวิธีการที่ เคส <code class="code-voice">Hearts</code> ของ enumeration ที่ถูกนำมาใช้ อย่างแรกคือใช้ตอนให้ค่ากับตัวแปร <code class="code-voice">hearts</code> ค่าของ <code class="code-voice">Suit.Hearts</code> ถูกเขียนแบบเต็ม เพราะว่าตัวแปรนั้นไม่รู้ว่าค่าคือข้อมูลประเภทอะไร แต่ในส่วนของ switch นั้น ค่าแต่ละเคสของ enumeration ถูกเขียนแบบย่อรูป <code class="code-voice">.Hearts</code> นั่นก็เพราะว่าค่าของ <code class="code-voice">self</code> นั้นรู้อยู่แล้วว่าเป็น suit คุณสามารถใช้ตัวย่อได้ทุกครั้งถ้าหากรู้แล้วว่าค่านั้นเป็นประเภทใด </p><p class="para">ใช้ <code class="code-voice">struct</code> เพื่อสร้าง structure สตรัคเจอร์มีคุณสมบัติหลายอย่างเหมือนกับคลาส เช่น เมธอด และการกำหนดค่าเริ่มต้น แต่สิ่งหนึ่งที่สำคัญที่สุดที่ทำให้สตรัคเจอร์แตกต่างไปจากคลาสก็คือ สตรัคเจอร์นั้นจะเมื่อส่งค่าจะเป็นการคัดลอกค่า แต่คลาสจะเป็นการส่งแบบอ้างอิง</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -741,10 +741,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">เพิ่มเมธอดไว้สำหรับสร้างกองไพ่ให้กับคลาส <code class="code-voice">Card</code> ซึ่งการ์ดแต่ละใบประกอบไปด้วยเลข และหน้าไพ่
     	</p>
-    
+
   </aside>
 </div><p class="para">อินสแตนซ์ของอีนูเมอเรชั่นสามารถมี assosiate value ได้ อินสแตนซ์ของอีนูเมอเรชั่นชนิดเดียวกันมี assosiate value เป็นคนละค่าได้ ค่า assosiate value จะถูกกำหนดเมื่อตอนสร้างอินสแตนซ์ และค่า assosiate value กับ raw value นั้นเป็นคนละอย่างกัน อีนูเมอเรชันทุกๆตัวจะมีค่า raw value เหมือนกัน เรากำหนดค่า raw value เมื่อประกาศอีนูเมอเรชั่น</p><p class="para">ยกตัวอย่างเช่น ให้ลองพิจารณากรณีการขอเวลาพระอาทิตย์ขึ้นและลงจากเซิฟเวอร์ เซิฟเวอร์อาจจะส่งข้อมูลกลับมา หรืออาจจะแจ้งข้อผิดพลาดกลับมาก็ได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -770,19 +770,19 @@
     	<p class="aside-title uppercase">แบบฝีกหัด</p>
     	<p class="para">เพิ่มเคสที่สามให้กับ <code class="code-voice">ServerResponse</code> และ switch
     	</p>
-    
+
   </aside>
 </div>
-    
-    
+
+
     <p class="para"> สังเกตว่าค่า sunrise และ sunset นั้นได้รับมาจาก <code class="code-voice">ServerResponse</code> ตามเงื่อนไขใน switch</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH2-ID466">&#x200c;</a>
   <h3 class="section-name">Protocols and Extensions</h3>
   <p class="para">ใช้ <code class="code-voice">protocol</code> เพื่อประกาศโพรโทคอล</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -794,7 +794,7 @@
       </div>
   </div>
 </section><p class="para">คลาส, อีนูเมอเรชั่น และสตรัคเจอร์สามารถใช้โพรโทคอลได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -826,10 +826,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">เขียนอีนูเมอเรชันที่รองรับโพรโทคอลนี้
     	</p>
-    
+
   </aside>
 </div><p class="para">สังเกตการใช้ <code class="code-voice">mutating</code> กับเมธอดในสตรัคเจอร์ <code class="code-voice">SimpleStructure</code> การประกาศนี้ก็เพื่อบอกว่าเมธอดนี้จะทำการแก้ไขค่าของสตรัคเจอร์  แต่คลาส <code class="code-voice">SimpleClass</code> ไม่จำเป็นต้องประกาศเมธอดให้เป็น mutating เพราะว่าเมธอดของคลาสนั้นสามารถแก้ไขค่าของคลาสได้อยู่แล้ว </p><p class="para">ใช้ <code class="code-voice">extension</code> เพื่อเพิ่มความสามารถให้กับประเภทของข้อมูลที่มีอยู่ก่อนแล้ว อย่างเช่น เพิ่มเมธอดหรือพร๊อพเพอร์ตี้ คุณสามารถใช้ extension เพื่อรองรับโพรโทคอล หรือแม้กระทั่งใช้กับประเภทข้อมูลที่มาจากไลบรารีหรือเฟรมเวิร์ค</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -848,12 +848,12 @@
 </section><div class="note">
   <aside class="aside">
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
-    	<p class="para">เขียน extension ให้กับประเภทข้อมูลแบบ <code class="code-voice">Double</code> โดยเพิ่มพร๊อพเพอร์ตี้ <code class="code-voice">absoluteValue</code> 
+    	<p class="para">เขียน extension ให้กับประเภทข้อมูลแบบ <code class="code-voice">Double</code> โดยเพิ่มพร๊อพเพอร์ตี้ <code class="code-voice">absoluteValue</code>
     	</p>
-    
+
   </aside>
 </div><p class="para">คุณสามารถใช้โพรโทคอลได้เหมือนกับการใช้ข้อมูลชนิดอื่น เช่น สร้างคอเล็กชันของอออเจ็กต่างชนิดกัน แต่ทุกๆออบเจ็กรองรับโพรโทคอลเดียวกันเป็นต้น เมื่อทำงานกับค่าที่เป็นโพรโทคอล เมธอดที่ไม่ได้อยู่ในโพโทคอลจะไม่ได้สามารถใช้งานได้</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -864,13 +864,13 @@
       </div>
   </div>
 </section><p class="para">แม้ว่าตัวแปร <code class="code-voice">protocolValue</code> ในช่วงรันไทม์จะเป็นชนิด <code class="code-voice">SimpleClass</code> แต่คอมไพเลอร์จะถือว่าตัวแปรนี้เป็น <code class="code-voice">ExampleProtocol</code> นั่นหมายถึงว่าจะไม่เกิดข้อผิดพลาดแบบไม่ได้ตั้งใจ เช่น ใช้เมธอดหรือพร๊อพเพอร์ตี้ของคลาสที่รองรับโพรโทคอลนี้</p>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH2-NoLink_20">&#x200c;</a>
   <h3 class="section-name">Error Handling</h3>
   <p class="para">คุณสามารถแสดงข้อผิดพลาดสำหรับข้อมูลทุกชนิดได้ด้วยการรองรับโพรโทคอล <code class="code-voice">ErrorType</code> </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -883,7 +883,7 @@
       </div>
   </div>
 </section><p class="para">ใช้ <code class="code-voice">throw</code> เพื่อส่งข้อผิดพลาดกลับ และใช้ <code class="code-voice">throws</code> เพื่อบอกว่าเมธอดนี้สามารถส่งข้อผิดพลาดกลับมาได้ ถ้าคุณส่งข้อผิดพลาดออกมาจากฟังก์ชัน ฟังก์ชันจะส่งค่ากลับมาทันที และโค้ดที่เป็นผู้เรียกฟังก์ชันต้องเป็นคนจัดการกับข้อผิดพลาดนั้น</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">ร
         <ol class="code-lines">
@@ -897,7 +897,7 @@
       </div>
   </div>
 </section><p class="para">มีวิธีการหลายอย่างเพื่อใช้จัดการกับข้อผิดพลาด วิธีแรกคือใช้ <code class="code-voice">do</code>-<code class="code-voice">catch</code> ซึ่งภายในโค้ด <code class="code-voice">do</code> คุณต้องบอกโค้ดที่จะส่งข้อผิดพลาดด้วยการเขียน <code class="code-voice">try</code> ไว้ที่ด้านหน้า ในส่วนของ <code class="code-voice">catch</code> ข้อผิดพลาดที่เกิดขึ้นจะถูกตั้งชื่อให้เป็น <code class="code-voice">error</code> โดยอัตโนมัติ ยกเว้นว่าคุณอยากตั้งเป็นชื่ออื่น </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -915,10 +915,10 @@
     	<p class="aside-title uppercase">แบบทดสอบ</p>
     	<p class="para">เปลี่ยนชื่อของ printer ให้เป็น <code class="code-voice">&quot;Never Has Toner&quot;</code> เพื่อที่ฟังก์ชัน <code class="code-voice">sendToPrinter(_:)</code> จะได้ส่งข้อผิดพลาดกลับมา
     	</p>
-    
+
   </aside>
 </div><p class="para">คุณมี <code class="code-voice">catch</code> ได้หลายอัน เพื่อที่จะได้จัดการข้อผิดพลาดที่เจาะจงเฉพาะอย่าง คุณกำหนดรูปแบบเงื่อนไขหลังจาก <code class="code-voice">catch</code> เหมือนกับที่ตอนเขียน <code class="code-voice">case</code> ในการใช้งาน switch</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -940,10 +940,10 @@
     	<p class="aside-title uppercase">แบบทดสอบ</p>
     	<p class="para">เขียนโค้ดที่ส่งข้อผิดพลาดใน <code class="code-voice">do</code> แล้วข้อผิดพลาดแรกที่คุณต้องส่งออกมา เพื่อให้ <code class="code-voice">catch</code> ทำงานคืออะไร แล้วข้อผิดพลาดที่ทำให้ให้ส่วนที่สองและสามทำงานคืออะไร ?
     	</p>
-    
+
   </aside>
 </div><p class="para">อีกหนึ่งวิธีที่จะจัดการกับข้อผิดพลาดคือใช้ <code class="code-voice">try?</code> เพื่อที่จะเปลี่ยนผลลัพธ์ที่ได้ให้เป็นออปชันนัล ถ้าฟังก์ชันส่งข้อผิดพลาดกลับคืนมา ข้อผิดพลาดเกิดขึ้นจะถูกทิ้งไป และผลลัพธ์จะกลายเป็น <code class="code-voice">nil</code> แทน ในทางตรงกันข้ามผลลัพธ์จะเป็นออฟชันนอลซึ่งมีค่าที่ฟังก์ชันได้ส่งกลับมา</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -953,7 +953,7 @@
       </div>
   </div>
 </section><p class="para">ใช้ <code class="code-voice">defer</code> เพื่อเขียนโค้ดในฟังก์ชันที่ต้องการให้ทำงานหลังจากโค้ดอื่นๆ โดยเขียนก่อนหน้าที่จะส่งค่ากลับ แม้ว่าฟังก์ชันจะส่งข้อผิดพลาดกลับมา โค้ดที่เขียนไว้ก็ยังจะทำงาน คุณสามารถใช้ <code class="code-voice">defer</code> เพื่อเขียนส่วน setup และ cleanup ติดกัน แม้ว่ามันจะทำงานคนละเวลากัน </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -975,13 +975,13 @@
       </div>
   </div>
 </section>
-  
+
 </section>
 <section class="section">
 	<a id="TP40016643-CH2-NoLink_23">&#x200c;</a>
   <h3 class="section-name">Generics</h3>
   <p class="para">เขียนชื่อในเครื่องหมายมากกว่าน้อยกว่า เพื่อสร้างฟังก์ชันหรือประเภทข้อมูลแบบ generic</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -997,7 +997,7 @@
       </div>
   </div>
 </section><p class="para">คุณเขียนฟังชันก์และเมธอดแบบเจเนริก เหมือนกับที่เขียนคลาส อีนูเมเรชัน และสตรัคเจอร์</p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -1012,7 +1012,7 @@
       </div>
   </div>
 </section><p class="para">ใช้ <code class="code-voice">where</code> ต่อจากชื่อเพื่อกำหนดสิ่งที่ต้องการต่างๆ อย่างเช่น ต้องการข้อมูลที่รองรับโพรโทคอล หรือข้อมูลสองประเภทต้องเหมือนกัน หรือคลาสที่สืบทอดต้องมาจากซูเปอร์คลาสที่กำหนด </p><section class="code-listing">
-  
+
   <div class="code-sample">
       <div class="Swift">
         <ol class="code-lines">
@@ -1035,10 +1035,10 @@
     	<p class="aside-title uppercase">แบบฝึกหัด</p>
     	<p class="para">แก้ไขฟังก์ชัน <code class="code-voice">anyCommonElements(_:_:)</code> เพื่อให้ฟังก์ชันส่งอาเรย์ที่มีสมาชิกสองลำดับเหมือนกัน
     	</p>
-    
+
   </aside>
 </div><p class="para">เขียน <code class="code-voice">&lt;T: Equatable&gt;</code> มีค่าเท่ากับการเขียน  <code class="code-voice">&lt;T where T: Equatable&gt;</code>.</p>
-  
+
 </section>
 
   </article>
